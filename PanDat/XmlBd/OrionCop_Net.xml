@@ -1,0 +1,1889 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ActualiceBD>
+  <!--Obervaciones: Si el script va ha ser usado con MySql debe tener en cuenta lo siguiente: -->
+  <!--1. El nombre del indice principal de una tabla debe estar compuesto por "PK_" seguido del nombre de la tabla.
+       por ejemplo "PK_PanTerceros" -->
+  <!--2. La propiedad "Requerido" de las columnas que forman parte de una llave principal debe ser "S" -->
+  <!--3. Toda columna cuya propiedad "Requerio" es igual a "S" debe tener un valor por defecto el cual es asignado por
+        el programa si la propiedad "ValorDefecto" en este script no existe. Los valores asignados por defecto a la
+        propiedad "ValorDefecto" son: "*" para columnas tipo VSTRING o STRING; 0 (Cero) para Ordinal con tipo de datos numérico; 
+        0 (Cero = False) para columnas tipo boolean y si la columna es fecha "1900/01/01" -->
+  <BD Nombre="OrionCop_Net" CharacterSet="utf8" CollationName="utf8_general_ci" Version="264">
+    <Comandos>
+      <Comando Tipo="Propio" Condicion="VBD&lt;130" Secuencia="Inicio" Accion="CCM"
+               Parametros="OriCentrosUtilidadOriCop,OriServicios,IdCtaMoraCr" />
+      <Comando Tipo="Proc" Condicion="VBD&lt;130" Secuencia="Inicio" Parametros="SActuBD_V130" />
+      <Comando Tipo="Proc" Condicion="VBD&lt;136" Secuencia="Inicio" Parametros="SActuBD_V136" />
+      <Comando Tipo="Propio" Condicion="VBD&lt;155" Secuencia="Inicio" Accion="RTB"
+           Parametros="OriNotasReversaRC,OriNotasReversaCr" />
+      <Comando Tipo="SQL" Condicion="VBD&lt;238" Secuencia="Inicio" Parametros="DROP TABLE IF EXISTS anos" />
+      <Comando Tipo="SQL" Condicion="VBD&lt;238" Secuencia="Inicio" Parametros="DROP TABLE IF EXISTS anticipos" />
+      <Comando Tipo="SQL" Condicion="VBD&lt;238" Secuencia="Inicio" Parametros="DROP TABLE IF EXISTS serviciosestadocta" />
+    </Comandos>
+    <Tablas>
+      <Tabla Nombre="OriAnos" Vinculada="N">
+        <Comandos>
+          <Comando Tipo="SQL" Condicion="VBD&lt;200" Secuencia="Inicio" Accion="FSH"
+              Parametros="UPDATE OriAnos SET valordefinitivo = IF(ValorDefinitivo = 0, ValorInicial, ValorDefinitivo)" />
+          <Comando Tipo="Propio" Condicion="VBD&lt;200" Secuencia="Inicio" Accion="RCM"
+                   Parametros="ValorDefinitivo,ValorPresIng" />
+          <Comando Tipo="Propio" Condicion="VBD&lt;220" Secuencia="Inicio" Accion="RCM"
+                   Parametros="DiasDescuento,DiasDescuentoPP" />
+        </Comandos>
+        <Columnas>
+          <Columna Nombre="AplicaProntoPago" Requerido="S" TipoDato="BOOLEAN" />
+          <Columna Nombre="DiasDescuentoPP" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="EstaCerrado" Requerido="S" TipoDato="BOOLEAN" />
+          <Columna Nombre="FechaUltimoEstadoCta" Requerido="S" TipoDato="DATE" />
+          <Columna Nombre="IdAno" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdCarpeta" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdCentroUtil" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdTipoCalculoCuota" Requerido="S" TipoDato="BYTE" ValorDefecto="1" Comentario="0:Ninguno; 1:Presupuesto; 2:Cuota anterior" />
+          <Columna Nombre="IdTipoDsctoPP" Requerido="S" TipoDato="BYTE" Comentario="0:Ninguno; 1:Porcentaje; 2:Valor Fijo" />
+          <Columna Nombre="ModuloPorServicio" Requerido="S" TipoDato="BOOLEAN" />
+          <Columna Nombre="ValorPresIng" Requerido="S" TipoDato="CURRENCY" />
+        </Columnas>
+        <Indices>
+          <Indice Nombre="PK_OriAnos" Principal="S" Unico="S">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdCarpeta" Orden="ASC" />
+              <ColumnaIndice Nombre="IdCentroUtil" Orden="ASC" />
+              <ColumnaIndice Nombre="IdAno" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+        </Indices>
+      </Tabla>
+      <Tabla Nombre="OriAnticipos" Vinculada="N">
+        <Comandos>
+          <Comando Tipo="SQL" Condicion="VBD&lt;145" Secuencia="Fin" Accion="FSH"
+                   Parametros="UPDATE OriAnticipos SET Creditos=ValorAnticipo" />
+        </Comandos>
+        <Columnas>
+          <Columna Nombre="Anulado" Requerido="S" TipoDato="BOOLEAN" />
+          <Columna Nombre="Creditos" Requerido="S" TipoDato="CURRENCY" />
+          <Columna Nombre="Debitos" Requerido="S" TipoDato="CURRENCY" />
+          <Columna Nombre="FechaAnticipo" Requerido="S" TipoDato="DATE" />
+          <Columna Nombre="FechaCreacion" Requerido="S" TipoDato="DATETIME" />
+          <Columna Nombre="IdAnticipo" Requerido="S" TipoDato="INTEGER" />
+          <Columna Nombre="IdCarpeta" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdCentroUtil" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdDocOrigen" Requerido="S" TipoDato="INTEGER" />
+          <Columna Nombre="IdPredio" Requerido="N" TipoDato="STRING" Longitud="20" />
+          <Columna Nombre="IdPredioAgrupador" Requerido="S" TipoDato="STRING" Longitud="20" ValorDefecto="" />
+          <Columna Nombre="IdTerceroCliente" Requerido="S" TipoDato="DOUBLE" />
+          <Columna Nombre="IdTipoDocOrigen" Requerido="S" TipoDato="BYTE" />
+          <Columna Nombre="IdUsuarioAnulo" Requerido="N" TipoDato="STRING" Longitud="30" />
+          <Columna Nombre="PrefijoDocOrigen" Requerido="S" TipoDato="STRING" Longitud="5" ValorDefecto="" />
+          <Columna Nombre="ServiciosAnt" Requerido="S" TipoDato="STRING" Longitud="20" Comentario="A=Todos, 0=Ser Administracion"/>
+          <Columna Nombre="ValorAnticipo" Requerido="S" TipoDato="CURRENCY" />
+        </Columnas>
+        <Indices>
+          <Indice Nombre="PK_OriAnticipos" Principal="S" Unico="S">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdCarpeta" Orden="ASC" />
+              <ColumnaIndice Nombre="IdCentroUtil" Orden="ASC" />
+              <ColumnaIndice Nombre="IdAnticipo" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+          <Indice Nombre="IdTercero" Principal="N" Unico="S">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdCarpeta" Orden="ASC" />
+              <ColumnaIndice Nombre="IdCentroUtil" Orden="ASC" />
+              <ColumnaIndice Nombre="IdTerceroCliente" Orden="ASC" />
+              <ColumnaIndice Nombre="IdPredioAgrupador" Orden="ASC" />
+              <ColumnaIndice Nombre="FechaAnticipo" Orden="ASC" />
+              <ColumnaIndice Nombre="IdAnticipo" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+          <Indice Nombre="DocumentoOrigen" Principal="N" Unico="N">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdCarpeta" Orden="ASC" />
+              <ColumnaIndice Nombre="IdCentroUtil" Orden="ASC" />
+              <ColumnaIndice Nombre="PrefijoDocOrigen" Orden="ASC" />
+              <ColumnaIndice Nombre="IdDocOrigen" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+          <Indice Nombre="Origen" Principal="N" Unico="N">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdCarpeta" Orden="ASC" />
+              <ColumnaIndice Nombre="IdCentroUtil" Orden="ASC" />
+              <ColumnaIndice Nombre="IdTipoDocOrigen" Orden="ASC" />
+              <ColumnaIndice Nombre="IdAnticipo" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+        </Indices>
+      </Tabla>
+      <Tabla Nombre="OriCentrosUtilidadOriCop" Vinculada="N">
+        <Comandos>
+          <Comando Tipo="SQL" Condicion="VBD&lt;156" Secuencia="Inicio" Accion="FSH"
+              Parametros="UPDATE OriCentrosUtilidadOriCop SET RangoFacturaFin=0, RangoFacturaIni=0" />
+          <Comando Tipo="Propio" Condicion="VBD&lt;156" Secuencia="Inicio" Accion="ECM"
+              Parametros="RangoFacturaFin" />
+          <Comando Tipo="Propio" Condicion="VBD&lt;156" Secuencia="Inicio" Accion="ECM"
+              Parametros="RangoFacturaIni" />
+          <Comando Tipo="Propio" Condicion="VBD&lt;204" Secuencia="Inicio" Accion="RCM"
+                   Parametros="TotalBaseCoeficientePropiedad,TotalAreaCopropiedad" />
+          <Comando Tipo="Propio" Condicion="VBD&lt;221" Secuencia="Inicio" Accion="RCM"
+                     Parametros="PermiteAnticipoPorAgruSer,PermiteAnticipoPorSer" />
+          <Comando Tipo="Propio" Condicion="VBD&lt;244" Secuencia="Inicio" Accion="ACM"
+              Parametros="IdModoCausaMora" />
+          <Comando Tipo="Proc" Condicion="VBD&lt;244" Secuencia="Inicio" Parametros="SActuBD_V244" />
+        </Comandos>
+        <Columnas>
+          <Columna Nombre="AutorizaEFac" Requerido="S" TipoDato="BOOLEAN" ValorDefecto="0" />
+          <Columna Nombre="BaseRedondeoCP" Requerido="S" TipoDato="BYTE" />
+          <Columna Nombre="BaseRedondeoGeneral" Requerido="S" TipoDato="DOUBLE" />
+          <Columna Nombre="BaseRedondeoIntMora" Requerido="S" TipoDato="DOUBLE" />
+          <Columna Nombre="CausaIntAlRecCaja" Requerido="S" TipoDato="BOOLEAN" ValorDefecto="0" />
+          <Columna Nombre="CausaIntCierreMes" Requerido="S" TipoDato="BOOLEAN" ValorDefecto="0" />
+          <Columna Nombre="CausaIntUltimoDia" Requerido="S" TipoDato="BOOLEAN" ValorDefecto="0" />
+          <Columna Nombre="CodigoEmpresa" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="ConsolidaItemsFac" Requerido="S" TipoDato="BOOLEAN" ValorDefecto="0" />
+          <Columna Nombre="DiasParaJuridico" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="DiasParaPerdida" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="DiasParaPersuasivo" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="DiasParaPrejuridico" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="ExigeFechaHoyCaja" Requerido="S" TipoDato="BOOLEAN" ValorDefecto="0" />
+          <Columna Nombre="ExigeFechaHoyDocs" Requerido="S" TipoDato="BOOLEAN" ValorDefecto="0" />
+          <Columna Nombre="FechaResolContingencia" Requerido="S" TipoDato="DATE" />
+          <Columna Nombre="FechaResolFactura" Requerido="S" TipoDato="DATE" />
+          <Columna Nombre="FechaUltimaCausacionGral" Requerido="S" TipoDato="DATE" />
+          <Columna Nombre="FechaVenceResolFact" Requerido="S" TipoDato="DATE" />
+          <Columna Nombre="FirmaRCEMail" Requerido="S" TipoDato="BOOLEAN" ValorDefecto="0" />
+          <Columna Nombre="IdAppContable" Requerido="S" TipoDato="Byte" />
+          <Columna Nombre="IdCarpeta" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdCentroUtil" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdCtaAnticipos" Requerido="N" TipoDato="STRING" Longitud="30" />
+          <Columna Nombre="IdCtaCaja" Requerido="N" TipoDato="STRING" Longitud="30" />
+          <Columna Nombre="IdCtaDctoMora" Requerido="N" TipoDato="STRING" Longitud="30" />
+          <Columna Nombre="IdCtaDctoPP" Requerido="N" TipoDato="STRING" Longitud="30" Comentario="Cuenta Descuento Pronto Pago" />
+          <Columna Nombre="IDCtaIngPorIdentificar" Requerido="N" TipoDato="STRING" Longitud="30" />
+          <Columna Nombre="IDCtaImpAsumidos" Requerido="N" TipoDato="STRING" Longitud="30" />
+          <Columna Nombre="IdCtaMoraDb" Requerido="N" TipoDato="STRING" Longitud="30" />
+          <Columna Nombre="IdCtaRetefuente" Requerido="N" TipoDato="STRING" Longitud="30" />
+          <Columna Nombre="IdCtaReteIca" Requerido="N" TipoDato="STRING" Longitud="30" />
+          <Columna Nombre="IdCtaReteIva" Requerido="N" TipoDato="STRING" Longitud="30" />
+          <Columna Nombre="IdModoCausaMora" Requerido="S" TipoDato="BYTE" />
+          <Columna Nombre="IdProvEFac" Requerido="S" TipoDato="Byte" />
+          <Columna Nombre="InformaDeudaTotDespRC" Requerido="S" TipoDato="BOOLEAN" />
+          <Columna Nombre="NoMostrarAyuda" Requerido="S" TipoDato="BOOLEAN" />
+          <Columna Nombre="NotificacionesSonoras" Requerido="S" TipoDato="BOOLEAN" ValorDefecto="1" />
+          <Columna Nombre="NumeroResolContingencia" Requerido="N" TipoDato="STRING" Longitud="20" />
+          <Columna Nombre="NumeroResolFactura" Requerido="N" TipoDato="STRING" Longitud="20" />
+          <Columna Nombre="ParametrizacionOk" Requerido="S" TipoDato="BOOLEAN" />
+          <Columna Nombre="PlazoDefectoFacManual" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="PrefijoFactCont" Requerido="S" TipoDato="STRING" Longitud="10" ValorDefecto="" />
+          <Columna Nombre="PermiteAnticipoPorSer" Requerido="S" TipoDato="BOOLEAN" />
+          <Columna Nombre="PieFacturaDos" Requerido="N" TipoDato="VSTRING" Longitud="230" />
+          <Columna Nombre="PieFacturaUno" Requerido="N" TipoDato="VSTRING" Longitud="230" />
+          <Columna Nombre="RangoFacturaConFin" Requerido="S" TipoDato="INTEGER" />
+          <Columna Nombre="RangoFacturaConIni" Requerido="S" TipoDato="INTEGER" />
+          <Columna Nombre="RangoFacturaFin" Requerido="S" TipoDato="INTEGER" />
+          <Columna Nombre="RangoFacturaIni" Requerido="S" TipoDato="INTEGER" />
+          <Columna Nombre="ServicioIdActivo" Requerido="S" TipoDato="BOOLEAN" />
+          <Columna Nombre="TarifaReteIva" Requerido="S" TipoDato="DOUBLE" />
+          <Columna Nombre="TipoInterfaz" Requerido="S" TipoDato="BYTE" />
+          <Columna Nombre="TipoMedioPagoDefecto" Requerido="S" TipoDato="BYTE" />
+          <Columna Nombre="TipoTerceroCaja" Requerido="S" TipoDato="BYTE" ValorDefecto="3" />
+          <Columna Nombre="TotalAreaCopropiedad" Requerido="S" TipoDato="DOUBLE" />
+          <Columna Nombre="TotalAreaPonderada" Requerido="S" TipoDato="DOUBLE" />
+        </Columnas>
+        <Indices>
+          <Indice Nombre="PK_OriCentrosUtilidadOriCop" Principal="S" Unico="S">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdCarpeta" Orden="ASC" />
+              <ColumnaIndice Nombre="IdCentroUtil" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+        </Indices>
+      </Tabla>
+      <Tabla Nombre="OriClientes" Vinculada="N">
+        <Comandos>
+          <Comando Tipo="Propio" Condicion="VBD&lt;138" Secuencia="Inicio" Accion="RCM"
+                   Parametros="EsGranContribuyente,RetieneIva" />
+          <Comando Tipo="SQL" Condicion="VBD&lt;167" Secuencia="Inicio" Accion="FSH"
+           Parametros="UPDATE OriMediosPago SET IdTipoMediosPago = 3 WHERE IdTipoMediosPago BETWEEN 4 AND 6" />
+          <Comando Tipo="SQL" Condicion="VBD&lt;167" Secuencia="Inicio" Accion="FSH"
+                 Parametros="UPDATE OriMediosPago SET IdTipoMediosPago = 4 WHERE IdTipoMediosPago BETWEEN 7 AND 8" />
+          <Comando Tipo="SQL" Condicion="VBD&lt;167" Secuencia="Inicio" Accion="FSH"
+                    Parametros="UPDATE OriMediosPago SET IdTipoMediosPago = 5 WHERE IdTipoMediosPago = 9" />
+          <Comando Tipo="SQL" Condicion="VBD&lt;167" Secuencia="Inicio" Accion="FSH"
+                    Parametros="UPDATE OriMediosPago SET IdTipoMediosPago = 6 WHERE IdTipoMediosPago = 10" />
+          <Comando Tipo="Propio" Condicion="VBD&lt;220" Secuencia="Inicio" Accion="RCM"
+                   Parametros="FacturarPorAgruServicios,FacturarPorServicio" />
+          <Comando Tipo="Propio" Condicion="VBD&lt;245" Secuencia="Inicio" Accion="RCM"
+                     Parametros="EsAutoReten,EsAutoRetenedor" />
+          <Comando Tipo="Propio" Condicion="VBD&lt;245" Secuencia="Inicio" Accion="RCM"
+                     Parametros="EsGranContr,EsGranContribuyente" />
+          <Comando Tipo="Propio" Condicion="VBD&lt;245" Secuencia="Inicio" Accion="RCM"
+                     Parametros="EsRegimenSimpleT,EsRegimenSimpleTributacion" />
+        </Comandos>
+        <Columnas>
+          <Columna Nombre="Comentario" Requerido="N" TipoDato="VSTRING" Longitud="500" />
+          <Columna Nombre="EsAgenteRetenedor" Requerido="S" TipoDato="BOOLEAN" />
+          <Columna Nombre="EsAutoRetenedor" Requerido="S" TipoDato="BOOLEAN" />
+          <Columna Nombre="EsGranContribuyente" Requerido="S" TipoDato="BOOLEAN" />
+          <Columna Nombre="EsRegimenSimpleTributacion" Requerido="S" TipoDato="BOOLEAN" />
+          <Columna Nombre="FacturarPorServicio" Requerido="S" TipoDato="BOOLEAN" />
+          <Columna Nombre="FechaCreacion" Requerido="S" TipoDato="DATETIME" />
+          <Columna Nombre="IdCarpeta" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdCentroUtil" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdEstadoDeuda" Requerido="S" TipoDato="BYTE" Comentario="0:Ninguno; 1:Normal; 2:Persuasivo; 3:Prejurídico; 4:Jurídico; 5:Perdída; 6:Suspendida" />
+          <Columna Nombre="IdRegimenVentas" Requerido="S" TipoDato="BYTE" Comentario="0:Ninguno; 1:Simplificado; 2:Comun" />
+          <Columna Nombre="IdTerceroCliente" Requerido="S" TipoDato="DOUBLE" />
+          <Columna Nombre="IdTipoMediosPago" Requerido="S" TipoDato="BYTE" />
+          <Columna Nombre="NombreCompleto" Requerido="N" TipoDato="VSTRING" Longitud="100" />
+          <Columna Nombre="RecibeDocsPorEmail" Requerido="S" TipoDato="BOOLEAN" />
+          <Columna Nombre="RetieneIca" Requerido="S" TipoDato="BOOLEAN" />
+          <Columna Nombre="RetieneIva" Requerido="S" TipoDato="BOOLEAN" />
+        </Columnas>
+        <Indices>
+          <Indice Nombre="PK_OriClientes" Principal="S" Unico="S">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdCarpeta" Orden="ASC" />
+              <ColumnaIndice Nombre="IdCentroUtil" Orden="ASC" />
+              <ColumnaIndice Nombre="IdTerceroCliente" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+          <Indice Nombre="Nombre" Principal="N" Unico="N">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdCarpeta" Orden="ASC" />
+              <ColumnaIndice Nombre="IdCentroUtil" Orden="ASC" />
+              <ColumnaIndice Nombre="NombreCompleto" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+        </Indices>
+      </Tabla>
+      <Tabla Nombre="OriCorreos" Vinculada="N">
+        <Columnas>
+          <Columna Nombre="ArchivoExt" Requerido="N" TipoDato="VSTRING" Longitud="500" />
+          <Columna Nombre="Asunto" Requerido="S" TipoDato="VSTRING" Longitud="150" />
+          <Columna Nombre="DiasPersuasivo" Requerido="S" TipoDato="INTEGER" ValorDefecto="0" />
+          <Columna Nombre="Fecha" Requerido="S" TipoDato="DATETIME" />
+          <Columna Nombre="FechaEnvio" Requerido="S" TipoDato="DATETIME" />
+          <Columna Nombre="IdCarpeta" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdCentroUtil" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdTerceroCliente" Requerido="S" TipoDato="DOUBLE" />
+          <Columna Nombre="IdTipoCorreo" Requerido="S" TipoDato="BYTE" />
+          <Columna Nombre="IdUsuario" Requerido="S" TipoDato="STRING" Longitud="30" />
+          <Columna Nombre="Mensaje" Requerido="S" TipoDato="VSTRING" Longitud="500" />
+          <Columna Nombre="NumeroDoc" Requerido="N" TipoDato="STRING" Longitud="20" />
+          <Columna Nombre="Ordinal" Requerido="S" TipoDato="LONG" />
+        </Columnas>
+        <Indices>
+          <Indice Nombre="PK_OriCorreos" Principal="S" Unico="S">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="Ordinal" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+          <Indice Nombre="Ubicacion" Principal="N" Unico="S">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdCarpeta" Orden="ASC" />
+              <ColumnaIndice Nombre="IdCentroUtil" Orden="ASC" />
+              <ColumnaIndice Nombre="Ordinal" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+        </Indices>
+      </Tabla>
+      <Tabla Nombre="OriCuentasBanco" Vinculada="N">
+        <Columnas>
+          <Columna Nombre="EstaActiva" Requerido="S" TipoDato="BOOLEAN" ValorDefecto="TRUE"  />
+          <Columna Nombre="IdCarpeta" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdCentroUtil" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdCtaContabilidad" Requerido="S" TipoDato="STRING" Longitud="30" />
+          <Columna Nombre="IdCuentaBanco" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="NombreBanco" Requerido="S" TipoDato="STRING" Longitud="50" />
+          <Columna Nombre="NumeroCuenta" Requerido="S" TipoDato="STRING" Longitud="40" />
+        </Columnas>
+        <Indices>
+          <Indice Nombre="PK_OriCuentasBanco" Principal="S" Unico="S">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdCarpeta" Orden="ASC" />
+              <ColumnaIndice Nombre="IdCentroUtil" Orden="ASC" />
+              <ColumnaIndice Nombre="IdCuentaBanco" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+          <Indice Nombre="NombreBanco" Principal="N" Unico="N">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdCarpeta" Orden="ASC" />
+              <ColumnaIndice Nombre="IdCentroUtil" Orden="ASC" />
+              <ColumnaIndice Nombre="NombreBanco" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+        </Indices>
+      </Tabla>
+      <Tabla Nombre="OriDocumentosContables" Vinculada="N">
+        <Comandos>
+          <Comando Tipo="SQL" Condicion="VBD&lt;159" Secuencia="Fin" Accion="FSH"
+              Parametros="UPDATE OriDocumentosContables SET nombredocumento = 'NOTA REVERSION CREDITO'
+                   WHERE IdDocumento=7" />
+        </Comandos>
+        <Columnas>
+          <Columna Nombre="IdCarpeta" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdCentroUtil" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdDocumento" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="NombreDocumento" Requerido="S" TipoDato="STRING" Longitud="50" />
+          <Columna Nombre="NumeracionInicialDoc" Requerido="S" TipoDato="INTEGER" />
+          <Columna Nombre="PrefijoDocumento" Requerido="S" TipoDato="STRING" Longitud="10" ValorDefecto="" />
+          <Columna Nombre="TipoDocumentoCont" Requerido="S" TipoDato="STRING" Longitud="15" ValorDefecto="" />
+        </Columnas>
+        <Indices>
+          <Indice Nombre="PK_OriDocumentosContables" Principal="S" Unico="S" NulosIndice="IndexNullsDisallow">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdCarpeta" Orden="ASC" />
+              <ColumnaIndice Nombre="IdCentroUtil" Orden="ASC" />
+              <ColumnaIndice Nombre="IdDocumento" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+        </Indices>
+      </Tabla>
+      <Tabla Nombre="OriEstadosCuenta">
+        <Comandos>
+        </Comandos>
+        <Columnas>
+          <Columna Nombre="AntPorApl" Requerido="S" TipoDato="CURRENCY" />
+          <Columna Nombre="DeudaCapital" Requerido="S" TipoDato="CURRENCY" />
+          <Columna Nombre="DeudaIntMora" Requerido="S" TipoDato="CURRENCY" />
+          <Columna Nombre="FechaCreacion" Requerido="S" TipoDato="DATETIME" />
+          <Columna Nombre="FechaEstado" Requerido="S" TipoDato="DATE" />
+          <Columna Nombre="IdCarpeta" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdCentroUtil" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdEstadoCuenta" Requerido="S" TipoDato="INTEGER" />
+          <Columna Nombre="IdFactura" Requerido="S" TipoDato="INTEGER" />
+          <Columna Nombre="IdPredioAgrupador" Requerido="S" TipoDato="STRING" Longitud="20" ValorDefecto="" />
+          <Columna Nombre="IdTerceroCliente" Requerido="S" TipoDato="DOUBLE" />
+          <Columna Nombre="PrefijoFact" Requerido="S" TipoDato="STRING" Longitud="5" ValorDefecto="" />
+        </Columnas>
+        <Indices>
+          <Indice Nombre="PK_OriEstadoCuenta" Principal="S" Unico="S">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdCarpeta" Orden="ASC" />
+              <ColumnaIndice Nombre="IdCentroUtil" Orden="ASC" />
+              <ColumnaIndice Nombre="IdEstadoCuenta" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+          <Indice Nombre="Tercero" Principal="N" Unico="N">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdCarpeta" Orden="ASC" />
+              <ColumnaIndice Nombre="IdCentroUtil" Orden="ASC" />
+              <ColumnaIndice Nombre="FechaEstado" Orden="ASC" />
+              <ColumnaIndice Nombre="IdTerceroCliente" Orden="ASC" />
+              <ColumnaIndice Nombre="IdPredioAgrupador" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+          <Indice Nombre="PredioAgr" Principal="N" Unico="N">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdCarpeta" Orden="ASC" />
+              <ColumnaIndice Nombre="IdCentroUtil" Orden="ASC" />
+              <ColumnaIndice Nombre="FechaEstado" Orden="ASC" />
+              <ColumnaIndice Nombre="IdPredioAgrupador" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+          <Indice Nombre="Factura" Principal="N" Unico="N">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdCarpeta" Orden="ASC" />
+              <ColumnaIndice Nombre="IdCentroUtil" Orden="ASC" />
+              <ColumnaIndice Nombre="PrefijoFact" Orden="ASC" />
+              <ColumnaIndice Nombre="IdFactura" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+        </Indices>
+      </Tabla>
+      <Tabla Nombre="OriFacturas" Vinculada="N">
+        <Comandos>
+          <Comando Tipo="SQL" Condicion="VBD&lt;164" Secuencia="Fin" Accion="FSH"
+                   Parametros="UPDATE Facturas SET EnviadaMail=TRUE" />
+          <Comando Tipo="SQL" Condicion="VBD&lt;167" Secuencia="Fin" Accion="FSH"
+                Parametros="UPDATE Facturas SET IdMedioPagoAcor=1" />
+          <Comando Tipo="Propio" Condicion="VBD&lt;174" Secuencia="Inicio" Accion="RCM"
+                   Parametros="Enviada,EnviadaMail" />
+          <Comando Tipo="SQL" Condicion="VBD&lt;180" Secuencia="Fin" Accion="FSH"
+                Parametros="UPDATE facturas SET CUFE = SUBSTRING(CUFE,2,CHAR_LENGTH(CUFE)-2) WHERE SUBSTRING(CUFE,1,1) =''''" />
+        </Comandos>
+        <Columnas>
+          <Columna Nombre="Anulado" Requerido="S" TipoDato="BOOLEAN" />
+          <Columna Nombre="Creditos" Requerido="S" TipoDato="CURRENCY" />
+          <Columna Nombre="CUDoc" Requerido="S" TipoDato="VSTRING" Longitud="200" ValorDefecto="*****" />
+          <Columna Nombre="CUFE" Requerido="S" TipoDato="VSTRING" Longitud="200" ValorDefecto="" />
+          <Columna Nombre="DctoProntoPago" Requerido="S" TipoDato="CURRENCY" />
+          <Columna Nombre="Debitos" Requerido="S" TipoDato="CURRENCY" />
+          <Columna Nombre="EnviadaMail" Requerido="S" TipoDato="BOOLEAN" />
+          <Columna Nombre="EsPrefactura" Requerido="S" TipoDato="BOOLEAN" />
+          <Columna Nombre="FechaAnulacion" Requerido="S" TipoDato="DATETIME" />
+          <Columna Nombre="FechaCancelacion" Requerido="S" TipoDato="DATE" />
+          <Columna Nombre="FechaCausoMora" Requerido="S" TipoDato="DATE" />
+          <Columna Nombre="FechaCreacion" Requerido="S" TipoDato="DATETIME" />
+          <Columna Nombre="FechaDctoProntoPago" Requerido="S" TipoDato="DATE" />
+          <Columna Nombre="FechaEmisionEFac" Requerido="N" TipoDato="STRING" Longitud="20" />
+          <Columna Nombre="FechaFactura" Requerido="S" TipoDato="DATETIME" />
+          <Columna Nombre="FechaPagoSinMora" Requerido="S" TipoDato="DATE" />
+          <Columna Nombre="FechaVencimiento" Requerido="S" TipoDato="DATE" />
+          <Columna Nombre="IdCarpeta" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdCentroUtil" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdEstadoEDoc" Requerido="S" TipoDato="INTEGER" />
+          <Columna Nombre="IdInformeCont" Requerido="S" TipoDato="INTEGER" />
+          <Columna Nombre="IdFormaPago" Requerido="S" TipoDato="BYTE" />
+          <Columna Nombre="IdFactura" Requerido="S" TipoDato="INTEGER" />
+          <Columna Nombre="IdMedioPagoAcor" Requerido="S" TipoDato="BYTE" />
+          <Columna Nombre="IdModoFacturacion" Requerido="S" TipoDato="BYTE" />
+          <Columna Nombre="IdPredioAgrupador" Requerido="S" TipoDato="STRING" Longitud="20" ValorDefecto="" />
+          <Columna Nombre="IdTerceroCliente" Requerido="S" TipoDato="DOUBLE" />
+          <Columna Nombre="IdUsuario" Requerido="S" TipoDato="STRING" Longitud="30" />
+          <Columna Nombre="IdUsuarioAnulo" Requerido="N" TipoDato="STRING" Longitud="30" />
+          <Columna Nombre="NumeroResolAuto" Requerido="N" TipoDato="STRING" Longitud="20" />
+          <Columna Nombre="OrigenInstancia" Requerido="S" TipoDato="VSTRING" Longitud="200" />
+          <Columna Nombre="OrigenInstanciaAnulo" Requerido="N" TipoDato="VSTRING" Longitud="200" />
+          <Columna Nombre="PieFacturaDos" Requerido="N" TipoDato="VSTRING" Longitud="500" />
+          <Columna Nombre="PieFacturaUno" Requerido="N" TipoDato="VSTRING" Longitud="500" />
+          <Columna Nombre="Prefijo" Requerido="S" TipoDato="STRING" Longitud="10" ValorDefecto="" />
+          <Columna Nombre="ReferenciaPago" Requerido="N" TipoDato="STRING" Longitud="8" ValorDefecto="" />
+          <Columna Nombre="ValorFactura" Requerido="S" TipoDato="CURRENCY" />
+        </Columnas>
+        <Indices>
+          <Indice Nombre="PK_OriFacturas" Principal="S" Unico="S">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdCarpeta" Orden="ASC" />
+              <ColumnaIndice Nombre="IdCentroUtil" Orden="ASC" />
+              <ColumnaIndice Nombre="Prefijo" Orden="ASC" />
+              <ColumnaIndice Nombre="IdFactura" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+          <Indice Nombre="IdCliente" Principal="N" Unico="S">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdCarpeta" Orden="ASC" />
+              <ColumnaIndice Nombre="IdCentroUtil" Orden="ASC" />
+              <ColumnaIndice Nombre="IdTerceroCliente" Orden="ASC" />
+              <ColumnaIndice Nombre="Prefijo" Orden="ASC" />
+              <ColumnaIndice Nombre="IdFactura" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+          <Indice Nombre="IdTerCliente" Principal="N" Unico="N">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdCarpeta" Orden="ASC" />
+              <ColumnaIndice Nombre="IdCentroUtil" Orden="ASC" />
+              <ColumnaIndice Nombre="IdTerceroCliente" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+          <Indice Nombre="IdPredioAgr" Principal="N" Unico="S">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdCarpeta" Orden="ASC" />
+              <ColumnaIndice Nombre="IdCentroUtil" Orden="ASC" />
+              <ColumnaIndice Nombre="IdPredioAgrupador" Orden="ASC" />
+              <ColumnaIndice Nombre="IdTerceroCliente" Orden="ASC" />
+              <ColumnaIndice Nombre="FechaFactura" Orden="ASC" />
+              <ColumnaIndice Nombre="Prefijo" Orden="ASC" />
+              <ColumnaIndice Nombre="IdFactura" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+          <Indice Nombre="IdPreAgr" Principal="N" Unico="N">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdCarpeta" Orden="ASC" />
+              <ColumnaIndice Nombre="IdCentroUtil" Orden="ASC" />
+              <ColumnaIndice Nombre="IdPredioAgrupador" Orden="ASC" />
+              <ColumnaIndice Nombre="IdTerceroCliente" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+          <Indice Nombre="EstadoEDoc" Principal="N" Unico="N">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdCarpeta" Orden="ASC" />
+              <ColumnaIndice Nombre="IdCentroUtil" Orden="ASC" />
+              <ColumnaIndice Nombre="IdEstadoEDoc" Orden="ASC" />
+              <ColumnaIndice Nombre="Prefijo" Orden="ASC" />
+              <ColumnaIndice Nombre="IdFactura" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+        </Indices>
+      </Tabla>
+      <Tabla Nombre="OriFacturasEstado">
+        <Comandos>
+          <Comando Tipo="Propio" Condicion="VBD&lt;189" Secuencia="Inicio" Accion="RCM"
+                   Parametros="CreditosFactura,Creditos" />
+          <Comando Tipo="Propio" Condicion="VBD&lt;189" Secuencia="Inicio" Accion="RCM"
+                   Parametros="DebitosFactura,Debitos" />
+          <Comando Tipo="Propio" Condicion="VBD&lt;189" Secuencia="Inicio" Accion="RCM"
+                   Parametros="ValorFactura,ValorItem" />
+          <Comando Tipo="Propio" Condicion="VBD&lt;190" Secuencia="Inicio" Accion="RCM"
+                   Parametros="ValorIntMora,DeudaIntMora" />
+        </Comandos>
+        <Columnas>
+          <Columna Nombre="Creditos" Requerido="S" TipoDato="CURRENCY" />
+          <Columna Nombre="Debitos" Requerido="S" TipoDato="CURRENCY" />
+          <Columna Nombre="Detalle" Requerido="S" TipoDato="VSTRING" Longitud="100" />
+          <Columna Nombre="DeudaCapital" Requerido="S" TipoDato="CURRENCY" />
+          <Columna Nombre="DeudaIntMes" Requerido="S" TipoDato="CURRENCY" ValorDefecto="0"/>
+          <Columna Nombre="DeudaIntMora" Requerido="S" TipoDato="CURRENCY" />
+          <Columna Nombre="FechaFactura" Requerido="S" TipoDato="DATE" />
+          <Columna Nombre="IdAno" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdCarpeta" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdCentroUtil" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdEstadoCuenta" Requerido="S" TipoDato="INTEGER" />
+          <Columna Nombre="IdFacturaViva" Requerido="S" TipoDato="INTEGER" />
+          <Columna Nombre="IdPredioAgrupador" Requerido="S" TipoDato="STRING" Longitud="20" ValorDefecto="" />
+          <Columna Nombre="IdServicio" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdTerceroCliente" Requerido="S" TipoDato="DOUBLE" />
+          <Columna Nombre="Ordinal" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="PrefijoFactViva" Requerido="S" TipoDato="STRING" Longitud="5" ValorDefecto="" />
+          <Columna Nombre="ValorItem" Requerido="S" TipoDato="CURRENCY" />
+        </Columnas>
+        <Indices>
+          <Indice Nombre="PK_OriFacturasEstado" Principal="S " Unico="S">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdCarpeta" Orden="ASC" />
+              <ColumnaIndice Nombre="IdCentroUtil" Orden="ASC" />
+              <ColumnaIndice Nombre="IdEstadoCuenta" Orden="ASC" />
+              <ColumnaIndice Nombre="Ordinal" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+          <Indice Nombre="ServicioIdFactura" Principal="N" Unico="N">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdCarpeta" Orden="ASC" />
+              <ColumnaIndice Nombre="IdCentroUtil" Orden="ASC" />
+              <ColumnaIndice Nombre="IdAno" Orden="ASC" />
+              <ColumnaIndice Nombre="IdServicio" Orden="ASC" />
+              <ColumnaIndice Nombre="PrefijoFactViva" Orden="ASC" />
+              <ColumnaIndice Nombre="IdFacturaViva" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+        </Indices>
+      </Tabla>
+      <Tabla Nombre="OriHistServicios" Vinculada="N">
+        <Columnas>
+          <Columna Nombre="CantidadPeriodos" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="FechaCreacion" Requerido="S" TipoDato="DATETIME" />
+          <Columna Nombre="IdCarpeta" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdCentroUtil" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdServicio" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="Nombre" Requerido="S" TipoDato="VSTRING" Longitud="50" />
+          <Columna Nombre="Ordinal" Requerido="S" TipoDato="INTEGER" />
+          <Columna Nombre="PeriodoInicio" Requerido="S" TipoDato="STRING" Longitud="6" />
+        </Columnas>
+        <Indices>
+          <Indice Nombre="PK_OriHistServicios" Principal="S" Unico="S">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdCarpeta" Orden="ASC" />
+              <ColumnaIndice Nombre="IdCentroUtil" Orden="ASC" />
+              <ColumnaIndice Nombre="Ordinal" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+          <Indice Nombre="Servicio" Principal="N" Unico="N">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdCarpeta" Orden="ASC" />
+              <ColumnaIndice Nombre="IdCentroUtil" Orden="ASC" />
+              <ColumnaIndice Nombre="IdServicio" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+        </Indices>
+      </Tabla>
+      <Tabla Nombre="OriHistModulosServicios" Vinculada="N">
+        <Columnas>
+          <Columna Nombre="IdCarpeta" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdCentroUtil" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdModuloContribucion" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdServicio" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="Ordinal" Requerido="S" TipoDato="INTEGER" />
+          <Columna Nombre="OrdinalHistServicio" Requerido="S" TipoDato="INTEGER" />
+          <Columna Nombre="Valor" Requerido="S" TipoDato="CURRENCY" />
+        </Columnas>
+        <Indices>
+          <Indice Nombre="PK_OriHistModulosServicios" Principal="S" Unico="S">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdCarpeta" Orden="ASC" />
+              <ColumnaIndice Nombre="IdCentroUtil" Orden="ASC" />
+              <ColumnaIndice Nombre="Ordinal" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+          <Indice Nombre="OrdinalHistServicio" Principal="N" Unico="N">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdCarpeta" Orden="ASC" />
+              <ColumnaIndice Nombre="IdCentroUtil" Orden="ASC" />
+              <ColumnaIndice Nombre="OrdinalHistServicio" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+        </Indices>
+      </Tabla>
+      <Tabla Nombre="OriInformeCont" Vinculada="N">
+        <Columnas>
+          <Columna Nombre="Comentario" Requerido="N" TipoDato="VSTRING" Longitud="500" />
+          <Columna Nombre="FechaCreacion" Requerido="S" TipoDato="DATETIME" />
+          <Columna Nombre="FechaFinCont" Requerido="S" TipoDato="DATETIME" />
+          <Columna Nombre="FechaInicioCont" Requerido="S" TipoDato="DATETIME" />
+          <Columna Nombre="FechaRadicacion" Requerido="S" TipoDato="DATETIME" />
+          <Columna Nombre="IdCarpeta" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdCentroUtil" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdInformeCon" Requerido="S" TipoDato="INTEGER" />
+          <Columna Nombre="IdFacturaFin" Requerido="S" TipoDato="INTEGER" />
+          <Columna Nombre="IdFacturaIni" Requerido="S" TipoDato="INTEGER" />
+          <Columna Nombre="OrigenInstancia" Requerido="S" TipoDato="VSTRING" Longitud="200" />
+          <Columna Nombre="PrefijoFacCon" Requerido="S" TipoDato="STRING" Longitud="5" ValorDefecto="" />
+          <Columna Nombre="IdUsuario" Requerido="S" TipoDato="STRING" Longitud="30" />
+        </Columnas>
+        <Indices>
+          <Indice Nombre="PK_OriNotasCon" Principal="S" Unico="S">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdCarpeta" Orden="ASC" />
+              <ColumnaIndice Nombre="IdCentroUtil" Orden="ASC" />
+              <ColumnaIndice Nombre="IdInformeCon" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+        </Indices>
+      </Tabla>
+      <Tabla Nombre="OriItemsFactura" Vinculada="N">
+        <Columnas>
+          <Columna Nombre="Anulado" Requerido="S" TipoDato="BOOLEAN" />
+          <Columna Nombre="Creditos" Requerido="S" TipoDato="CURRENCY" />
+          <Columna Nombre="Debitos" Requerido="S" TipoDato="CURRENCY" />
+          <Columna Nombre="Detalle" Requerido="S" TipoDato="VSTRING" Longitud="100" />
+          <Columna Nombre="EsExcluidoIva" Requerido="S" TipoDato="BOOLEAN" />
+          <Columna Nombre="EsPrefactura" Requerido="S" TipoDato="BOOLEAN" />
+          <Columna Nombre="FechaCancelacion" Requerido="S" TipoDato="DATE" />
+          <Columna Nombre="FechaCausoMora" Requerido="S" TipoDato="DATE" />
+          <Columna Nombre="FechaPagoSinMora" Requerido="S" TipoDato="DATE" />
+          <Columna Nombre="FechaVencimiento" Requerido="S" TipoDato="DATE" />
+          <Columna Nombre="IdAno" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdCarpeta" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdCentroUtil" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdFactura" Requerido="S" TipoDato="INTEGER" />
+          <Columna Nombre="IdItemFactura" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdPredio" Requerido="S" TipoDato="STRING" Longitud="20" />
+          <Columna Nombre="IdServicio" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="Periodo" Requerido="N" TipoDato="STRING" Longitud="6" />
+          <Columna Nombre="Prefijo" Requerido="S" TipoDato="STRING" Longitud="10" ValorDefecto="" />
+          <Columna Nombre="TarifaIva" Requerido="S" TipoDato="DOUBLE" />
+          <Columna Nombre="Valor" Requerido="S" TipoDato="CURRENCY" />
+        </Columnas>
+        <Indices>
+          <Indice Nombre="PK_OriItemsFactura" Principal="S" Unico="S">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdCarpeta" Orden="ASC" />
+              <ColumnaIndice Nombre="IdCentroUtil" Orden="ASC" />
+              <ColumnaIndice Nombre="Prefijo" Orden="ASC" />
+              <ColumnaIndice Nombre="IdFactura" Orden="ASC" />
+              <ColumnaIndice Nombre="IdItemFactura" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+          <Indice Nombre="Predio" Principal="N" Unico="N">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdCarpeta" Orden="ASC" />
+              <ColumnaIndice Nombre="IdCentroUtil" Orden="ASC" />
+              <ColumnaIndice Nombre="IdPredio" Orden="ASC" />
+              <ColumnaIndice Nombre="IdFactura" Orden="ASC" />
+              <ColumnaIndice Nombre="IdItemFactura" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+          <Indice Nombre="Servicio" Principal="N" Unico="N">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdCarpeta" Orden="ASC" />
+              <ColumnaIndice Nombre="IdCentroUtil" Orden="ASC" />
+              <ColumnaIndice Nombre="IdServicio" Orden="ASC" />
+              <ColumnaIndice Nombre="IdFactura" Orden="ASC" />
+              <ColumnaIndice Nombre="IdItemFactura" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+          <Indice Nombre="Periodo" Principal="N" Unico="N">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdCarpeta" Orden="ASC" />
+              <ColumnaIndice Nombre="IdCentroUtil" Orden="ASC" />
+              <ColumnaIndice Nombre="IdServicio" Orden="ASC" />
+              <ColumnaIndice Nombre="IdAno" Orden="ASC" />
+              <ColumnaIndice Nombre="Periodo" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+        </Indices>
+      </Tabla>
+      <Tabla Nombre="OriItemsNotaCon" Vinculada="N">
+        <Columnas>
+          <Columna Nombre="Anulado" Requerido="S" TipoDato="BOOLEAN" />
+          <Columna Nombre="IdCarpeta" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdCentroUtil" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdFactura" Requerido="S" TipoDato="INTEGER" />
+          <Columna Nombre="IdItemFactura" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdItemNotaCon" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdNotaCon" Requerido="S" TipoDato="INTEGER" />
+          <Columna Nombre="IdTipoItemNotaCon" Requerido="S" TipoDato="BYTE" />
+          <Columna Nombre="PrefijoFactura" Requerido="S" TipoDato="STRING" Longitud="5" ValorDefecto="" />
+          <Columna Nombre="PrefijoNotaCon" Requerido="S" TipoDato="STRING" Longitud="5" ValorDefecto="" />
+          <Columna Nombre="Valor" Requerido="S" TipoDato="CURRENCY" />
+        </Columnas>
+        <Indices>
+          <Indice Nombre="PK_OriItemsNotaCon" Principal="S" Unico="S">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdCarpeta" Orden="ASC" />
+              <ColumnaIndice Nombre="IdCentroUtil" Orden="ASC" />
+              <ColumnaIndice Nombre="PrefijoNotaCon" Orden="ASC" />
+              <ColumnaIndice Nombre="IdNotaCon" Orden="ASC" />
+              <ColumnaIndice Nombre="IdItemNotaCon" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+          <Indice Nombre="NroFactura" Principal="N" Unico="N">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdCarpeta" Orden="ASC" />
+              <ColumnaIndice Nombre="IdCentroUtil" Orden="ASC" />
+              <ColumnaIndice Nombre="PrefijoFactura" Orden="ASC" />
+              <ColumnaIndice Nombre="IdFactura" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+        </Indices>
+      </Tabla>
+      <Tabla Nombre="OriItemsNotaCr" Vinculada="N">
+        <Columnas>
+          <Columna Nombre="BaseDscto" Requerido="S" TipoDato="CURRENCY" Comentario="La base sobre la cual se calculó el descuento" />
+          <Columna Nombre="EsReversionIva" Requerido="S" TipoDato="BOOLEAN" />
+          <Columna Nombre="IdCarpeta" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdCentroUtil" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdFactura" Requerido="S" TipoDato="INTEGER" />
+          <Columna Nombre="IdItemFactura" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdItemNotaCr" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdNotaCr" Requerido="S" TipoDato="INTEGER" />
+          <Columna Nombre="IdTipoDescuento" Requerido="S" TipoDato="BYTE" />
+          <Columna Nombre="PrefijoFactura" Requerido="S" TipoDato="STRING" Longitud="5" ValorDefecto="" />
+          <Columna Nombre="PrefijoNotaCr" Requerido="S" TipoDato="STRING" Longitud="5" ValorDefecto="" />
+          <Columna Nombre="TasaDscto" Requerido="S" TipoDato="DOUBLE" Comentario="La tasa que aplicada a la base da el valor del descuento" />
+          <Columna Nombre="Valor" Requerido="S" TipoDato="CURRENCY" />
+        </Columnas>
+        <Indices>
+          <Indice Nombre="PK_OriItemsNotaCr" Principal="S" Unico="S">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdCarpeta" Orden="ASC" />
+              <ColumnaIndice Nombre="IdCentroUtil" Orden="ASC" />
+              <ColumnaIndice Nombre="PrefijoNotaCr" Orden="ASC" />
+              <ColumnaIndice Nombre="IdNotaCr" Orden="ASC" />
+              <ColumnaIndice Nombre="IdItemNotaCr" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+        </Indices>
+      </Tabla>
+      <Tabla Nombre="OriItemsNotaDb" Vinculada="N">
+        <Columnas>
+          <Columna Nombre="Anulado" Requerido="S" TipoDato="BOOLEAN" />
+          <Columna Nombre="Base" Requerido="S" TipoDato="CURRENCY" />
+          <Columna Nombre="DiasMora" Requerido="S" TipoDato="INTEGER" />
+          <Columna Nombre="FechaCausoMora" Requerido="S" TipoDato="DATE" />
+          <Columna Nombre="IdCarpeta" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdCentroUtil" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdFactura" Requerido="S" TipoDato="INTEGER" />
+          <Columna Nombre="IdItemFactura" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdItemNotaDb" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdNotaDb" Requerido="S" TipoDato="INTEGER" />
+          <Columna Nombre="PrefijoFactura" Requerido="S" TipoDato="STRING" Longitud="5" ValorDefecto="" />
+          <Columna Nombre="PrefijoNotaDb" Requerido="S" TipoDato="STRING" Longitud="5" ValorDefecto="" />
+          <Columna Nombre="TarifaIva" Requerido="S" TipoDato="DOUBLE" />
+          <Columna Nombre="TasaMora" Requerido="S" TipoDato="DOUBLE" />
+          <Columna Nombre="Valor" Requerido="S" TipoDato="CURRENCY" />
+        </Columnas>
+        <Indices>
+          <Indice Nombre="PK_OriItemsNotaDb" Principal="S" Unico="S">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdCarpeta" Orden="ASC" />
+              <ColumnaIndice Nombre="IdCentroUtil" Orden="ASC" />
+              <ColumnaIndice Nombre="PrefijoNotaDb" Orden="ASC" />
+              <ColumnaIndice Nombre="IdNotaDb" Orden="ASC" />
+              <ColumnaIndice Nombre="IdItemNotaDb" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+          <Indice Nombre="Factura" Principal="N" Unico="N">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdCarpeta" Orden="ASC" />
+              <ColumnaIndice Nombre="IdCentroUtil" Orden="ASC" />
+              <ColumnaIndice Nombre="PrefijoFactura" Orden="ASC" />
+              <ColumnaIndice Nombre="IdFactura" Orden="ASC" />
+              <ColumnaIndice Nombre="IdItemFactura" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+        </Indices>
+      </Tabla>
+      <Tabla Nombre="OriItemsProgramaFact" Vinculada="N">
+        <Columnas>
+          <Columna Nombre="CantidadPeriodos" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="Consumo" Requerido="N" TipoDato="CURRENCY" />
+          <Columna Nombre="IdAno" Requerido="S" TipoDato="SHORT" />
+		      <Columna Nombre="IdCarpeta" Requerido="S" TipoDato="SHORT" />
+		      <Columna Nombre="IdCentroUtil" Requerido="S" TipoDato="SHORT" />
+		      <Columna Nombre="IdPredio" Requerido="S" TipoDato="STRING" Longitud="20" ValorDefecto="" />
+		      <Columna Nombre="IdServicio" Requerido="S" TipoDato="SHORT" />
+		      <Columna Nombre="IdTerceroCliente" Requerido="S" TipoDato="DOUBLE" />
+          <Columna Nombre="LecturaActual" Requerido="N" TipoDato="DOUBLE" />
+          <Columna Nombre="LecturaAnterior" Requerido="N" TipoDato="DOUBLE" />
+          <Columna Nombre="Ordinal" Requerido="S" TipoDato="INTEGER" />
+          <Columna Nombre="Origen" Requerido="S" TipoDato="BYTE" Comentario="0:Ninguno; 1:Aplicacion; 2:Usuario" />
+          <Columna Nombre="PeriodoInicioFact" Requerido="S" TipoDato="STRING" Longitud="6" />
+          <Columna Nombre="Saldo" Requerido="S" TipoDato="CURRENCY" />
+          <Columna Nombre="ValorPeriodo" Requerido="S" TipoDato="CURRENCY" />
+          <Columna Nombre="ValorUnitario" Requerido="N" TipoDato="CURRENCY" />
+        </Columnas>
+        <Indices>
+          <Indice Nombre="PK_OriItemsProgramaFact" Principal="S" Unico="S">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdCarpeta" Orden="ASC" />
+              <ColumnaIndice Nombre="IdCentroUtil" Orden="ASC" />
+              <ColumnaIndice Nombre="Ordinal" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+          <Indice Nombre="Predios" Principal="N" Unico="N">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdCarpeta" Orden="ASC" />
+              <ColumnaIndice Nombre="IdCentroUtil" Orden="ASC" />
+              <ColumnaIndice Nombre="IdPredio" Orden="ASC" />
+              <ColumnaIndice Nombre="IdAno" Orden="ASC" />
+              <ColumnaIndice Nombre="IdServicio" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+          <Indice Nombre="Clientes" Principal="N" Unico="N">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdCarpeta" Orden="ASC" />
+              <ColumnaIndice Nombre="IdCentroUtil" Orden="ASC" />
+              <ColumnaIndice Nombre="IdTerceroCliente" Orden="ASC" />
+              <ColumnaIndice Nombre="IdServicio" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+        </Indices>
+      </Tabla>
+      <Tabla Nombre="OriItemsRecCaja" Vinculada="N">
+        <Columnas>
+          <Columna Nombre="BaseDscto" Requerido="S" TipoDato="CURRENCY" Comentario="La base sobre la cual se calculó el descuento" />
+          <Columna Nombre="IdCarpeta" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdCentroUtil" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdCuentaDb" Requerido="S" TipoDato="STRING" Longitud="30" />
+          <Columna Nombre="IdFactura" Requerido="S" TipoDato="INTEGER" />
+          <Columna Nombre="IdItemFactura" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdItemRecCaja" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdReciboCaja" Requerido="S" TipoDato="INTEGER" />
+          <Columna Nombre="IdTipoItemRec" Requerido="S" TipoDato="BYTE" />
+          <Columna Nombre="Prefijo" Requerido="S" TipoDato="STRING" Longitud="10" ValorDefecto="" />
+          <Columna Nombre="PrefijoFactura" Requerido="S" TipoDato="STRING" Longitud="5" ValorDefecto="" />
+          <Columna Nombre="TasaDscto" Requerido="S" TipoDato="DOUBLE" Comentario="La tasa que aplicada a la base da el valor del descuento" />
+          <Columna Nombre="Valor" Requerido="S" TipoDato="CURRENCY" />
+        </Columnas>
+        <Indices>
+          <Indice Nombre="PK_OriItemsRecCaja" Principal="S" Unico="S">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdCarpeta" Orden="ASC" />
+              <ColumnaIndice Nombre="IdCentroUtil" Orden="ASC" />
+              <ColumnaIndice Nombre="Prefijo" Orden="ASC" />
+              <ColumnaIndice Nombre="IdReciboCaja" Orden="ASC" />
+              <ColumnaIndice Nombre="IdItemRecCaja" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+        </Indices>
+      </Tabla>
+      <Tabla Nombre="OriMediosPago" Vinculada="N">
+        <Comandos>
+          <Comando Tipo="SQL" Condicion="VBD&lt;167" Secuencia="Inicio" Accion="FSH"
+                 Parametros="UPDATE OriMediosPago SET IdTipoMediosPago = 3 WHERE IdTipoMediosPago BETWEEN 4 AND 6" />
+          <Comando Tipo="SQL" Condicion="VBD&lt;167" Secuencia="Inicio" Accion="FSH"
+                 Parametros="UPDATE OriMediosPago SET IdTipoMediosPago = 4 WHERE IdTipoMediosPago BETWEEN 7 AND 8" />
+          <Comando Tipo="SQL" Condicion="VBD&lt;167" Secuencia="Inicio" Accion="FSH"
+                    Parametros="UPDATE OriMediosPago SET IdTipoMediosPago = 5 WHERE IdTipoMediosPago = 9" />
+          <Comando Tipo="SQL" Condicion="VBD&lt;167" Secuencia="Inicio" Accion="FSH"
+                    Parametros="UPDATE OriMediosPago SET IdTipoMediosPago = 6 WHERE IdTipoMediosPago = 10" />
+        </Comandos>
+        <Columnas>
+          <Columna Nombre="IdCarpeta" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdCtaContIngreso" Requerido="S" TipoDato="STRING" Longitud="30" />
+          <Columna Nombre="IdCentroUtil" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdReciboCaja" Requerido="S" TipoDato="INTEGER" />
+          <Columna Nombre="IdTipoMediosPago" Requerido="S" TipoDato="BYTE" />
+          <Columna Nombre="NumeroMedioPago" Requerido="N" TipoDato="STRING" Longitud="30" />
+          <Columna Nombre="Ordinal" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="Prefijo" Requerido="S" TipoDato="STRING" Longitud="10" ValorDefecto="" />
+          <Columna Nombre="Valor" Requerido="S" TipoDato="CURRENCY" />
+        </Columnas>
+        <Indices>
+          <Indice Nombre="PK_OriMediosPago" Principal="S" Unico="S">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdCarpeta" Orden="ASC" />
+              <ColumnaIndice Nombre="IdCentroUtil" Orden="ASC" />
+              <ColumnaIndice Nombre="Prefijo" Orden="ASC" />
+              <ColumnaIndice Nombre="IdReciboCaja" Orden="ASC" />
+              <ColumnaIndice Nombre="Ordinal" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+          <Indice Nombre="NroMedioPago" Principal="N" Unico="N">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdCarpeta" Orden="ASC" />
+              <ColumnaIndice Nombre="IdCentroUtil" Orden="ASC" />
+              <ColumnaIndice Nombre="IdTipoMediosPago" Orden="ASC" />
+              <ColumnaIndice Nombre="NumeroMedioPago" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+        </Indices>
+      </Tabla>
+      <Tabla Nombre="OriModulosContribucion" Vinculada="N">
+        <Columnas>
+          <Columna Nombre="ContribuyeCuotaAdmin" Requerido="S" TipoDato="BOOLEAN" />
+          <Columna Nombre="IdCarpeta" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdCentroUtil" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdModuloContribucion" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="Nombre" Requerido="S" TipoDato="STRING" Longitud="40" />
+        </Columnas>
+        <Indices>
+          <Indice Nombre="PK_OriModulosContribucion" Principal="S" Unico="S">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdCarpeta" Orden="ASC" />
+              <ColumnaIndice Nombre="IdCentroUtil" Orden="ASC" />
+              <ColumnaIndice Nombre="IdModuloContribucion" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+        </Indices>
+      </Tabla>
+      <Tabla Nombre="OriModulosServicio" Vinculada="N">
+        <Comandos>
+          <Comando Tipo="SQL" Condicion="VBD&lt;200" Secuencia="Inicio" Accion="FSH"
+                   Parametros="UPDATE OriModulosServicio SET valordefinitivo = IF(ValorDefinitivo = 0, ValorInicial, ValorDefinitivo)" />
+          <Comando Tipo="Propio" Condicion="VBD&lt;202" Secuencia="Inicio" Accion="RCM"
+                   Parametros="ValorDefinitivo,ValorPres" />
+        </Comandos>
+        <Columnas>
+          <Columna Nombre="IdAno" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdCarpeta" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdCentroUtil" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdModuloContribucion" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdServicio" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="ValorPres" Requerido="S" TipoDato="CURRENCY" />
+        </Columnas>
+        <Indices>
+          <Indice Nombre="PK_OriModulosServicio" Principal="S" Unico="S">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdCarpeta" Orden="ASC" />
+              <ColumnaIndice Nombre="IdCentroUtil" Orden="ASC" />
+              <ColumnaIndice Nombre="IdAno" Orden="ASC" />
+              <ColumnaIndice Nombre="IdServicio" Orden="ASC" />
+              <ColumnaIndice Nombre="IdModuloContribucion" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+        </Indices>
+      </Tabla>
+      <Tabla Nombre="OriNotasAjusteCuota" Vinculada="N">
+        <Columnas>
+          <Columna Nombre="FechaNota" Requerido="S" TipoDato="DATE" />
+          <Columna Nombre="FechaCreacion" Requerido="S" TipoDato="DATETIME" />
+          <Columna Nombre="IdAnticipo" Requerido="S" TipoDato="INTEGER" />
+          <Columna Nombre="IdCarpeta" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdCentroUtil" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdNotaAjusteCuotaAdmin" Requerido="S" TipoDato="INTEGER" />
+          <Columna Nombre="IdPredio" Requerido="S" TipoDato="STRING" Longitud="20" ValorDefecto="" />
+          <Columna Nombre="IdPredioAgrupador" Requerido="S" TipoDato="STRING" Longitud="20" ValorDefecto="" />
+          <Columna Nombre="IdTerceroCliente" Requerido="S" TipoDato="DOUBLE" />
+          <Columna Nombre="IdUsuario" Requerido="S" TipoDato="STRING" Longitud="30" />
+          <Columna Nombre="OrigenInstancia" Requerido="S" TipoDato="VSTRING" Longitud="200" />
+          <Columna Nombre="PrefijoNota" Requerido="S" TipoDato="STRING" Longitud="5" ValorDefecto="" />
+          <Columna Nombre="Valor" Requerido="S" TipoDato="CURRENCY" />
+        </Columnas>
+        <Indices>
+          <Indice Nombre="PK_OriNotasAjusteCuota" Principal="S" Unico="S">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdCarpeta" Orden="ASC" />
+              <ColumnaIndice Nombre="IdCentroUtil" Orden="ASC" />
+              <ColumnaIndice Nombre="PrefijoNota" Orden="ASC" />
+              <ColumnaIndice Nombre="IdNotaAjusteCuotaAdmin" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+          <Indice Nombre="Cliente" Principal="N" Unico="S">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdCarpeta" Orden="ASC" />
+              <ColumnaIndice Nombre="IdCentroUtil" Orden="ASC" />
+              <ColumnaIndice Nombre="IdTerceroCliente" Orden="ASC" />
+              <ColumnaIndice Nombre="IdPredioAgrupador" Orden="ASC" />
+              <ColumnaIndice Nombre="PrefijoNota" Orden="ASC" />
+              <ColumnaIndice Nombre="IdNotaAjusteCuotaAdmin" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+        </Indices>
+      </Tabla>
+      <Tabla Nombre="OriNotasCon" Vinculada="N">
+        <Columnas>
+          <Columna Nombre="Anulado" Requerido="S" TipoDato="BOOLEAN" />
+          <Columna Nombre="CUDoc" Requerido="S" TipoDato="VSTRING" Longitud="200" ValorDefecto="*****" />
+          <Columna Nombre="CUDE" Requerido="S" TipoDato="VSTRING" Longitud="200" ValorDefecto="" />
+          <Columna Nombre="FechaAnulacion" Requerido="S" TipoDato="DATETIME" />
+          <Columna Nombre="FechaNota" Requerido="S" TipoDato="DATE" />
+          <Columna Nombre="FechaCreacion" Requerido="S" TipoDato="DATETIME" />
+          <Columna Nombre="IdAnticipo" Requerido="S" TipoDato="INTEGER" />
+          <Columna Nombre="IdCarpeta" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdCentroUtil" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdEstadoEDoc" Requerido="S" TipoDato="INTEGER" />
+          <Columna Nombre="IdNotaCon" Requerido="S" TipoDato="INTEGER" />
+          <Columna Nombre="IdNotaRCr" Requerido="S" TipoDato="INTEGER" />
+          <Columna Nombre="IdPredioAgrupador" Requerido="S" TipoDato="STRING" Longitud="20" ValorDefecto="" />
+          <Columna Nombre="IdTerceroCliente" Requerido="S" TipoDato="DOUBLE" />
+          <Columna Nombre="IdUsuario" Requerido="S" TipoDato="STRING" Longitud="30" />
+          <Columna Nombre="IdUsuarioAnulo" Requerido="N" TipoDato="STRING" Longitud="30" />
+          <Columna Nombre="OrigenInstancia" Requerido="S" TipoDato="VSTRING" Longitud="200" />
+          <Columna Nombre="OrigenInstanciaAnulo" Requerido="N" TipoDato="VSTRING" Longitud="200" />
+          <Columna Nombre="PrefijoNotaCon" Requerido="S" TipoDato="STRING" Longitud="5" ValorDefecto="" />
+          <Columna Nombre="PrefijoNotaRCr" Requerido="S" TipoDato="STRING" Longitud="5" ValorDefecto="" />
+          <Columna Nombre="Valor" Requerido="S" TipoDato="CURRENCY" />
+        </Columnas>
+        <Indices>
+          <Indice Nombre="PK_OriNotasCon" Principal="S" Unico="S">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdCarpeta" Orden="ASC" />
+              <ColumnaIndice Nombre="IdCentroUtil" Orden="ASC" />
+              <ColumnaIndice Nombre="PrefijoNotaCon" Orden="ASC" />
+              <ColumnaIndice Nombre="IdNotaCon" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+          <Indice Nombre="Cliente" Principal="N" Unico="S">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdCarpeta" Orden="ASC" />
+              <ColumnaIndice Nombre="IdCentroUtil" Orden="ASC" />
+              <ColumnaIndice Nombre="IdTerceroCliente" Orden="ASC" />
+              <ColumnaIndice Nombre="IdPredioAgrupador" Orden="ASC" />
+              <ColumnaIndice Nombre="PrefijoNotaCon" Orden="ASC" />
+              <ColumnaIndice Nombre="IdNotaCon" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+          <Indice Nombre="EstadoEDoc" Principal="N" Unico="N">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdCarpeta" Orden="ASC" />
+              <ColumnaIndice Nombre="IdCentroUtil" Orden="ASC" />
+              <ColumnaIndice Nombre="IdEstadoEDoc" Orden="ASC" />
+              <ColumnaIndice Nombre="PrefijoNotaCon" Orden="ASC" />
+              <ColumnaIndice Nombre="IdNotaCon" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+        </Indices>
+      </Tabla>
+      <Tabla Nombre="OriNotasCr" Vinculada="N">
+        <Comandos>
+          <Comando Tipo="SQL" Condicion="VBD&lt;169" Secuencia="Fin" Accion="FSH"
+                   Parametros="UPDATE OriNotasCr SET CUDE='*****' " />
+        </Comandos>
+        <Columnas>
+          <Columna Nombre="Anulado" Requerido="S" TipoDato="BOOLEAN" />
+          <Columna Nombre="Comentario" Requerido="N" TipoDato="VSTRING" Longitud="500" />
+          <Columna Nombre="CUDE" Requerido="S" TipoDato="VSTRING" Longitud="200" ValorDefecto="" />
+          <Columna Nombre="CUDoc" Requerido="S" TipoDato="VSTRING" Longitud="200" ValorDefecto="*****" />
+          <Columna Nombre="FechaAnulacion" Requerido="S" TipoDato="DATETIME" />
+          <Columna Nombre="FechaNota" Requerido="S" TipoDato="DATE" />
+          <Columna Nombre="FechaCreacion" Requerido="S" TipoDato="DATETIME" />
+          <Columna Nombre="IdCarpeta" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdCentroUtil" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdEstadoEDoc" Requerido="S" TipoDato="INTEGER" />
+          <Columna Nombre="IdModoNotaCr" Requerido="S" TipoDato="BYTE" ValorDefecto="1" />
+          <Columna Nombre="IdNotaCr" Requerido="S" TipoDato="INTEGER" />
+          <Columna Nombre="IdPredioAgrupador" Requerido="S" TipoDato="STRING" Longitud="20" ValorDefecto="" />
+          <Columna Nombre="IdTerceroCliente" Requerido="S" TipoDato="DOUBLE" />
+          <Columna Nombre="IdTipoNotaCr" Requerido="S" TipoDato="BYTE" />
+          <Columna Nombre="IdUsuario" Requerido="S" TipoDato="STRING" Longitud="30" />
+          <Columna Nombre="IdUsuarioAnulo" Requerido="N" TipoDato="STRING" Longitud="30" />
+          <Columna Nombre="OrigenInstancia" Requerido="S" TipoDato="VSTRING" Longitud="200" />
+          <Columna Nombre="OrigenInstanciaAnulo" Requerido="N" TipoDato="VSTRING" Longitud="200" />
+          <Columna Nombre="PrefijoNotaCr" Requerido="S" TipoDato="STRING" Longitud="5" ValorDefecto="" />
+          <Columna Nombre="Valor" Requerido="S" TipoDato="CURRENCY" />
+          <Columna Nombre="VerEFac" Requerido="S" TipoDato="BYTE" ValorDefecto="0" Comentario="0:Sin; 1:Ver1; 2:Ver2" />
+        </Columnas>
+        <Indices>
+          <Indice Nombre="PK_OriNotasCr" Principal="S" Unico="S">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdCarpeta" Orden="ASC" />
+              <ColumnaIndice Nombre="IdCentroUtil" Orden="ASC" />
+              <ColumnaIndice Nombre="PrefijoNotaCr" Orden="ASC" />
+              <ColumnaIndice Nombre="IdNotaCr" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+          <Indice Nombre="Cliente" Principal="N" Unico="S">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdCarpeta" Orden="ASC" />
+              <ColumnaIndice Nombre="IdCentroUtil" Orden="ASC" />
+              <ColumnaIndice Nombre="IdTerceroCliente" Orden="ASC" />
+              <ColumnaIndice Nombre="IdPredioAgrupador" Orden="ASC" />
+              <ColumnaIndice Nombre="PrefijoNotaCr" Orden="ASC" />
+              <ColumnaIndice Nombre="IdNotaCr" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+          <Indice Nombre="VerEFac" Principal="N" Unico="N">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdCarpeta" Orden="ASC" />
+              <ColumnaIndice Nombre="IdCentroUtil" Orden="ASC" />
+              <ColumnaIndice Nombre="VerEFac" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+          <Indice Nombre="EstadoEDoc" Principal="N" Unico="N">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdCarpeta" Orden="ASC" />
+              <ColumnaIndice Nombre="IdCentroUtil" Orden="ASC" />
+              <ColumnaIndice Nombre="IdEstadoEDoc" Orden="ASC" />
+              <ColumnaIndice Nombre="PrefijoNotaCr" Orden="ASC" />
+              <ColumnaIndice Nombre="IdNotaCr" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+        </Indices>
+      </Tabla>
+      <Tabla Nombre="OriNotasDb" Vinculada="N">
+        <Comandos>
+          <Comando Tipo="SQL" Condicion="VBD&lt;169" Secuencia="Fin" Accion="FSH"
+                   Parametros="UPDATE OriNotasDb SET CUDE='*****' " />
+        </Comandos>
+        <Columnas>
+          <Columna Nombre="Anulado" Requerido="S" TipoDato="BOOLEAN" />
+          <Columna Nombre="CUDE" Requerido="S" TipoDato="VSTRING" Longitud="200" ValorDefecto="" />
+          <Columna Nombre="CUDoc" Requerido="S" TipoDato="VSTRING" Longitud="200" ValorDefecto="*****" />
+          <Columna Nombre="FechaAnulacion" Requerido="S" TipoDato="DATETIME" />
+          <Columna Nombre="FechaNota" Requerido="S" TipoDato="DATE" />
+          <Columna Nombre="FechaCreacion" Requerido="S" TipoDato="DATETIME" />
+          <Columna Nombre="IdCarpeta" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdCentroUtil" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdEstadoEDoc" Requerido="S" TipoDato="INTEGER" />
+          <Columna Nombre="IdNotaDb" Requerido="S" TipoDato="INTEGER" />
+          <Columna Nombre="IdPredioAgrupador" Requerido="S" TipoDato="STRING" Longitud="20" ValorDefecto="" />
+          <Columna Nombre="IdTerceroCliente" Requerido="S" TipoDato="DOUBLE" />
+          <Columna Nombre="IdUsuario" Requerido="S" TipoDato="STRING" Longitud="30" />
+          <Columna Nombre="IdUsuarioAnulo" Requerido="N" TipoDato="STRING" Longitud="30" />
+          <Columna Nombre="Origen" Requerido="S" TipoDato="BYTE" ValorDefecto="0" Comentario="0:Ninguno; 1:Sistema; 2:Importado" />
+          <Columna Nombre="OrigenInstancia" Requerido="S" TipoDato="VSTRING" Longitud="200" />
+          <Columna Nombre="OrigenInstanciaAnulo" Requerido="N" TipoDato="VSTRING" Longitud="200" />
+          <Columna Nombre="PrefijoNotaDb" Requerido="S" TipoDato="STRING" Longitud="5" ValorDefecto="" />
+          <Columna Nombre="Valor" Requerido="S" TipoDato="CURRENCY" />
+          <Columna Nombre="VerEFac" Requerido="S" TipoDato="BYTE" ValorDefecto="0" Comentario="0:Sin; 1:Ver1; 2:Ver2" />
+        </Columnas>
+        <Indices>
+          <Indice Nombre="PK_OriNotasDb" Principal="S" Unico="S">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdCarpeta" Orden="ASC" />
+              <ColumnaIndice Nombre="IdCentroUtil" Orden="ASC" />
+              <ColumnaIndice Nombre="PrefijoNotaDb" Orden="ASC" />
+              <ColumnaIndice Nombre="IdNotaDb" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+          <Indice Nombre="Cliente" Principal="N" Unico="S">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdCarpeta" Orden="ASC" />
+              <ColumnaIndice Nombre="IdCentroUtil" Orden="ASC" />
+              <ColumnaIndice Nombre="IdTerceroCliente" Orden="ASC" />
+              <ColumnaIndice Nombre="IdPredioAgrupador" Orden="ASC" />
+              <ColumnaIndice Nombre="PrefijoNotaDb" Orden="ASC" />
+              <ColumnaIndice Nombre="IdNotaDb" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+          <Indice Nombre="verEFac" Principal="N" Unico="N">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdCarpeta" Orden="ASC" />
+              <ColumnaIndice Nombre="IdCentroUtil" Orden="ASC" />
+              <ColumnaIndice Nombre="VerEFac" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+          <Indice Nombre="EstadoEDoc" Principal="N" Unico="N">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdCarpeta" Orden="ASC" />
+              <ColumnaIndice Nombre="IdCentroUtil" Orden="ASC" />
+              <ColumnaIndice Nombre="IdEstadoEDoc" Orden="ASC" />
+              <ColumnaIndice Nombre="PrefijoNotaDb" Orden="ASC" />
+              <ColumnaIndice Nombre="IdNotaDb" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+        </Indices>
+      </Tabla>
+      <Tabla Nombre="OriNotasDevAnt" Vinculada="N">
+        <Columnas>
+          <Columna Nombre="Anulado" Requerido="S" TipoDato="BOOLEAN" />
+          <Columna Nombre="Comentario" Requerido="N" TipoDato="VSTRING" Longitud="500" />
+          <Columna Nombre="FechaAnulacion" Requerido="S" TipoDato="DATETIME" />
+          <Columna Nombre="FechaNota" Requerido="S" TipoDato="DATE" />
+          <Columna Nombre="FechaCreacion" Requerido="S" TipoDato="DATETIME" />
+          <Columna Nombre="IdAnticipo" Requerido="S" TipoDato="INTEGER" />
+          <Columna Nombre="IdCarpeta" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdCentroUtil" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdNotaDevAnt" Requerido="S" TipoDato="INTEGER" />
+          <Columna Nombre="IdPredioAgrupador" Requerido="S" TipoDato="STRING" Longitud="20" ValorDefecto="" />
+          <Columna Nombre="IdTerceroCliente" Requerido="S" TipoDato="DOUBLE" />
+          <Columna Nombre="IdUsuario" Requerido="S" TipoDato="STRING" Longitud="30" />
+          <Columna Nombre="IdUsuarioAnulo" Requerido="N" TipoDato="STRING" Longitud="30" />
+          <Columna Nombre="OrigenInstancia" Requerido="S" TipoDato="VSTRING" Longitud="200" />
+          <Columna Nombre="PrefijoNota" Requerido="S" TipoDato="STRING" Longitud="5" />
+          <Columna Nombre="Valor" Requerido="S" TipoDato="CURRENCY" />
+        </Columnas>
+        <Indices>
+          <Indice Nombre="PK_OriNotasDevAnt" Principal="S" Unico="S">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdCarpeta" Orden="ASC" />
+              <ColumnaIndice Nombre="IdCentroUtil" Orden="ASC" />
+              <ColumnaIndice Nombre="PrefijoNota" Orden="ASC" />
+              <ColumnaIndice Nombre="IdNotaDevAnt" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+          <Indice Nombre="Cliente" Principal="N" Unico="S">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdCarpeta" Orden="ASC" />
+              <ColumnaIndice Nombre="IdCentroUtil" Orden="ASC" />
+              <ColumnaIndice Nombre="IdTerceroCliente" Orden="ASC" />
+              <ColumnaIndice Nombre="IdPredioAgrupador" Orden="ASC" />
+              <ColumnaIndice Nombre="PrefijoNota" Orden="ASC" />
+              <ColumnaIndice Nombre="IdNotaDevAnt" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+        </Indices>
+      </Tabla>
+      <Tabla Nombre="OriNotasReversaCr" Vinculada="N">
+        <Comandos>
+          <Comando Tipo="Propio" Condicion="VBD&lt;155" Secuencia="Inicio" Accion="RCM"
+                   Parametros="IdReciboCaja,IdDocumento" />
+          <Comando Tipo="Propio" Condicion="VBD&lt;155" Secuencia="Inicio" Accion="RCM"
+                   Parametros="PrefijoReciboCaja,PrefijoDoc" />
+          <Comando Tipo="SQL" Condicion="VBD&lt;169" Secuencia="Fin" Accion="FSH"
+                Parametros="UPDATE OriNotasReversaCr SET CUDE='*****' " />
+        </Comandos>
+        <Columnas>
+          <Columna Nombre="CUDE" Requerido="S" TipoDato="VSTRING" Longitud="200" ValorDefecto="" />
+          <Columna Nombre="CUDoc" Requerido="S" TipoDato="VSTRING" Longitud="200" ValorDefecto="*****" />
+          <Columna Nombre="Detalle" Requerido="N" TipoDato="VSTRING" Longitud="500" />
+          <Columna Nombre="FechaCreacion" Requerido="S" TipoDato="DATETIME" />
+          <Columna Nombre="FechaNota" Requerido="S" TipoDato="DATE" />
+          <Columna Nombre="IdCarpeta" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdCentroUtil" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdEstadoEDoc" Requerido="S" TipoDato="INTEGER" />
+          <Columna Nombre="IdNota" Requerido="S" TipoDato="INTEGER" />
+          <Columna Nombre="IdPredioAgrupador" Requerido="S" TipoDato="VSTRING" Longitud="200" ValorDefecto="" />
+          <Columna Nombre="IdDocumento" Requerido="S" TipoDato="INTEGER" />
+          <Columna Nombre="IdTerceroCliente" Requerido="S" TipoDato="DOUBLE" />
+          <Columna Nombre="IdUsuario" Requerido="S" TipoDato="STRING" Longitud="30" />
+          <Columna Nombre="OrigenInstancia" Requerido="S" TipoDato="VSTRING" Longitud="200" />
+          <Columna Nombre="PrefijoNota" Requerido="S" TipoDato="STRING" Longitud="5" />
+          <Columna Nombre="PrefijoDoc" Requerido="S" TipoDato="STRING" Longitud="5" />
+          <Columna Nombre="TipoDocReversado" Requerido="S" TipoDato="BYTE" Comentario="1:Recibo Caja, 2:NotaCr" />
+          <Columna Nombre="Valor" Requerido="S" TipoDato="CURRENCY" />
+          <Columna Nombre="VerEFac" Requerido="S" TipoDato="BYTE" ValorDefecto="0" Comentario="0:Sin; 1:Ver1; 2:Ver2" />
+        </Columnas>
+        <Indices>
+          <Indice Nombre="PK_OriNotasReversaCr" Principal="S" Unico="S">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdCarpeta" Orden="ASC" />
+              <ColumnaIndice Nombre="IdCentroUtil" Orden="ASC" />
+              <ColumnaIndice Nombre="PrefijoNota" Orden="ASC" />
+              <ColumnaIndice Nombre="IdNota" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+          <Indice Nombre="Cliente" Principal="N" Unico="S">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdCarpeta" Orden="ASC" />
+              <ColumnaIndice Nombre="IdCentroUtil" Orden="ASC" />
+              <ColumnaIndice Nombre="IdTerceroCliente" Orden="ASC" />
+              <ColumnaIndice Nombre="IdPredioAgrupador" Orden="ASC" />
+              <ColumnaIndice Nombre="PrefijoNota" Orden="ASC" />
+              <ColumnaIndice Nombre="IdNota" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+          <Indice Nombre="verEFac" Principal="N" Unico="N">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdCarpeta" Orden="ASC" />
+              <ColumnaIndice Nombre="IdCentroUtil" Orden="ASC" />
+              <ColumnaIndice Nombre="VerEFac" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+          <Indice Nombre="EstadoEDoc" Principal="N" Unico="N">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdCarpeta" Orden="ASC" />
+              <ColumnaIndice Nombre="IdCentroUtil" Orden="ASC" />
+              <ColumnaIndice Nombre="IdEstadoEDoc" Orden="ASC" />
+              <ColumnaIndice Nombre="PrefijoNota" Orden="ASC" />
+              <ColumnaIndice Nombre="IdNota" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+        </Indices>
+      </Tabla>
+      <Tabla Nombre="OriNovedades" Vinculada="N">
+        <Comandos>
+          <Comando Tipo="SQL" Condicion="VBD&lt;196" Secuencia="Fin" Accion="FSH"
+                 Parametros="UPDATE OriNovedades SET AliasCont = IdTerceroCliente" />
+        </Comandos>
+        <Columnas>
+          <Columna Nombre="AliasCont" Requerido="N" TipoDato="VSTRING" Longitud="50" />
+          <Columna Nombre="Anulado" Requerido="S" TipoDato="BOOLEAN" />
+          <Columna Nombre="Base" Requerido="S" TipoDato="CURRENCY" Comentario="La base sobre la cual se calculo el valor" />
+          <Columna Nombre="EsPrefactura" Requerido="S" TipoDato="BOOLEAN" />
+          <Columna Nombre="Factor" Requerido="S" TipoDato="DOUBLE" Comentario="el factor que aplicado a la base da el valor" />
+          <Columna Nombre="FechaCreacion" Requerido="S" TipoDato="DATETIME" />
+          <Columna Nombre="FechaNovedad" Requerido="S" TipoDato="DATE" />
+          <Columna Nombre="IdAno" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdCarpeta" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdCentroUtil" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdCuentaCr" Requerido="S" TipoDato="STRING" Longitud="30" />
+          <Columna Nombre="IdCuentaDb" Requerido="S" TipoDato="STRING" Longitud="30" />
+          <Columna Nombre="IdDocOrigen" Requerido="S" TipoDato="INTEGER" />
+          <Columna Nombre="IdFactura" Requerido="S" TipoDato="INTEGER" />
+          <Columna Nombre="IdItemDocOrigen" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdItemFactura" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdNovedad" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdPredioAgrupador" Requerido="S" TipoDato="STRING" Longitud="20" ValorDefecto="" />
+          <Columna Nombre="IdServicio" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdTerceroCliente" Requerido="S" TipoDato="DOUBLE" />
+          <Columna Nombre="IdTerceroCuentaCr" Requerido="S" TipoDato="DOUBLE" />
+          <Columna Nombre="IdTipoDocOrigen" Requerido="S" TipoDato="BYTE" />
+          <Columna Nombre="IdTipoNovedad" Requerido="S" TipoDato="BYTE" />
+          <Columna Nombre="PrefijoDocOrigen" Requerido="S" TipoDato="STRING" Longitud="5" ValorDefecto="" />
+          <Columna Nombre="PrefijoFactura" Requerido="S" TipoDato="STRING" Longitud="5" ValorDefecto="" />
+          <Columna Nombre="Valor" Requerido="S" TipoDato="CURRENCY" />
+        </Columnas>
+        <Indices>
+          <Indice Nombre="PK_OriNovedades" Principal="S" Unico="S">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdCarpeta" Orden="ASC" />
+              <ColumnaIndice Nombre="IdCentroUtil" Orden="ASC" />
+              <ColumnaIndice Nombre="PrefijoFactura" Orden="ASC" />
+              <ColumnaIndice Nombre="IdFactura" Orden="ASC" />
+              <ColumnaIndice Nombre="IdNovedad" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+          <Indice Nombre="ItemFactura" Principal="N" Unico="S">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdCarpeta" Orden="ASC" />
+              <ColumnaIndice Nombre="IdCentroUtil" Orden="ASC" />
+              <ColumnaIndice Nombre="PrefijoFactura" Orden="ASC" />
+              <ColumnaIndice Nombre="IdFactura" Orden="ASC" />
+              <ColumnaIndice Nombre="IdItemFactura" Orden="ASC" />
+              <ColumnaIndice Nombre="IdNovedad" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+          <Indice Nombre="DocOrigen" Principal="N" Unico="N">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdCarpeta" Orden="ASC" />
+              <ColumnaIndice Nombre="IdCentroUtil" Orden="ASC" />
+              <ColumnaIndice Nombre="IdTipoDocOrigen" Orden="ASC" />
+              <ColumnaIndice Nombre="PrefijoDocOrigen" Orden="ASC" />
+              <ColumnaIndice Nombre="IdDocOrigen" Orden="ASC" />
+              <ColumnaIndice Nombre="PrefijoFactura" Orden="ASC" />
+              <ColumnaIndice Nombre="IdFactura" Orden="ASC" />
+              <ColumnaIndice Nombre="IdNovedad" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+          <Indice Nombre="Tercero" Principal="N" Unico="N">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdCarpeta" Orden="ASC" />
+              <ColumnaIndice Nombre="IdCentroUtil" Orden="ASC" />
+              <ColumnaIndice Nombre="IdTerceroCliente" Orden="ASC" />
+              <ColumnaIndice Nombre="IdPredioAgrupador" Orden="ASC" />
+              <ColumnaIndice Nombre="FechaNovedad" Orden="ASC" />
+              <ColumnaIndice Nombre="PrefijoFactura" Orden="ASC" />
+              <ColumnaIndice Nombre="IdFactura" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+          <Indice Nombre="AnoServicio" Principal="N" Unico="N">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdCarpeta" Orden="ASC" />
+              <ColumnaIndice Nombre="IdCentroUtil" Orden="ASC" />
+              <ColumnaIndice Nombre="IdAno" Orden="ASC" />
+              <ColumnaIndice Nombre="IdServicio" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+        </Indices>
+      </Tabla>
+      <Tabla Nombre="OriNovedadesAnt" Vinculada="N">
+        <Comandos>
+          <Comando Tipo="SQL" Condicion="VBD&lt;196" Secuencia="Fin" Accion="FSH"
+                   Parametros="UPDATE OriNovedadesAnt SET AliasCont = IdTerceroCliente" />
+        </Comandos>
+        <Columnas>
+          <Columna Nombre="AliasCont" Requerido="N" TipoDato="VSTRING" Longitud="50" />
+          <Columna Nombre="Anulado" Requerido="S" TipoDato="BOOLEAN" />
+          <Columna Nombre="FechaCreacion" Requerido="S" TipoDato="DATETIME" />
+          <Columna Nombre="FechaNovedad" Requerido="S" TipoDato="DATE" />
+          <Columna Nombre="IdAnticipo" Requerido="S" TipoDato="INTEGER" />
+          <Columna Nombre="IdCarpeta" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdCentroUtil" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdCuentaCr" Requerido="S" TipoDato="STRING" Longitud="30" />
+          <Columna Nombre="IdCuentaDb" Requerido="S" TipoDato="STRING" Longitud="30" />
+          <Columna Nombre="IdDocOrigen" Requerido="S" TipoDato="INTEGER" />
+          <Columna Nombre="IdNovedad" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdTerceroCliente" Requerido="S" TipoDato="DOUBLE" />
+          <Columna Nombre="IdTipoDocOrigen" Requerido="S" TipoDato="BYTE" />
+          <Columna Nombre="IdTipoNovedad" Requerido="S" TipoDato="BYTE" />
+          <Columna Nombre="PrefijoDocOrigen" Requerido="S" TipoDato="STRING" Longitud="5" ValorDefecto="" />
+          <Columna Nombre="Valor" Requerido="S" TipoDato="CURRENCY" />
+        </Columnas>
+        <Indices>
+          <Indice Nombre="PK_OriNovedadesAnt" Principal="S" Unico="S">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdCarpeta" Orden="ASC" />
+              <ColumnaIndice Nombre="IdCentroUtil" Orden="ASC" />
+              <ColumnaIndice Nombre="IdAnticipo" Orden="ASC" />
+              <ColumnaIndice Nombre="IdNovedad" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+          <Indice Nombre="DocOrigen" Principal="N" Unico="N">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdCarpeta" Orden="ASC" />
+              <ColumnaIndice Nombre="IdCentroUtil" Orden="ASC" />
+              <ColumnaIndice Nombre="IdTipoDocOrigen" Orden="ASC" />
+              <ColumnaIndice Nombre="PrefijoDocOrigen" Orden="ASC" />
+              <ColumnaIndice Nombre="IdDocOrigen" Orden="ASC" />
+              <ColumnaIndice Nombre="IdAnticipo" Orden="ASC" />
+              <ColumnaIndice Nombre="IdNovedad" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+        </Indices>
+      </Tabla>
+      <Tabla Nombre="OriPeriodos" Vinculada="N">
+        <Columnas>
+          <Columna Nombre="EstaCerrado" Requerido="S" TipoDato="BOOLEAN" />
+          <Columna Nombre="FechaFacturacion" Requerido="S" TipoDato="DATE" />
+          <Columna Nombre="IdAno" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdCarpeta" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdCentroUtil" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdPeriodo" Requerido="S" TipoDato="SHORT" />
+        </Columnas>
+        <Indices>
+          <Indice Nombre="PK_OriPeriodos" Principal="S" Unico="S">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdCarpeta" Orden="ASC" />
+              <ColumnaIndice Nombre="IdCentroUtil" Orden="ASC" />
+              <ColumnaIndice Nombre="IdAno" Orden="ASC" />
+              <ColumnaIndice Nombre="IdPeriodo" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+        </Indices>
+      </Tabla>
+      <Tabla Nombre="OriPredios" Vinculada="N">
+        <Comandos>
+          <Comando Tipo="SQL" Condicion="VBD&lt;167" Secuencia="Inicio" Accion="FSH"
+                 Parametros="UPDATE OriMediosPago SET IdTipoMediosPago = 3 WHERE IdTipoMediosPago BETWEEN 4 AND 6" />
+          <Comando Tipo="SQL" Condicion="VBD&lt;167" Secuencia="Inicio" Accion="FSH"
+                 Parametros="UPDATE OriMediosPago SET IdTipoMediosPago = 4 WHERE IdTipoMediosPago BETWEEN 7 AND 8" />
+          <Comando Tipo="SQL" Condicion="VBD&lt;167" Secuencia="Inicio" Accion="FSH"
+                    Parametros="UPDATE OriMediosPago SET IdTipoMediosPago = 5 WHERE IdTipoMediosPago = 9" />
+          <Comando Tipo="SQL" Condicion="VBD&lt;167" Secuencia="Inicio" Accion="FSH"
+                    Parametros="UPDATE OriMediosPago SET IdTipoMediosPago = 6 WHERE IdTipoMediosPago = 10" />
+          <Comando Tipo="Propio" Condicion="VBD&lt;204" Secuencia="Inicio" Accion="RCM"
+                   Parametros="BaseParticipacion,Area" />
+          <Comando Tipo="Propio" Condicion="VBD&lt;220" Secuencia="Inicio" Accion="RCM" 
+                   Parametros="FacturarPorAgruServicios,FacturarPorServicio" />
+        </Comandos>
+        <Columnas>
+          <Columna Nombre="AliasCont" Requerido="N" TipoDato="VSTRING" Longitud="50" />
+          <Columna Nombre="Area" Requerido="S" TipoDato="DOUBLE" />
+          <Columna Nombre="CantPropietarios" Requerido="S" TipoDato="INTEGER" />
+          <Columna Nombre="CoeficientePropiedad" Requerido="S" TipoDato="DOUBLE" />
+          <Columna Nombre="Comentarios" Requerido="N" TipoDato="VSTRING" Longitud="500" />
+          <Columna Nombre="EmailAdi" Requerido="N" TipoDato="VSTRING" Longitud="50" />
+          <Columna Nombre="FactorPonderacionCP" Requerido="S" TipoDato="DOUBLE" />
+          <Columna Nombre="FacturarPorServicio" Requerido="S" TipoDato="BOOLEAN" />
+          <Columna Nombre="IdCarpeta" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdCentroUtil" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdEstadoDeuda" Requerido="S" TipoDato="BYTE" Comentario="0:Ninguno; 1:Normal; 2:Persuasivo; 3:Prejurídico; 4:Jurídico; 5:Perdída; 6:Suspendida" />
+          <Columna Nombre="IdFichaCatastral" Requerido="N" TipoDato="VSTRING" Longitud="21" />
+          <Columna Nombre="IdMatriculaInmobiliaria" Requerido="N" TipoDato="VSTRING" Longitud="18" />
+          <Columna Nombre="IdPredio" Requerido="S" TipoDato="STRING" Longitud="20" />
+          <Columna Nombre="IdPredioAgrupador" Requerido="S" TipoDato="STRING" Longitud="20" />
+          <Columna Nombre="IdRegistroMercantil" Requerido="N" TipoDato="STRING" Longitud="20" />
+          <Columna Nombre="IdSector" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdTerceroAdministrador" Requerido="S" TipoDato="DOUBLE" />
+          <Columna Nombre="IdTerceroArrendatario" Requerido="S" TipoDato="DOUBLE" />
+          <Columna Nombre="IdTerceroPropietario" Requerido="S" TipoDato="DOUBLE" />
+          <Columna Nombre="IdTerceroRepLegArrendatario" Requerido="S" TipoDato="DOUBLE" />
+          <Columna Nombre="IdTipoDestinatarioFactura" Requerido="S" TipoDato="BYTE" Comentario="0:Ninguno; 1:Propietario Titular; 2:Arrendatario" />
+          <Columna Nombre="NoConsItemsFac" Requerido="S" TipoDato="BOOLEAN" />
+          <Columna Nombre="NombreComercial" Requerido="N" TipoDato="VSTRING" Longitud="40" />
+          <Columna Nombre="NombrePredio" Requerido="S" TipoDato="STRING" Longitud="35" Comentario="Nombre del Predio" />
+          <Columna Nombre="ReferenciaPago" Requerido="N" TipoDato="STRING" Longitud="8" />
+          <Columna Nombre="ValorServicioId" Requerido="S" TipoDato="CURRENCY" />
+        </Columnas>
+        <Indices>
+          <Indice Nombre="PK_OriPredios" Principal="S" Unico="S">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdCarpeta" Orden="ASC" />
+              <ColumnaIndice Nombre="IdCentroUtil" Orden="ASC" />
+              <ColumnaIndice Nombre="IdPredio" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+          <Indice Nombre="AliasCont" Principal="N" Unico="N">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdCarpeta" Orden="ASC" />
+              <ColumnaIndice Nombre="IdCentroUtil" Orden="ASC" />
+              <ColumnaIndice Nombre="AliasCont" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+          <Indice Nombre="PredioAgrupador" Principal="N" Unico="S">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdCarpeta" Orden="ASC" />
+              <ColumnaIndice Nombre="IdCentroUtil" Orden="ASC" />
+              <ColumnaIndice Nombre="IdPredioAgrupador" Orden="ASC" />
+              <ColumnaIndice Nombre="IdPredio" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+          <Indice Nombre="IdTerceroPropietario" Principal="N" Unico="S" NulosIndice="IndexNullsIgnore">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdCarpeta" Orden="ASC" />
+              <ColumnaIndice Nombre="IdCentroUtil" Orden="ASC" />
+              <ColumnaIndice Nombre="IdTerceroPropietario" Orden="ASC" />
+              <ColumnaIndice Nombre="IdPredio" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>          
+        </Indices>
+      </Tabla>
+      <Tabla Nombre="OriPropietarios" Vinculada="N">
+        <Columnas>
+          <Columna Nombre="IdCarpeta" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdCentroUtil" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdPredio" Requerido="S" TipoDato="STRING" Longitud="20" />
+          <Columna Nombre="IdTerceroPropietario" Requerido="S" TipoDato="DOUBLE" ValorDefecto="0" />
+          <Columna Nombre="NombreCompleto" Requerido="N" TipoDato="VSTRING" Longitud="100" />
+          <Columna Nombre="PorcentajeParticipacion" Requerido="N" TipoDato="DOUBLE" />
+        </Columnas>
+        <Indices>
+          <Indice Nombre="PK_OriPropietarios" Principal="S" Unico="S">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdCarpeta" Orden="ASC" />
+              <ColumnaIndice Nombre="IdCentroUtil" Orden="ASC" />
+              <ColumnaIndice Nombre="IdPredio" Orden="ASC" />
+              <ColumnaIndice Nombre="IdTerceroPropietario" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+          <Indice Nombre="NombeCompleto" Principal="N" Unico="N">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdCarpeta" Orden="ASC" />
+              <ColumnaIndice Nombre="IdCentroUtil" Orden="ASC" />
+              <ColumnaIndice Nombre="NombreCompleto" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+        </Indices>
+      </Tabla>
+      <Tabla Nombre="OriProveedoresEFac" Vinculada="N">
+        <Columnas>
+          <Columna Nombre="ContrasenaEFac" Requerido="S" TipoDato="STRING" Longitud="20" />
+          <Columna Nombre="IdCarpeta" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdCentroUtil" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdProveedorEFac" Requerido="S" TipoDato="INTEGER" />
+          <Columna Nombre="IdUsuarioProEFac" Requerido="S" TipoDato="STRING" Longitud="20" />
+          <Columna Nombre="SubirFactura" Requerido="S" TipoDato="BOOLEAN" />
+          <Columna Nombre="URL" Requerido="S" TipoDato="STRING" Longitud="100" />
+          <Columna Nombre="V1Activa" Requerido="S" TipoDato="BOOLEAN" />
+        </Columnas>
+        <Indices>
+          <Indice Nombre="PK_OriProveedoresEFac" Principal="S" Unico="S">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdCarpeta" Orden="ASC" />
+              <ColumnaIndice Nombre="IdCentroUtil" Orden="ASC" />
+              <ColumnaIndice Nombre="IdProveedorEFac" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+        </Indices>
+      </Tabla>
+      <Tabla Nombre="OriRecibosCaja">
+        <Comandos>
+          <Comando Tipo="Propio" Condicion="VBD&lt;220" Secuencia="Inicio" Accion="ECM" 
+                   Parametros="IdAgrupadorServicios" />
+        </Comandos>
+        <Columnas>
+          <Columna Nombre="Anulado" Requerido="S" TipoDato="BOOLEAN" />
+          <Columna Nombre="Comentario" Requerido="N" TipoDato="VSTRING" Longitud="500" />
+          <Columna Nombre="CUDoc" Requerido="S" TipoDato="VSTRING" Longitud="200" ValorDefecto="*****" />
+          <Columna Nombre="EnviadoMail" Requerido="S" TipoDato="BOOLEAN" />
+          <Columna Nombre="FechaAnulacion" Requerido="S" TipoDato="DATETIME" />
+          <Columna Nombre="FechaCreacion" Requerido="S" TipoDato="DATETIME" />
+          <Columna Nombre="FechaReciboCaja" Requerido="S" TipoDato="DATE" />
+          <Columna Nombre="IdAnticipo" Requerido="S" TipoDato="INTEGER" />
+          <Columna Nombre="IdCarpeta" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdCentroUtil" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdNotasCr" Requerido="N" TipoDato="VSTRING" Longitud="80" />
+          <Columna Nombre="IdPredioAgrupador" Requerido="S" TipoDato="VSTRING" Longitud="200" ValorDefecto="***" />
+          <Columna Nombre="IdReciboCaja" Requerido="S" TipoDato="INTEGER" />
+          <Columna Nombre="IdTerceroCliente" Requerido="S" TipoDato="DOUBLE" />
+          <Columna Nombre="IdUsuario" Requerido="S" TipoDato="STRING" Longitud="30" />
+          <Columna Nombre="IdUsuarioAnulo" Requerido="N" TipoDato="STRING" Longitud="30" />
+          <Columna Nombre="OrigenInstancia" Requerido="S" TipoDato="VSTRING" Longitud="200" />
+          <Columna Nombre="OrigenInstanciaAnulo" Requerido="N" TipoDato="VSTRING" Longitud="200" />
+          <Columna Nombre="Prefijo" Requerido="S" TipoDato="STRING" Longitud="10" ValorDefecto="" />
+          <Columna Nombre="Saldo" Requerido="S" TipoDato="CURRENCY" />
+          <Columna Nombre="ServiciosAfectados" Requerido="S" TipoDato="STRING" Longitud="20" Comentario=" A=Todos, 0=Ser Administracion, # = Id servicio permanente" />
+          <Columna Nombre="Valor" Requerido="S" TipoDato="CURRENCY" />
+          <Columna Nombre="ValorAnticipo" Requerido="S" TipoDato="CURRENCY" />
+          <Columna Nombre="ValorDeudaAlPago" Requerido="S" TipoDato="CURRENCY" />
+        </Columnas>
+        <Indices>
+          <Indice Nombre="PK_OriRecibosCaja" Principal="S" Unico="S">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdCarpeta" Orden="ASC" />
+              <ColumnaIndice Nombre="IdCentroUtil" Orden="ASC" />
+              <ColumnaIndice Nombre="Prefijo" Orden="ASC" />
+              <ColumnaIndice Nombre="IdReciboCaja" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+          <Indice Nombre="FechaReciboCaja" Principal="N" Unico="N">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdCarpeta" Orden="ASC" />
+              <ColumnaIndice Nombre="IdCentroUtil" Orden="ASC" />
+              <ColumnaIndice Nombre="FechaReciboCaja" Orden="ASC" />
+              <ColumnaIndice Nombre="IdReciboCaja" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+          <Indice Nombre="IdTerceroCliente" Principal="N" Unico="S">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdCarpeta" Orden="ASC" />
+              <ColumnaIndice Nombre="IdCentroUtil" Orden="ASC" />
+              <ColumnaIndice Nombre="IdTerceroCliente" Orden="ASC" />
+              <ColumnaIndice Nombre="IdPredioAgrupador" Orden="ASC" />
+              <ColumnaIndice Nombre="Prefijo" Orden="ASC" />
+              <ColumnaIndice Nombre="IdReciboCaja" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+        </Indices>
+      </Tabla>
+      <Tabla Nombre="OriSectores" Vinculada="N">
+        <Columnas>
+          <Columna Nombre="DctoProntoPago" Requerido="S" TipoDato="DOUBLE" />
+          <Columna Nombre="IdCarpeta" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdCentroUtil" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdSector" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="Nombre" Requerido="N" TipoDato="VSTRING" Longitud="40" />
+        </Columnas>
+        <Indices>
+          <Indice Nombre="PK_OriSectores" Principal="S" Unico="S">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdCarpeta" Orden="ASC" />
+              <ColumnaIndice Nombre="IdCentroUtil" Orden="ASC" />
+              <ColumnaIndice Nombre="IdSector" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+        </Indices>
+      </Tabla>
+      <Tabla Nombre="OriSectoresModulos" Vinculada="N">
+        <Columnas>
+          <Columna Nombre="IdCarpeta" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdCentroUtil" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdModuloContribucion" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdSector" Requerido="S" TipoDato="BYTE" />
+          <Columna Nombre="TasaContribucion" Requerido="S" TipoDato="DOUBLE" />
+        </Columnas>
+        <Indices>
+          <Indice Nombre="PK_OriSectoresModulos" Principal="S" Unico="S">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdCarpeta" Orden="ASC" />
+              <ColumnaIndice Nombre="IdCentroUtil" Orden="ASC" />
+              <ColumnaIndice Nombre="IdModuloContribucion" Orden="ASC" />
+              <ColumnaIndice Nombre="IdSector" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+        </Indices>
+      </Tabla>
+      <Tabla Nombre="OriSectoresModuloServicio" Vinculada="N">
+        <Columnas>
+          <Columna Nombre="IdAno" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdCarpeta" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdCentroUtil" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdModuloContribucion" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdSector" Requerido="S" TipoDato="BYTE" />
+          <Columna Nombre="IdServicio" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="ValorInicial" Requerido="S" TipoDato="CURRENCY" />
+        </Columnas>
+        <Indices>
+          <Indice Nombre="PK_OriSectoresModulos" Principal="S" Unico="S">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdCarpeta" Orden="ASC" />
+              <ColumnaIndice Nombre="IdCentroUtil" Orden="ASC" />
+              <ColumnaIndice Nombre="IdAno" Orden="ASC" />
+              <ColumnaIndice Nombre="IdServicio" Orden="ASC" />
+              <ColumnaIndice Nombre="IdModuloContribucion" Orden="ASC" />
+              <ColumnaIndice Nombre="IdSector" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+        </Indices>
+      </Tabla>
+      <Tabla Nombre="OriServicios" Vinculada="N">
+        <Columnas>
+          <Columna Nombre="Activo" Requerido="S" TipoDato="BOOLEAN" ValorDefecto="1" />
+          <Columna Nombre="AplicaProntoPago" Requerido="S" TipoDato="BOOLEAN" />
+          <Columna Nombre="BaseMinRetefuente" Requerido="S" TipoDato="CURRENCY" />
+          <Columna Nombre="BaseMinReteIca" Requerido="S" TipoDato="CURRENCY" />
+          <Columna Nombre="CantidadPeriodos" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="CausaMesCompleto" Requerido="S" TipoDato="BOOLEAN" ValorDefecto="0" />
+          <Columna Nombre="CausaMora" Requerido="S" TipoDato="BOOLEAN" />
+          <Columna Nombre="CausaUltimoDia" Requerido="S" TipoDato="BOOLEAN" ValorDefecto="0" />
+          <Columna Nombre="ConceptoServicio" Requerido="S" TipoDato="VSTRING" Longitud="50" />
+          <Columna Nombre="DiaFactura" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="DiasGracia" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="DiasVencimiento" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="EsAjuste" Requerido="S" TipoDato="BOOLEAN" />
+          <Columna Nombre="EsExcluidoIva" Requerido="S" TipoDato="BOOLEAN" />
+          <Columna Nombre="EsFacturacionProgramable" Requerido="S" TipoDato="BOOLEAN" />
+          <Columna Nombre="EsServicioId" Requerido="S" TipoDato="BOOLEAN" />
+          <Columna Nombre="EstaAjustado" Requerido="S" TipoDato="BOOLEAN" />
+          <Columna Nombre="EstaGeneradaProgram" Requerido="S" TipoDato="BOOLEAN" />
+          <Columna Nombre="FacturarPropConPreAgr" Requerido="S" TipoDato="BOOLEAN" />
+          <Columna Nombre="GeneraProgramacion" Requerido="S" TipoDato="BOOLEAN" />
+          <Columna Nombre="GraciaFinMes" Requerido="S" TipoDato="BOOLEAN" />
+          <Columna Nombre="IdAno" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdCarpeta" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdCentroUtil" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdCtaDctoCapital" Requerido="N" TipoDato="STRING" Longitud="30" />
+          <Columna Nombre="IdCtaMoraCr" Requerido="N" TipoDato="STRING" Longitud="30" />
+          <Columna Nombre="IdCuentaCr" Requerido="S" TipoDato="STRING" Longitud="30" />
+          <Columna Nombre="IdCuentaDb" Requerido="S" TipoDato="STRING" Longitud="30" />
+          <Columna Nombre="IdCuentaIva" Requerido="N" TipoDato="STRING" Longitud="30" />
+          <Columna Nombre="IdModoCausaMora" Requerido="S" TipoDato="BYTE" />
+          <Columna Nombre="IdServicio" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdServicioAjustado" Requerido="N" TipoDato="SHORT" />
+          <Columna Nombre="IdTerceroCtaCr" Requerido="S" TipoDato="DOUBLE" />
+          <Columna Nombre="IdTipoBaseCalculo" Requerido="S" TipoDato="BYTE" Comentario="0:Ninguno;1:Por Area; 2:Por Unidad" />
+          <Columna Nombre="IdTipoDsctoPP" Requerido="S" TipoDato="BYTE" Comentario="0:Ninguno; 1:Porcentaje; 2:Valor Fijo" />
+          <Columna Nombre="IdTipoServicio" Requerido="S" TipoDato="BYTE" Comentario="0:Ninguno;1:Anual; 2:Permanente" />
+          <Columna Nombre="IdTipoTerCuentaCr" Requerido="S" TipoDato="BYTE" ValorDefecto="2" Comentario="0:Ninguno;1:Proveedor; 2:Cliente" />
+          <Columna Nombre="MontoDsctoPP" Requerido="S" TipoDato="CURRENCY" />
+          <Columna Nombre="Nombre" Requerido="S" TipoDato="VSTRING" Longitud="50" />
+          <Columna Nombre="PeriodoInicio" Requerido="S" TipoDato="STRING" Longitud="6" />
+          <Columna Nombre="TarifaIva" Requerido="S" TipoDato="DOUBLE" />
+          <Columna Nombre="TarifaRetefuente" Requerido="S" TipoDato="DOUBLE" />
+          <Columna Nombre="TarifaReteIca" Requerido="S" TipoDato="DOUBLE" />
+          <Columna Nombre="VenceFinMes" Requerido="S" TipoDato="BOOLEAN" />
+        </Columnas>
+        <Indices>
+          <Indice Nombre="PK_OriServicios" Principal="S" Unico="S">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdCarpeta" Orden="ASC" />
+              <ColumnaIndice Nombre="IdCentroUtil" Orden="ASC" />
+              <ColumnaIndice Nombre="IdAno" Orden="ASC" />
+              <ColumnaIndice Nombre="IdServicio" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+        </Indices>
+      </Tabla>  
+      <Tabla Nombre="OriTasasMora" Vinculada="N">
+        <Columnas>
+          <Columna Nombre="FechaDesde" Requerido="S" TipoDato="DATE" />
+          <Columna Nombre="FechaHasta" Requerido="S" TipoDato="DATE" />
+          <Columna Nombre="IdCarpeta" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdCentroUtil" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="Ordinal" Requerido="S" TipoDato="INTEGER" />
+          <Columna Nombre="TasaMora" Requerido="S" TipoDato="DOUBLE" />
+        </Columnas>
+        <Indices>
+          <Indice Nombre="PK_OriInteresesMora" Principal="S" Unico="S">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdCarpeta" Orden="ASC" />
+              <ColumnaIndice Nombre="IdCentroUtil" Orden="ASC" />
+              <ColumnaIndice Nombre="Ordinal" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+          <Indice Nombre="Fecha" Principal="N" Unico="N">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdCarpeta" Orden="ASC" />
+              <ColumnaIndice Nombre="IdCentroUtil" Orden="ASC" />
+              <ColumnaIndice Nombre="FechaDesde" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+        </Indices>
+      </Tabla>
+      <Tabla Nombre="OriTblConstantes" Vinculada="N">
+        <Columnas>
+          <Columna Nombre="Dato" Requerido="S" TipoDato="VSTRING" Longitud="80" />
+          <Columna Nombre="IdConstante" Requerido="S" TipoDato="UBYTE" />
+          <Columna Nombre="IdGrupo" Requerido="S" TipoDato="UBYTE" />
+        </Columnas>
+        <Indices>
+          <Indice Nombre="PK_OriTblConstantes" Principal="S" Unico="S" NulosIndice="IndexNullsDisallow">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdGrupo" Orden="ASC" />
+              <ColumnaIndice Nombre="IdConstante" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+        </Indices>
+        <Registros>
+          <!--Ojo: El orden de las columnas en el registro debe ser igual al orden en que estan dfinidas las
+          columnas en el nodo "Columnas"-->
+          <!--Orion 1: enuDestinatarioFactura-->
+          <Registro Dato="0 - Ninguno" IdConstante="0" IdGrupo="1" />
+          <Registro Dato="1 - Propietario" IdConstante="1" IdGrupo="1" />
+          <Registro Dato="2 - Arrendatario" IdConstante="2" IdGrupo="1" />
+          <!--Orion 2: enuMediosPago-->
+          <Registro Dato="0 - Ninguno" IdConstante="0" IdGrupo="2" />
+          <Registro Dato="1 - Efectivo" IdConstante="1" IdGrupo="2" />
+          <Registro Dato="2 - Cheque" IdConstante="2" IdGrupo="2" />
+          <Registro Dato="3 - Tarjeta CR" IdConstante="3" IdGrupo="2" />
+          <Registro Dato="4 - Tarjeta DB" IdConstante="4" IdGrupo="2" />
+          <Registro Dato="5 - Consignación" IdConstante="5" IdGrupo="2" />
+          <Registro Dato="6 - Transferencia" IdConstante="6" IdGrupo="2" />
+          <!--Orion 3: enuRegimenIva-->
+          <Registro Dato="0 - Ninguno" IdConstante="0" IdGrupo="3" />
+          <Registro Dato="1 - No Responsable IVA" IdConstante="1" IdGrupo="3" />
+          <Registro Dato="2 - Responsable IVA" IdConstante="2" IdGrupo="3" />
+          <!--Orion 4: enuTipoBaseCalculo-->
+          <Registro Dato="0 - Ninguno" IdConstante="0" IdGrupo="4" />
+          <Registro Dato="1 - Coeficiente de Propiedad" IdConstante="1" IdGrupo="4" />
+          <Registro Dato="2 - Unidad" IdConstante="2" IdGrupo="4" />
+          <Registro Dato="3 - Cuota Año anterior" IdConstante="3" IdGrupo="4" />
+          <Registro Dato="4 - Importadas" IdConstante="4" IdGrupo="4" />
+          <!--Orion 5: enuTipoServicio-->
+          <Registro Dato="0 - Ninguno" IdConstante="0" IdGrupo="5" />
+          <Registro Dato="1 - Servicio Anual" IdConstante="1" IdGrupo="5" />
+          <Registro Dato="2 - Servicio Permanente" IdConstante="2" IdGrupo="5" />
+          <!--Orion 6: enuOrigenItemProgramaFactDef-->
+          <Registro Dato="0 - Ninguno" IdConstante="0" IdGrupo="6" />
+          <Registro Dato="1 - Sistema" IdConstante="1" IdGrupo="6" />
+          <Registro Dato="2 - Usuario" IdConstante="2" IdGrupo="6" />
+          <Registro Dato="3 - Importado" IdConstante="3" IdGrupo="6" />
+          <!--Orion 7: enuEstadoDeudaDef-->
+          <Registro Dato="0 - Ninguno" IdConstante="0" IdGrupo="7" />
+          <Registro Dato="1 - Normal" IdConstante="1" IdGrupo="7" />
+          <Registro Dato="2 - Persuasivo" IdConstante="2" IdGrupo="7" />
+          <Registro Dato="3 - Prejurídico" IdConstante="3" IdGrupo="7" />
+          <Registro Dato="4 - Jurídico" IdConstante="4" IdGrupo="7" />
+          <Registro Dato="5 - Perdida" IdConstante="5" IdGrupo="7" />
+          <Registro Dato="6 - Suspendida" IdConstante="6" IdGrupo="7" />
+          <!--Orion 8: enuTipoDecuentoDef-->
+          <Registro Dato="0 - Ninguno" IdConstante="0" IdGrupo="8" />
+          <Registro Dato="1 - Descuento a Capital" IdConstante="1" IdGrupo="8" />
+          <Registro Dato="2 - Descuento a Int. Mora" IdConstante="2" IdGrupo="8" />
+          <Registro Dato="3 - Retención en la Fuente" IdConstante="3" IdGrupo="8" />
+          <Registro Dato="4 - Retención de Ind. y Comercio" IdConstante="4" IdGrupo="8" />
+          <Registro Dato="5 - Retención del Iva" IdConstante="5" IdGrupo="8" />
+          <Registro Dato="6 - Retención del Cree" IdConstante="6" IdGrupo="8" />
+          <Registro Dato="7 - Descuento Pronto Pago" IdConstante="7" IdGrupo="8" />
+          <Registro Dato="8 - Cancelación Iva" IdConstante="8" IdGrupo="8" />
+          <!--Orion 9: enuInterfazContableDef-->
+          <Registro Dato="0 - Ninguno" IdConstante="0" IdGrupo="9" />
+          <Registro Dato="1 - Apolo-Mekano Archivo Plano" IdConstante="1" IdGrupo="9" />
+          <Registro Dato="2 - Apolo Base datos MDB" IdConstante="2" IdGrupo="9" />
+          <Registro Dato="3 - ContaPyme" IdConstante="3" IdGrupo="9" />
+          <Registro Dato="4 - SIIGO" IdConstante="4" IdGrupo="9" />
+          <Registro Dato="5 - SIIGO-Nube" IdConstante="5" IdGrupo="9" />
+          <Registro Dato="6 - Colon" IdConstante="6" IdGrupo="9" />
+          <Registro Dato="7 - MEKANO" IdConstante="7" IdGrupo="9" />
+          <Registro Dato="8 - PODIUM" IdConstante="8" IdGrupo="9" />
+          <!--Orion 10: enuTipoInterfazDef-->
+          <Registro Dato="0 - Ninguno" IdConstante="0" IdGrupo="10" />
+          <Registro Dato="1 - Interfaz por Comprobante" IdConstante="1" IdGrupo="10" />
+          <Registro Dato="2 - Interfaz por Documento" IdConstante="2" IdGrupo="10" />
+          <!--Orion 11: enuEstadoTareaDef-->
+          <Registro Dato="0 - Ninguno" IdConstante="0" IdGrupo="11" />
+          <Registro Dato="1 - Vigente" IdConstante="1" IdGrupo="11" />
+          <Registro Dato="2 - Terminada" IdConstante="2" IdGrupo="11" />
+          <Registro Dato="3 - Cancelada" IdConstante="3" IdGrupo="11" />
+          <!--Orion 12: enuEstadoItemTareaDef-->
+          <Registro Dato="0 - Ninguno" IdConstante="0" IdGrupo="12" />
+          <Registro Dato="1 - Pendiente" IdConstante="1" IdGrupo="12" />
+          <Registro Dato="2 - Cumplida" IdConstante="2" IdGrupo="12" />
+          <Registro Dato="3 - Vencida" IdConstante="3" IdGrupo="12" />
+          <Registro Dato="4 - Cancelada" IdConstante="4" IdGrupo="12" />
+          <!--Orion 13: EnuModoCausaMora-->
+          <Registro Dato="0 - Ninguno" IdConstante="0" IdGrupo="13" />
+          <Registro Dato="1 - No causar Mora" IdConstante="1" IdGrupo="13" />
+          <Registro Dato="2 - Desde Fecha vencimiento" IdConstante="2" IdGrupo="13" />
+          <Registro Dato="3 - Fin de mes" IdConstante="3" IdGrupo="13" />
+          <Registro Dato="4 - Ultimo día del mes" IdConstante="4" IdGrupo="13" />
+          <Registro Dato="5 - Al Recibo de caja" IdConstante="5" IdGrupo="13" />
+          <!--Orion 14: enuTipoTercero-->
+          <Registro Dato="0 - Ninguno" IdConstante="0" IdGrupo="14" />
+          <Registro Dato="1 - Sin Tercero" IdConstante="1" IdGrupo="14" />
+          <Registro Dato="2 - Id. Copropiedad" IdConstante="2" IdGrupo="14" />
+          <Registro Dato="3 - Id. Cliente" IdConstante="3" IdGrupo="14" />
+          <!--Orion 15: enuTipoTerCtaCrSer-->
+          <Registro Dato="0 - Ninguno" IdConstante="0" IdGrupo="15" />
+          <Registro Dato="1 - Id. Proveedor" IdConstante="1" IdGrupo="15" />
+          <Registro Dato="2 - Id. Cliente" IdConstante="2" IdGrupo="15" />
+          <!--Orion 16: enuProvEFac-->
+          <Registro Dato="0 - Ninguno" IdConstante="0" IdGrupo="16" />
+          <Registro Dato="1 - Protecdata-MisFacturas" IdConstante="1" IdGrupo="16" />
+          <!--Orion 17: enuDocReversado-->
+          <Registro Dato="0 - Ninguno" IdConstante="0" IdGrupo="17" />
+          <Registro Dato="1 - Recibo Caja" IdConstante="1" IdGrupo="17" />
+          <Registro Dato="2 - Nota Crédito" IdConstante="2" IdGrupo="17" />
+          <!--Orion 18: enuFormaPago-->
+          <Registro Dato="0 - Ninguno" IdConstante="0" IdGrupo="18" />
+          <Registro Dato="1 - Contado" IdConstante="1" IdGrupo="18" />
+          <Registro Dato="2 - Crédito" IdConstante="2" IdGrupo="18" />
+          <!--Orion 19: EnuModoNotaCr-->
+          <Registro Dato="0 - Ninguno" IdConstante="0" IdGrupo="19" />
+          <Registro Dato="1 - Por documento" IdConstante="1" IdGrupo="19" />
+          <Registro Dato="2 - Por Valor" IdConstante="2" IdGrupo="19" />
+        </Registros>
+      </Tabla>
+    </Tablas>
+  </BD>
+</ActualiceBD>

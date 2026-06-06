@@ -1,0 +1,44 @@
+name: ci
+
+on:
+  pull_request:
+  push:
+    branches: [main, develop]
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup NuGet
+        uses: NuGet/setup-nuget@v2
+
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v2
+
+      - name: Restore PanL
+        run: nuget restore .\PanL\PanL.vbproj
+
+      - name: Restore PanDat
+        run: nuget restore .\PanDat\PanDat.vbproj
+
+      - name: Restore OriWin
+        run: nuget restore .\OriWin\OriWin.vbproj
+
+      - name: Restore WinCom
+        run: nuget restore .\WinCom\WinCom.vbproj
+
+      - name: Build PanL
+        run: msbuild .\PanL\PanL.vbproj /p:Configuration=Release /m
+
+      - name: Build PanDat
+        run: msbuild .\PanDat\PanDat.vbproj /p:Configuration=Release /m
+
+      - name: Build OriWin
+        run: msbuild .\OriWin\OriWin.vbproj /p:Configuration=Release /m
+
+      - name: Build WinCom
+        run: msbuild .\WinCom\WinCom.vbproj /p:Configuration=Release /m
+

@@ -1,0 +1,2253 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ActualiceBD>
+  <!--Obervaciones: Si el script va ha ser usado con MySql debe tener en cuenta lo siguiente: -->
+  <!--1. El Nombre del indice principal de una tabla debe estar compuesto por "PK_" seguido del Nombre de la tabla.
+       por ejemplo "PK_Terceros" -->
+  <!--2. La propiedad "Requerido" de las columnas que forman parte de una llave principal debe ser "S" -->
+  <!--3. Toda columna cuya propiedad "Requerio" es igual a "S" debe tener un valor por defecto el cual es asignado por
+        el programa si la propiedad "ValorDefecto" en este script no existe. Los valores asignados por defecto a la
+        propiedad "ValorDefecto" son: "*" para columnas tipo VSTRING; 0 (Cero) para columnas con tipo de datos númerico; 
+        0 (Cero = False) para columnas tipo boolean y si la columna es fecha "1900/01/01" -->
+  <BD Nombre="Panorama_Net" CharacterSet="utf8" CollationName="utf8_general_ci" Version="104">
+    <Tablas>
+      <Tabla Nombre="PanAplicaciones">
+        <Comandos>
+          <Comando Tipo="SQL" Condicion="VBD&lt;17" Secuencia="Inicio" Accion="FSH" 
+                 Parametros="UPDATE PanAplicaciones SET IdLicencia = 0 WHERE IdAplicacion = 100" />
+          <Comando Tipo="SQL" Condicion="VBD&lt;17" Secuencia="Inicio" Accion="FSH" Parametros="" />
+        </Comandos>
+        <Columnas>
+          <Columna Nombre="ActivaProgramaBK" Requerido="S" TipoDato="BOOLEAN" />
+          <Columna Nombre="DiaBK" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="FechaActualizacion" Requerido="S" TipoDato="DATETIME" />
+          <Columna Nombre="FechaInstalacion" Requerido="S" TipoDato="DATETIME" />
+          <Columna Nombre="HoraBK" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdAplicacion" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdLicencia" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdTerceroLicencia" Requerido="S" TipoDato="DOUBLE" />
+          <Columna Nombre="MinutosBK" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="TrayCopiaSeguridad" Requerido="N" TipoDato="VSTRING" Longitud="200" />
+          <Columna Nombre="Version" Requerido="N" TipoDato="STRING" Longitud="20" />
+        </Columnas>
+        <Indices>
+          <Indice Nombre="PK_PanAplicaciones" Principal="S" Unico="S" NulosIndice="IndexNullsDisallow">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdAplicacion" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+        </Indices>
+      </Tabla>      
+      <Tabla Nombre="PanCarpetas" Vinculada="N">
+        <Columnas>
+          <Columna Nombre="EstaActiva" Requerido="S" TipoDato="BOOLEAN" />
+          <Columna Nombre="FechaCreacion" Requerido="S" TipoDato="DATETIME" />
+          <Columna Nombre="IdCarpeta" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="Nombre" Requerido="S" TipoDato="VSTRING" Longitud="50" />
+        </Columnas>
+        <Indices>
+          <Indice Nombre="PK_PanCarpetas" Principal="S" Unico="S">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdCarpeta" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice> 
+        </Indices>
+      </Tabla>
+      <Tabla Nombre="PanCarpetasUsuarios" Vinculada="N">
+        <Columnas>
+          <Columna Nombre="IdCarpeta" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdUsuario" Requerido="S" TipoDato="VSTRING" Longitud="30" />
+          <Columna Nombre="NombreCarpeta" Requerido="S" TipoDato="VSTRING" Longitud="50" />
+        </Columnas>
+        <Indices>
+          <Indice Nombre="PK_PanCarpetasUsuarios" Principal="S" Unico="S">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdUsuario" Orden="ASC" />
+              <ColumnaIndice Nombre="IdCarpeta" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice> 
+        </Indices>
+      </Tabla>    
+      <Tabla Nombre="PanCentrosUtilidad">
+        <Columnas>
+          <Columna Nombre="Cargo" Requerido="N" TipoDato="STRING" Longitud="20" />
+          <Columna Nombre="ContrasenaCorreo" Requerido="N" TipoDato="STRING" Longitud="20" />
+          <Columna Nombre="EmailOrigen" Requerido="N" TipoDato="VSTRING" Longitud="200" />
+          <Columna Nombre="EstaLicenciada" Requerido="S" TipoDato="BOOLEAN" />
+          <Columna Nombre="FechaVenceContrato" Requerido="S" TipoDato="DATE" />
+          <Columna Nombre="FechaVerificoContrato" Requerido="S" TipoDato="DATE" />
+          <Columna Nombre="HbilitarSsl" Requerido="S" TipoDato="BOOLEAN" />
+          <Columna Nombre="IdCarpeta" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdCentroUtil" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdContrato" Requerido="S" TipoDato="INTEGER"  />
+          <Columna Nombre="IdEstadoContrato" Requerido="S" TipoDato="UBYTE"
+                  Comentario="0:Instalando; 1:Activo; 2:Avisado; 3:Vencido; 4:Suspendido; 
+                  5:Inactivo" />
+          <Columna Nombre="IdTerceroCentroUtilidad" Requerido="S" TipoDato="DOUBLE" />
+          <Columna Nombre="IdTerceroRepresentanteLegal" Requerido="S" TipoDato="DOUBLE" />
+          <Columna Nombre="IntervaloEntreTandas" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="MensajesPorTanda" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="Nombre" Requerido="S" TipoDato="VSTRING" Longitud="50" />
+          <Columna Nombre="NombreUsuario" Requerido="N" TipoDato="VSTRING" Longitud="200" />
+          <Columna Nombre="PuertoServidor" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="RequiereAutenticacion" Requerido="S" TipoDato="BOOLEAN" />
+          <Columna Nombre="ServidorCorreo" Requerido="N" TipoDato="VSTRING" Longitud="30" />
+        </Columnas>
+        <Indices>
+          <Indice Nombre="PK_PanCentrosUtilidad" Principal="S" Unico="S">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdCarpeta" Orden="ASC" />
+              <ColumnaIndice Nombre="IdCentroUtil" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>          
+        </Indices>
+      </Tabla>
+      <Tabla Nombre="PanConsultasSql" Vinculada="N">
+        <Columnas>
+          <Columna Nombre="CamposActualizar" Requerido="N" TipoDato="VSTRING" Longitud="300" />
+          <Columna Nombre="CamposAgrupamiento" Requerido="N" TipoDato="VSTRING" Longitud="100" />
+          <Columna Nombre="CamposInsertar" Requerido="N" TipoDato="VSTRING" Longitud="300" />
+          <Columna Nombre="CamposPrimarios" Requerido="N" TipoDato="VSTRING" Longitud="300" />
+          <Columna Nombre="CamposRefActualizacion" Requerido="N" TipoDato="VSTRING" Longitud="100" />
+          <Columna Nombre="CamposRefEliminacion" Requerido="N" TipoDato="VSTRING" Longitud="100" />
+          <Columna Nombre="CamposRelPrimarios" Requerido="N" TipoDato="VSTRING" Longitud="100" />
+          <Columna Nombre="CamposRelSecundarios" Requerido="N" TipoDato="VSTRING" Longitud="100" />
+          <Columna Nombre="CamposSecundarios" Requerido="N" TipoDato="VSTRING" Longitud="300" />
+          <Columna Nombre="ExpresionSql" Requerido="N" TipoDato="VSTRING" Longitud="3000" />
+          <Columna Nombre="EsIndiceUnico" Requerido="S" TipoDato="BOOLEAN" />
+          <Columna Nombre="Filtro" Requerido="N" TipoDato="VSTRING" Longitud="150" />
+          <Columna Nombre="IdAplicacion" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdConsultaSql" Requerido="S" TipoDato="SHORT" AutoNumerico="S" />
+          <Columna Nombre="IdTblTipoConsulta" Requerido="S" TipoDato="UBYTE"
+                    Comentario="IdGrupo:14; 0:Select; 1:Update; 2:Insert; 3:Delete; 4:Consulta" />
+          <Columna Nombre="Indice" Requerido="N" TipoDato="VSTRING" Longitud="100" />
+          <Columna Nombre="NombreConsulta" Requerido="S" TipoDato="STRING" Longitud="30" />
+          <Columna Nombre="TablaActualizar" Requerido="N" TipoDato="STRING" Longitud="25" />
+          <Columna Nombre="TablaEliminar" Requerido="N" TipoDato="STRING" Longitud="25" />
+          <Columna Nombre="TablaInsertar" Requerido="N" TipoDato="STRING" Longitud="25" />
+          <Columna Nombre="TablaPrimaria" Requerido="N" TipoDato="STRING" Longitud="25" />
+          <Columna Nombre="TablaSecundaria" Requerido="N" TipoDato="STRING" Longitud="25" />
+          <Columna Nombre="ValoresActualizacion" Requerido="N" TipoDato="VSTRING" Longitud="300" />
+          <Columna Nombre="ValoresInsertar" Requerido="N" TipoDato="VSTRING" Longitud="300" />
+          <Columna Nombre="ValoresRefActualizacion" Requerido="N" TipoDato="VSTRING" Longitud="100" />
+          <Columna Nombre="ValoresRefEliminacion" Requerido="N" TipoDato="VSTRING" Longitud="100" />
+        </Columnas>
+        <Indices>
+          <Indice Nombre="PK_PanConsultasSql" Principal="S" Unico="S">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdConsultaSql" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+          <Indice Nombre="Aplicacion" Principal="N" Unico="N" NulosIndice="IndexNullsAllow">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdAplicacion" Orden="ASC" />
+              <ColumnaIndice Nombre="IdTblTipoConsulta" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+          <Indice Nombre="Nombre" Principal="N" Unico="N" NulosIndice="IndexNullsAllow">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdAplicacion" Orden="ASC" />
+              <ColumnaIndice Nombre="IdTblTipoConsulta" Orden="ASC" />
+              <ColumnaIndice Nombre="NombreConsulta" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+        </Indices>
+       </Tabla>      
+      <Tabla Nombre="PanCuentasContabilidad" Vinculada="N">
+        <Columnas>
+          <Columna Nombre="IdCarpeta" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdCuentaCont" Requerido="S" TipoDato="VSTRING" Longitud="30" />
+          <Columna Nombre="Nombre" Requerido="S" TipoDato="VSTRING" Longitud="100" />
+        </Columnas>
+        <Indices>
+          <Indice Nombre="PK_PanCuentasContabilidad" Principal="S" Unico="S">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdCarpeta" Orden="ASC" />
+              <ColumnaIndice Nombre="IdCuentaCont" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+          <Indice Nombre="Nombre" Principal="N" Unico="N">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="Nombre" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+        </Indices>
+      </Tabla>
+      <Tabla Nombre="PanImagenes" Vinculada="N">
+        <Columnas>
+          <Columna Nombre="IdImagen" Requerido="S" TipoDato="DOUBLE" />
+          <Columna Nombre="IdTblCategoria" Requerido="S" TipoDato="UBYTE"
+                 Comentario="IdGrupo:; 0:Ninguna; 1:Foto tercero; 2:Foto Extintor; 3:Medicas; 4:Documentos" />
+          <Columna Nombre="Ordinal" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="Imagen" Requerido="N" TipoDato="OBJECT" />
+          <Columna Nombre="Fecha" Requerido="S" TipoDato="DATE" />
+          <Columna Nombre="Descripcion" Requerido="N" TipoDato="VSTRING" Longitud="50" />
+        </Columnas>
+        <Indices>
+          <Indice Nombre="PK_PanImagenes" Principal="S" Unico="S">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdImagen" Orden="ASC" />
+              <ColumnaIndice Nombre="IdTblCategoria" Orden="ASC" />
+              <ColumnaIndice Nombre="Ordinal" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+        </Indices>
+      </Tabla>
+      <Tabla Nombre="PanLogApp" Vinculada="N">
+        <Columnas>
+          <Columna Nombre="FechaCreacion" Requerido="S" TipoDato="DATETIME" />
+          <Columna Nombre="IdAplicacion" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdCarpeta" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdCentroUtil" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdLogApp" Requerido="S" TipoDato="INTEGER" AutoNumerico="S" />
+          <Columna Nombre="IdObjeto" Requerido="N" TipoDato="VSTRING" Longitud="50" />
+          <Columna Nombre="IdUsuario" Requerido="S" TipoDato="VSTRING" Longitud="30" />
+          <Columna Nombre="NombreClase" Requerido="S" TipoDato="VSTRING" Longitud="50" />
+          <Columna Nombre="Nombre" Requerido="S" TipoDato="VSTRING" Longitud="250" />
+          <Columna Nombre="IdTblTipoLog" Requerido="S" TipoDato="UBYTE"
+                 Comentario="IdGrupo:13; 0:Accion; 1:Cambio" />
+          <Columna Nombre="ValorAnterior" Requerido="N" TipoDato="VSTRING" Longitud="100" />
+          <Columna Nombre="ValorNuevo" Requerido="N" TipoDato="VSTRING" Longitud="100" />
+        </Columnas>
+        <Indices>
+          <Indice Nombre="PK_PanLogApp" Principal="S" Unico="S" NulosIndice="IndexNullsDisallow">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdLogApp" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+          <Indice Nombre="Ubicacion" Principal="N" Unico="N" NulosIndice="IndexNullsDisallow">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdAplicacion" Orden="ASC" />
+              <ColumnaIndice Nombre="IdCarpeta" Orden="ASC" />
+              <ColumnaIndice Nombre="IdCentroUtil" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+          <Indice Nombre="NombreClase" Principal="N" Unico="N" NulosIndice="IndexNullsDisallow">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="NombreClase" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+          <Indice Nombre="Nombre" Principal="N" Unico="N" NulosIndice="IndexNullsDisallow">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="Nombre" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+          <Indice Nombre="Usuario" Principal="N" Unico="N" NulosIndice="IndexNullsDisallow">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdUsuario" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+          <Indice Nombre="Fecha" Principal="N" Unico="N" NulosIndice="IndexNullsDisallow">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="FechaCreacion" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+        </Indices>
+      </Tabla>
+      <Tabla Nombre="PanOrigenesInstancias" Vinculada="N">
+        <Columnas>
+          <Columna Nombre="EstaActiva" Requerido="S" TipoDato="BOOLEAN" />
+          <Columna Nombre="FechaActivacion" Requerido="S" TipoDato="DATETIME" />
+          <Columna Nombre="FechaCreacion" Requerido="S" TipoDato="DATETIME" />
+          <Columna Nombre="IdAplicacion" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdUsuarioActivo" Requerido="N" TipoDato="VSTRING" Longitud="30" />
+          <Columna Nombre="Nombre" Requerido="S" TipoDato="VSTRING" Longitud="200" />
+          <Columna Nombre="IdTblTipoOrigenInstancia" Requerido="S" TipoDato="UBYTE"
+                 Comentario="IdGrupo:12; 0:Estacion Trabajo; 1:Url; 2:Movil" />
+        </Columnas>
+        <Indices>
+          <Indice Nombre="PK_PanOrigenesInstancias" Principal="S" Unico="S" NulosIndice="IndexNullsDisallow">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdAplicacion" Orden="ASC" />
+              <ColumnaIndice Nombre="Nombre" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+        </Indices>
+      </Tabla>
+      <Tabla Nombre="PanPerfiles" Vinculada="N">
+        <Columnas>
+          <Columna Nombre="IdAplicacion" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdPerfil" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="Nombre" Requerido="S" TipoDato="VSTRING" Longitud="20" />
+        </Columnas>
+        <Indices>
+          <Indice Nombre="PK_PanPerfiles" Principal="S" Unico="S" NulosIndice="IndexNullsDisallow">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdAplicacion" Orden="ASC" />
+              <ColumnaIndice Nombre="IdPerfil" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+        </Indices>
+      </Tabla>
+      <Tabla Nombre="PanPerfilesUsuarios" Vinculada="N">
+        <Columnas>
+          <Columna Nombre="IdAplicacion" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdPerfil" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdUsuario" Requerido="S" TipoDato="VSTRING" Longitud="30" />
+          <Columna Nombre="NombreAplicacion" Requerido="S" TipoDato="VSTRING" Longitud="50" />
+          <Columna Nombre="NombrePerfil" Requerido="S" TipoDato="VSTRING" Longitud="20" />
+        </Columnas>
+        <Indices>
+          <Indice Nombre="PK_PanPerfilesUsuarios" Principal="S" Unico="S" NulosIndice="IndexNullsDisallow">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdAplicacion" Orden="ASC" />
+              <ColumnaIndice Nombre="IdPerfil" Orden="ASC" />
+              <ColumnaIndice Nombre="IdUsuario" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+        </Indices>
+      </Tabla>
+      <Tabla Nombre="PanPermisosAcciones" Vinculada="N">
+        <Columnas>
+          <Columna Nombre="IdAccion" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdAplicacion" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdObjeto" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdPerfil" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="Nivel" Requerido="S" TipoDato="UBYTE" />
+          <Columna Nombre="NombreAccion" Requerido="S" TipoDato="VSTRING" Longitud="60" />
+          <Columna Nombre="Ordinal" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="Permitida" Requerido="S" TipoDato="BOOLEAN" />
+        </Columnas>
+        <Indices>
+          <Indice Nombre="PK_PanPermisosAcciones" Principal="S" Unico="S" NulosIndice="IndexNullsDisallow">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdAplicacion" Orden="ASC" />
+              <ColumnaIndice Nombre="IdPerfil" Orden="ASC" />
+              <ColumnaIndice Nombre="Ordinal" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+          <Indice Nombre="Accion" Principal="N" Unico="S" NulosIndice="IndexNullsDisallow">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdAplicacion" Orden="ASC" />
+              <ColumnaIndice Nombre="IdPerfil" Orden="ASC" />
+              <ColumnaIndice Nombre="IdObjeto" Orden="ASC" />
+              <ColumnaIndice Nombre="IdAccion" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+        </Indices>
+      </Tabla>
+      <Tabla Nombre="PanTblAcciones">
+        <Columnas>
+          <Columna Nombre="IdAccion" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdAplicacion" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdObjeto" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="Nivel" Requerido="S" TipoDato="UBYTE" />
+          <Columna Nombre="NombreAccion" Requerido="S" TipoDato="VSTRING" Longitud="60" />
+          <Columna Nombre="Ordinal" Requerido="S" TipoDato="SHORT" />
+        </Columnas>
+        <Indices>
+          <Indice Nombre="PK_PanTblAcciones" Principal="S" Unico="S" NulosIndice="IndexNullsDisallow">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdAplicacion" Orden="ASC" />
+              <ColumnaIndice Nombre="Ordinal" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+          <Indice Nombre="Objeto" Principal="N" Unico="S" NulosIndice="IndexNullsDisallow">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdAplicacion" Orden="ASC" />
+              <ColumnaIndice Nombre="IdObjeto" Orden="ASC" />
+              <ColumnaIndice Nombre="IdAccion" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+        </Indices>
+        <Registros>
+          <Registro IdAplicacion="100" IdObjeto="152" Ordinal="1" Nivel="1" IdAccion="1" NombreAccion="Aplicación" />
+          <Registro IdAplicacion="100" IdObjeto="152" Ordinal="2" Nivel="2" IdAccion="2" NombreAccion="Perfil" />
+          <Registro IdAplicacion="100" IdObjeto="22" Ordinal="3" Nivel="3" IdAccion="1001" NombreAccion="Consultar" />
+          <Registro IdAplicacion="100" IdObjeto="22" Ordinal="4" Nivel="3" IdAccion="1002" NombreAccion="Crear" />
+          <Registro IdAplicacion="100" IdObjeto="22" Ordinal="5" Nivel="3" IdAccion="1003" NombreAccion="Modificar" />
+          <Registro IdAplicacion="100" IdObjeto="22" Ordinal="6" Nivel="3" IdAccion="1004" NombreAccion="Suprimir" />
+          <Registro IdAplicacion="100" IdObjeto="152" Ordinal="7" Nivel="2" IdAccion="3" NombreAccion="Origen Instancia" />
+          <Registro IdAplicacion="100" IdObjeto="19" Ordinal="8" Nivel="3" IdAccion="1003" NombreAccion="Habilitar-Deshabilitar/Actualizacion Internet" />
+          <Registro IdAplicacion="100" IdObjeto="152" Ordinal="10" Nivel="1" IdAccion="4" NombreAccion="Usuario" />
+          <Registro IdAplicacion="100" IdObjeto="28" Ordinal="11" Nivel="2" IdAccion="1001" NombreAccion="Consultar" />
+          <Registro IdAplicacion="100" IdObjeto="28" Ordinal="12" Nivel="2" IdAccion="1002" NombreAccion="Crear" />
+          <Registro IdAplicacion="100" IdObjeto="28" Ordinal="13" Nivel="2" IdAccion="1003" NombreAccion="Modificar" />
+          <Registro IdAplicacion="100" IdObjeto="28" Ordinal="14" Nivel="2" IdAccion="1004" NombreAccion="Suprimir" />
+          <Registro IdAplicacion="100" IdObjeto="23" Ordinal="15" Nivel="2" IdAccion="1002" NombreAccion="Asignar Perfil" />
+          <Registro IdAplicacion="100" IdObjeto="23" Ordinal="16" Nivel="2" IdAccion="1004" NombreAccion="Retirar Perfil" />
+          <Registro IdAplicacion="100" IdObjeto="7" Ordinal="17" Nivel="2" IdAccion="1002" NombreAccion="Asignar Carpeta" />
+          <Registro IdAplicacion="100" IdObjeto="7" Ordinal="18" Nivel="2" IdAccion="1004" NombreAccion="Retirar Carpeta" />
+          <Registro IdAplicacion="100" IdObjeto="152" Ordinal="19" Nivel="1" IdAccion="5" NombreAccion="Carpeta" />
+          <Registro IdAplicacion="100" IdObjeto="6" Ordinal="20" Nivel="2" IdAccion="1001" NombreAccion="Consultar" />
+          <Registro IdAplicacion="100" IdObjeto="6" Ordinal="21" Nivel="2" IdAccion="1002" NombreAccion="Crear" />
+          <Registro IdAplicacion="100" IdObjeto="6" Ordinal="22" Nivel="2" IdAccion="1003" NombreAccion="Modificar" />
+          <Registro IdAplicacion="100" IdObjeto="6" Ordinal="23" Nivel="2" IdAccion="1004" NombreAccion="Suprimir" />
+          <Registro IdAplicacion="100" IdObjeto="152" Ordinal="24" Nivel="2" IdAccion="6" NombreAccion="Copropiedad" />
+          <Registro IdAplicacion="100" IdObjeto="8" Ordinal="25" Nivel="3" IdAccion="1001" NombreAccion="Consultar" />
+          <Registro IdAplicacion="100" IdObjeto="8" Ordinal="26" Nivel="3" IdAccion="1002" NombreAccion="Crear" />
+          <Registro IdAplicacion="100" IdObjeto="8" Ordinal="27" Nivel="3" IdAccion="1003" NombreAccion="Modificar" />
+          <Registro IdAplicacion="100" IdObjeto="8" Ordinal="28" Nivel="3" IdAccion="1004" NombreAccion="Suprimir" />
+          <Registro IdAplicacion="100" IdObjeto="3" Ordinal="30" Nivel="4" IdAccion="1001" NombreAccion="Consultar" />
+          <Registro IdAplicacion="100" IdObjeto="3" Ordinal="31" Nivel="4" IdAccion="1002" NombreAccion="Crear" />
+          <Registro IdAplicacion="100" IdObjeto="3" Ordinal="32" Nivel="4" IdAccion="1003" NombreAccion="Modificar" />
+          <Registro IdAplicacion="100" IdObjeto="3" Ordinal="33" Nivel="4" IdAccion="1004" NombreAccion="Suprimir" />
+          <Registro IdAplicacion="100" IdObjeto="152" Ordinal="43" Nivel="1" IdAccion="10" NombreAccion="Tablas Auxiliares" />
+          <Registro IdAplicacion="100" IdObjeto="152" Ordinal="44" Nivel="2" IdAccion="11" NombreAccion="Ubicaciones" />
+          <Registro IdAplicacion="100" IdObjeto="27" Ordinal="45" Nivel="3" IdAccion="1001" NombreAccion="Consultar" />
+          <Registro IdAplicacion="100" IdObjeto="27" Ordinal="46" Nivel="3" IdAccion="1003" NombreAccion="Modificar" />
+          <Registro IdAplicacion="100" IdObjeto="27" Ordinal="47" Nivel="3" IdAccion="1" NombreAccion="Pais" />
+          <Registro IdAplicacion="100" IdObjeto="20" Ordinal="48" Nivel="4" IdAccion="1001" NombreAccion="Consultar" />
+          <Registro IdAplicacion="100" IdObjeto="20" Ordinal="49" Nivel="4" IdAccion="1002" NombreAccion="Crear" />
+          <Registro IdAplicacion="100" IdObjeto="20" Ordinal="50" Nivel="4" IdAccion="1003" NombreAccion="Modificar" />
+          <Registro IdAplicacion="100" IdObjeto="20" Ordinal="51" Nivel="4" IdAccion="1004" NombreAccion="Suprimir" />
+          <Registro IdAplicacion="100" IdObjeto="27" Ordinal="52" Nivel="3" IdAccion="2" NombreAccion="Departamento" />
+          <Registro IdAplicacion="100" IdObjeto="13" Ordinal="53" Nivel="4" IdAccion="1001" NombreAccion="Consultar" />
+          <Registro IdAplicacion="100" IdObjeto="13" Ordinal="54" Nivel="4" IdAccion="1002" NombreAccion="Crear" />
+          <Registro IdAplicacion="100" IdObjeto="13" Ordinal="55" Nivel="4" IdAccion="1003" NombreAccion="Modificar" />
+          <Registro IdAplicacion="100" IdObjeto="13" Ordinal="56" Nivel="4" IdAccion="1004" NombreAccion="Suprimir" />
+          <Registro IdAplicacion="100" IdObjeto="27" Ordinal="57" Nivel="3" IdAccion="3" NombreAccion="Ciudad" />  
+          <Registro IdAplicacion="100" IdObjeto="9" Ordinal="58" Nivel="4" IdAccion="1001" NombreAccion="Consultar" />
+          <Registro IdAplicacion="100" IdObjeto="9" Ordinal="59" Nivel="4" IdAccion="1002" NombreAccion="Crear" />
+          <Registro IdAplicacion="100" IdObjeto="9" Ordinal="60" Nivel="4" IdAccion="1003" NombreAccion="Modificar" />
+          <Registro IdAplicacion="100" IdObjeto="9" Ordinal="61" Nivel="4" IdAccion="1004" NombreAccion="Suprimir" />  
+          <Registro IdAplicacion="100" IdObjeto="27" Ordinal="62" Nivel="3" IdAccion="4" NombreAccion="Barrio" />
+          <Registro IdAplicacion="100" IdObjeto="5" Ordinal="63" Nivel="4" IdAccion="1001" NombreAccion="Consultar" />
+          <Registro IdAplicacion="100" IdObjeto="5" Ordinal="64" Nivel="4" IdAccion="1002" NombreAccion="Crear" />
+          <Registro IdAplicacion="100" IdObjeto="5" Ordinal="65" Nivel="4" IdAccion="1003" NombreAccion="Modificar" />
+          <Registro IdAplicacion="100" IdObjeto="5" Ordinal="66" Nivel="4" IdAccion="1004" NombreAccion="Suprimir" />
+          <Registro IdAplicacion="100" IdObjeto="152" Ordinal="67" Nivel="2" IdAccion="12" NombreAccion="Tercero" />
+          <Registro IdAplicacion="100" IdObjeto="26" Ordinal="68" Nivel="3" IdAccion="1001" NombreAccion="Consultar" />
+          <Registro IdAplicacion="100" IdObjeto="26" Ordinal="69" Nivel="3" IdAccion="1002" NombreAccion="Crear" />
+          <Registro IdAplicacion="100" IdObjeto="26" Ordinal="70" Nivel="3" IdAccion="1003" NombreAccion="Modificar" />
+          <Registro IdAplicacion="100" IdObjeto="26" Ordinal="71" Nivel="3" IdAccion="1004" NombreAccion="Suprimir" />
+          <Registro IdAplicacion="100" IdObjeto="108" Ordinal="72" Nivel="3" IdAccion="2002" NombreAccion="Importar" />
+          <Registro IdAplicacion="100" IdObjeto="108" Ordinal="73" Nivel="3" IdAccion="1" NombreAccion="Reasignar Id." />
+          <Registro IdAplicacion="100" IdObjeto="108" Ordinal="74" Nivel="3" IdAccion="2" NombreAccion="Fotografia" />
+          <Registro IdAplicacion="100" IdObjeto="15" Ordinal="75" Nivel="4" IdAccion="1001" NombreAccion="Consultar" />
+          <Registro IdAplicacion="100" IdObjeto="15" Ordinal="76" Nivel="4" IdAccion="1002" NombreAccion="Asociar" /> 
+          <Registro IdAplicacion="100" IdObjeto="15" Ordinal="77" Nivel="4" IdAccion="1004" NombreAccion="Suprimir" />
+          <Registro IdAplicacion="100" IdObjeto="152" Ordinal="83" Nivel="1" IdAccion="2005" NombreAccion="Herramientas" />
+          <Registro IdAplicacion="100" IdObjeto="152" Ordinal="84" Nivel="2" IdAccion="2006" NombreAccion="Preferencias" />
+          <Registro IdAplicacion="100" IdObjeto="152" Ordinal="85" Nivel="2" IdAccion="2007" NombreAccion="Log de la Aplicacion" />
+          <Registro IdAplicacion="100" IdObjeto="152" Ordinal="90" Nivel="2" IdAccion="2012" NombreAccion="Consultas SQL..." />
+          <Registro IdAplicacion="100" IdObjeto="10" Ordinal="91" Nivel="3" IdAccion="1001" NombreAccion="Consultar" />
+          <Registro IdAplicacion="100" IdObjeto="10" Ordinal="92" Nivel="3" IdAccion="1002" NombreAccion="Crear" />
+          <Registro IdAplicacion="100" IdObjeto="10" Ordinal="93" Nivel="3" IdAccion="1003" NombreAccion="Modificar" />
+          <Registro IdAplicacion="100" IdObjeto="10" Ordinal="94" Nivel="3" IdAccion="1004" NombreAccion="Suprimir" />
+          <Registro IdAplicacion="100" IdObjeto="152" Ordinal="95" Nivel="2" IdAccion="2013" NombreAccion="Copias de Seguridad" />
+          <Registro IdAplicacion="100" IdObjeto="145" Ordinal="96" Nivel="3" IdAccion="2014" NombreAccion="Efectuar" />
+          <Registro IdAplicacion="100" IdObjeto="145" Ordinal="97" Nivel="3" IdAccion="2015" NombreAccion="Restaurar" />
+
+          <Registro IdAplicacion="803" IdObjeto="180" Ordinal="1" Nivel="1" IdAccion="1" NombreAccion="Parametrizar" />
+          <Registro IdAplicacion="803" IdObjeto="181" Ordinal="2" Nivel="2" IdAccion="1" NombreAccion="Tablas Auxiliares" />
+          <Registro IdAplicacion="803" IdObjeto="181" Ordinal="3" Nivel="3" IdAccion="2" NombreAccion="Abrir Sectores" />
+          <Registro IdAplicacion="803" IdObjeto="40" Ordinal="4" Nivel="4" IdAccion="1002" NombreAccion="Crear" />
+          <Registro IdAplicacion="803" IdObjeto="40" Ordinal="5" Nivel="4" IdAccion="1003" NombreAccion="Modificar" />
+          <Registro IdAplicacion="803" IdObjeto="181" Ordinal="6" Nivel="3" IdAccion="3" NombreAccion="Modulos de Contrbución" />
+          <Registro IdAplicacion="803" IdObjeto="41" Ordinal="7" Nivel="4" IdAccion="1002" NombreAccion="Crear" />
+          <Registro IdAplicacion="803" IdObjeto="41" Ordinal="8" Nivel="4" IdAccion="1003" NombreAccion="Modificar" />
+          <Registro IdAplicacion="803" IdObjeto="183" Ordinal="9" Nivel="4" IdAccion="1" NombreAccion="Abrir Sectores Contribuyentes" />
+          <Registro IdAplicacion="803" IdObjeto="42" Ordinal="10" Nivel="5" IdAccion="1002" NombreAccion="Agregar Sectores Contribuyentes" />
+          <Registro IdAplicacion="803" IdObjeto="42" Ordinal="11" Nivel="5" IdAccion="1003" NombreAccion="Modificar Sectores Contribuyentes" />
+          <Registro IdAplicacion="803" IdObjeto="42" Ordinal="12" Nivel="5" IdAccion="1004" NombreAccion="Suprimir Sectores Contribuyentes" />
+          <Registro IdAplicacion="803" IdObjeto="181" Ordinal="13" Nivel="3" IdAccion="4" NombreAccion="Terceros" />
+          <Registro IdAplicacion="803" IdObjeto="23" Ordinal="14" Nivel="4" IdAccion="1002" NombreAccion="Crear" />
+          <Registro IdAplicacion="803" IdObjeto="23" Ordinal="15" Nivel="4" IdAccion="1003" NombreAccion="Modificar" />
+          <Registro IdAplicacion="803" IdObjeto="23" Ordinal="16" Nivel="4" IdAccion="1004" NombreAccion="Suprimir" />
+          <Registro IdAplicacion="803" IdObjeto="108" Ordinal="17" Nivel="4" IdAccion="1" NombreAccion="Importar Terceros" />
+          <Registro IdAplicacion="803" IdObjeto="108" Ordinal="18" Nivel="4" IdAccion="2" NombreAccion="Reasignar Id. del Tercero" />
+          <Registro IdAplicacion="803" IdObjeto="108" Ordinal="19" Nivel="4" IdAccion="3" NombreAccion="Asociar Fotografia" />
+          <Registro IdAplicacion="803" IdObjeto="108" Ordinal="20" Nivel="4" IdAccion="4" NombreAccion="Suprimir Fotografia" />
+          <Registro IdAplicacion="803" IdObjeto="181" Ordinal="21" Nivel="3" IdAccion="5" NombreAccion="Ubicaciones" />
+          <Registro IdAplicacion="803" IdObjeto="24" Ordinal="22" Nivel="4" IdAccion="1003" NombreAccion="Modificar" />
+          <Registro IdAplicacion="803" IdObjeto="109" Ordinal="23" Nivel="4" IdAccion="1" NombreAccion="Paises" />
+          <Registro IdAplicacion="803" IdObjeto="18" Ordinal="24" Nivel="5" IdAccion="1002" NombreAccion="Crear" />
+          <Registro IdAplicacion="803" IdObjeto="18" Ordinal="25" Nivel="5" IdAccion="1003" NombreAccion="Modificar" />
+          <Registro IdAplicacion="803" IdObjeto="18" Ordinal="26" Nivel="5" IdAccion="1004" NombreAccion="Suprimir" />
+          <Registro IdAplicacion="803" IdObjeto="109" Ordinal="27" Nivel="4" IdAccion="2" NombreAccion="Departamentos" />
+          <Registro IdAplicacion="803" IdObjeto="11" Ordinal="28" Nivel="5" IdAccion="1002" NombreAccion="Crear" />
+          <Registro IdAplicacion="803" IdObjeto="11" Ordinal="29" Nivel="5" IdAccion="1003" NombreAccion="Modificar" />
+          <Registro IdAplicacion="803" IdObjeto="11" Ordinal="30" Nivel="5" IdAccion="1004" NombreAccion="Suprimir" />
+          <Registro IdAplicacion="803" IdObjeto="109" Ordinal="31" Nivel="4" IdAccion="3" NombreAccion="Ciudades" />
+          <Registro IdAplicacion="803" IdObjeto="7" Ordinal="32" Nivel="5" IdAccion="1002" NombreAccion="Crear" />
+          <Registro IdAplicacion="803" IdObjeto="7" Ordinal="33" Nivel="5" IdAccion="1003" NombreAccion="Modificar" />
+          <Registro IdAplicacion="803" IdObjeto="7" Ordinal="34" Nivel="5" IdAccion="1004" NombreAccion="Suprimir" />
+          <Registro IdAplicacion="803" IdObjeto="181" Ordinal="35" Nivel="3" IdAccion="6" NombreAccion="Opciones Copias de Seguridad" />
+          <Registro IdAplicacion="803" IdObjeto="221" Ordinal="36" Nivel="4" IdAccion="1" NombreAccion="Modificar" />
+          <Registro IdAplicacion="803" IdObjeto="181" Ordinal="37" Nivel="2" IdAccion="7" NombreAccion="Carpeta" />
+          <Registro IdAplicacion="803" IdObjeto="181" Ordinal="38" Nivel="3" IdAccion="8" NombreAccion="Abrir Cuentas Contables" />
+          <Registro IdAplicacion="803" IdObjeto="9" Ordinal="39" Nivel="4" IdAccion="1002" NombreAccion="Crear" />
+          <Registro IdAplicacion="803" IdObjeto="9" Ordinal="40" Nivel="4" IdAccion="1003" NombreAccion="Modificar" />
+          <Registro IdAplicacion="803" IdObjeto="9" Ordinal="41" Nivel="4" IdAccion="1004" NombreAccion="Suprimir" />
+          <Registro IdAplicacion="803" IdObjeto="146" Ordinal="42" Nivel="4" IdAccion="1" NombreAccion="Importar Cuentas Contabilidad" />
+          <Registro IdAplicacion="803" IdObjeto="181" Ordinal="43" Nivel="3" IdAccion="9" NombreAccion="Centro de Utilidad" />
+          <Registro IdAplicacion="803" IdObjeto="181" Ordinal="44" Nivel="4" IdAccion="10" NombreAccion="Opciones Centro de Utilidad" />
+          <Registro IdAplicacion="803" IdObjeto="43" Ordinal="45" Nivel="5" IdAccion="1003" NombreAccion="Modificar" />
+          <Registro IdAplicacion="803" IdObjeto="185" Ordinal="46" Nivel="5" IdAccion="1" NombreAccion="Abrir Cuentas de Bancos" />
+          <Registro IdAplicacion="803" IdObjeto="44" Ordinal="47" Nivel="6" IdAccion="1002" NombreAccion="Crear" />
+          <Registro IdAplicacion="803" IdObjeto="44" Ordinal="48" Nivel="6" IdAccion="1003" NombreAccion="Modificar" />
+          <Registro IdAplicacion="803" IdObjeto="44" Ordinal="49" Nivel="6" IdAccion="1004" NombreAccion="Suprimir" />
+          <Registro IdAplicacion="803" IdObjeto="181" Ordinal="50" Nivel="4" IdAccion="17" NombreAccion="Crear Año" />
+          <Registro IdAplicacion="803" IdObjeto="181" Ordinal="51" Nivel="4" IdAccion="11" NombreAccion="Abrir Documentos" />
+          <Registro IdAplicacion="803" IdObjeto="75" Ordinal="52" Nivel="5" IdAccion="1003" NombreAccion="Modificar" />
+          <Registro IdAplicacion="803" IdObjeto="181" Ordinal="53" Nivel="4" IdAccion="12" NombreAccion="Abrir Tasas Interes de Mora" />
+          <Registro IdAplicacion="803" IdObjeto="45" Ordinal="54" Nivel="5" IdAccion="1002" NombreAccion="Crear" />
+          <Registro IdAplicacion="803" IdObjeto="45" Ordinal="55" Nivel="5" IdAccion="1003" NombreAccion="Modificar" />
+          <Registro IdAplicacion="803" IdObjeto="181" Ordinal="56" Nivel="4" IdAccion="13" NombreAccion="Abrir Agrupadores de Servicios" />
+          <Registro IdAplicacion="803" IdObjeto="46" Ordinal="57" Nivel="5" IdAccion="1002" NombreAccion="Crear" />
+          <Registro IdAplicacion="803" IdObjeto="46" Ordinal="58" Nivel="5" IdAccion="1003" NombreAccion="Modificar" />
+          <Registro IdAplicacion="803" IdObjeto="181" Ordinal="59" Nivel="4" IdAccion="14" NombreAccion="Abrir Servicios (Permanentes y Anuales)" />
+          <Registro IdAplicacion="803" IdObjeto="47" Ordinal="60" Nivel="5" IdAccion="1002" NombreAccion="Crear" />
+          <Registro IdAplicacion="803" IdObjeto="47" Ordinal="61" Nivel="5" IdAccion="1003" NombreAccion="Modificar" />
+          <Registro IdAplicacion="803" IdObjeto="188" Ordinal="62" Nivel="5" IdAccion="1" NombreAccion="Abrir Modulos de Contribución" />
+          <Registro IdAplicacion="803" IdObjeto="48" Ordinal="63" Nivel="6" IdAccion="1002" NombreAccion="Adicionar Modulo de Contribución" />
+          <Registro IdAplicacion="803" IdObjeto="48" Ordinal="64" Nivel="6" IdAccion="1003" NombreAccion="Modificar" />
+          <Registro IdAplicacion="803" IdObjeto="48" Ordinal="65" Nivel="6" IdAccion="1004" NombreAccion="Suprimir" />
+          <Registro IdAplicacion="803" IdObjeto="188" Ordinal="66" Nivel="5" IdAccion="2" NombreAccion="Calcular Valores a cobrar" />
+          <Registro IdAplicacion="803" IdObjeto="181" Ordinal="67" Nivel="4" IdAccion="15" NombreAccion="Año" />
+          <Registro IdAplicacion="803" IdObjeto="181" Ordinal="68" Nivel="5" IdAccion="16" NombreAccion="Abrir Año" />
+          <Registro IdAplicacion="803" IdObjeto="181" Ordinal="69" Nivel="5" IdAccion="18" NombreAccion="Suprimir Año" />
+          <Registro IdAplicacion="803" IdObjeto="52" Ordinal="70" Nivel="5" IdAccion="1003" NombreAccion="Modificar" />
+          <Registro IdAplicacion="803" IdObjeto="187" Ordinal="71" Nivel="5" IdAccion="1" NombreAccion="Calcular Cuotas Administración" />
+          <Registro IdAplicacion="803" IdObjeto="187" Ordinal="72" Nivel="5" IdAccion="2" NombreAccion="Calcular Retroactivo Cuotas Administración" />
+          <Registro IdAplicacion="803" IdObjeto="180" Ordinal="73" Nivel="1" IdAccion="2" NombreAccion="Causar Intereses de Mora" />
+          <Registro IdAplicacion="803" IdObjeto="180" Ordinal="74" Nivel="1" IdAccion="3" NombreAccion="Cerrar Mes" />
+          <Registro IdAplicacion="803" IdObjeto="180" Ordinal="75" Nivel="1" IdAccion="4" NombreAccion="Verificar Integridad" />
+          <Registro IdAplicacion="803" IdObjeto="180" Ordinal="76" Nivel="1" IdAccion="5" NombreAccion="Clientes" />
+          <Registro IdAplicacion="803" IdObjeto="54" Ordinal="77" Nivel="2" IdAccion="1002" NombreAccion="Crear" />
+          <Registro IdAplicacion="803" IdObjeto="54" Ordinal="78" Nivel="2" IdAccion="1003" NombreAccion="Modificar" />
+          <Registro IdAplicacion="803" IdObjeto="54" Ordinal="79" Nivel="2" IdAccion="1004" NombreAccion="Suprimir" />
+          <Registro IdAplicacion="803" IdObjeto="193" Ordinal="80" Nivel="2" IdAccion="1" NombreAccion="Importar Clientes" />
+          <Registro IdAplicacion="803" IdObjeto="180" Ordinal="81" Nivel="1" IdAccion="6" NombreAccion="Predios" />
+          <Registro IdAplicacion="803" IdObjeto="55" Ordinal="82" Nivel="2" IdAccion="1002" NombreAccion="Crear" />
+          <Registro IdAplicacion="803" IdObjeto="55" Ordinal="83" Nivel="2" IdAccion="1003" NombreAccion="Modificar" />
+          <Registro IdAplicacion="803" IdObjeto="55" Ordinal="84" Nivel="2" IdAccion="1004" NombreAccion="Suprimir" />
+          <Registro IdAplicacion="803" IdObjeto="192" Ordinal="85" Nivel="2" IdAccion="1" NombreAccion="Importar Predios" />
+          <Registro IdAplicacion="803" IdObjeto="192" Ordinal="86" Nivel="2" IdAccion="2" NombreAccion="Importar Propietarios" />
+          <Registro IdAplicacion="803" IdObjeto="192" Ordinal="87" Nivel="2" IdAccion="3" NombreAccion="Calcular Coeficientes de Propiedad" />
+          <Registro IdAplicacion="803" IdObjeto="192" Ordinal="88" Nivel="2" IdAccion="4" NombreAccion="Verificar Integridad Predios" />
+          <Registro IdAplicacion="803" IdObjeto="180" Ordinal="89" Nivel="1" IdAccion="7" NombreAccion="Facturación" />
+          <Registro IdAplicacion="803" IdObjeto="180" Ordinal="90" Nivel="2" IdAccion="8" NombreAccion="Facturas" />
+          <Registro IdAplicacion="803" IdObjeto="57" Ordinal="91" Nivel="3" IdAccion="1002" NombreAccion="Crear" />
+          <Registro IdAplicacion="803" IdObjeto="57" Ordinal="92" Nivel="3" IdAccion="1005" NombreAccion="Anular" />
+          <Registro IdAplicacion="803" IdObjeto="57" Ordinal="93" Nivel="3" IdAccion="1006" NombreAccion="Imprimir" />
+          <Registro IdAplicacion="803" IdObjeto="199" Ordinal="94" Nivel="3" IdAccion="1" NombreAccion="Enviar por Email" />
+          <Registro IdAplicacion="803" IdObjeto="180" Ordinal="95" Nivel="2" IdAccion="9" NombreAccion="Facturación Automática" />
+          <Registro IdAplicacion="803" IdObjeto="180" Ordinal="96" Nivel="3" IdAccion="10" NombreAccion="Programación de Facturas" />
+          <Registro IdAplicacion="803" IdObjeto="180" Ordinal="97" Nivel="3" IdAccion="11" NombreAccion="Generar Pre-Facturas" />
+          <Registro IdAplicacion="803" IdObjeto="180" Ordinal="98" Nivel="3" IdAccion="12" NombreAccion="Reversar Pre-Facturas" />
+          <Registro IdAplicacion="803" IdObjeto="180" Ordinal="99" Nivel="3" IdAccion="13" NombreAccion="Generar Facturas Definitivas" />
+          <Registro IdAplicacion="803" IdObjeto="180" Ordinal="100" Nivel="3" IdAccion="14" NombreAccion="Enviar Facturas por Email" />
+          <Registro IdAplicacion="803" IdObjeto="180" Ordinal="101" Nivel="3" IdAccion="15" NombreAccion="Exportar Facturas del Mes a pdf" />
+          <Registro IdAplicacion="803" IdObjeto="180" Ordinal="102" Nivel="3" IdAccion="16" NombreAccion="Exportar Facturas entre Fechas a pdf" />
+          <Registro IdAplicacion="803" IdObjeto="56" Ordinal="103" Nivel="3" IdAccion="1002" NombreAccion="Crear" />
+          <Registro IdAplicacion="803" IdObjeto="56" Ordinal="104" Nivel="3" IdAccion="1003" NombreAccion="Modificar" />
+          <Registro IdAplicacion="803" IdObjeto="56" Ordinal="105" Nivel="3" IdAccion="1004" NombreAccion="Suprimir" />
+          <Registro IdAplicacion="803" IdObjeto="194" Ordinal="106" Nivel="3" IdAccion="1" NombreAccion="Importar Programación Facturas" />
+          <Registro IdAplicacion="803" IdObjeto="180" Ordinal="107" Nivel="1" IdAccion="17" NombreAccion="Recibos de Caja" />
+          <Registro IdAplicacion="803" IdObjeto="66" Ordinal="108" Nivel="2" IdAccion="1002" NombreAccion="Crear" />
+          <Registro IdAplicacion="803" IdObjeto="66" Ordinal="109" Nivel="2" IdAccion="1005" NombreAccion="Anular" />
+          <Registro IdAplicacion="803" IdObjeto="66" Ordinal="110" Nivel="2" IdAccion="1006" NombreAccion="Imprimir" />
+          <Registro IdAplicacion="803" IdObjeto="201" Ordinal="111" Nivel="2" IdAccion="1" NombreAccion="Enviar por Email" />
+          <Registro IdAplicacion="803" IdObjeto="201" Ordinal="112" Nivel="2" IdAccion="2" NombreAccion="Exportar Recibos de Caja" />
+          <Registro IdAplicacion="803" IdObjeto="201" Ordinal="113" Nivel="2" IdAccion="3" NombreAccion="Hacer descuentos" />
+          <Registro IdAplicacion="803" IdObjeto="180" Ordinal="114" Nivel="1" IdAccion="18" NombreAccion="Notas" />
+          <Registro IdAplicacion="803" IdObjeto="180" Ordinal="115" Nivel="2" IdAccion="19" NombreAccion="Notas Crédito" />
+          <Registro IdAplicacion="803" IdObjeto="72" Ordinal="116" Nivel="3" IdAccion="1002" NombreAccion="Crear" />
+          <Registro IdAplicacion="803" IdObjeto="72" Ordinal="117" Nivel="3" IdAccion="1005" NombreAccion="Anular" />
+          <Registro IdAplicacion="803" IdObjeto="72" Ordinal="118" Nivel="3" IdAccion="1006" NombreAccion="Imprimir" />
+          <Registro IdAplicacion="803" IdObjeto="207" Ordinal="119" Nivel="3" IdAccion="1" NombreAccion="Enviar por Email" />
+          <Registro IdAplicacion="803" IdObjeto="180" Ordinal="120" Nivel="2" IdAccion="20" NombreAccion="Notas Reintegro de Anticipos" />
+          <Registro IdAplicacion="803" IdObjeto="71" Ordinal="121" Nivel="3" IdAccion="1002" NombreAccion="Crear" />
+          <Registro IdAplicacion="803" IdObjeto="71" Ordinal="122" Nivel="3" IdAccion="1005" NombreAccion="Anular" />
+          <Registro IdAplicacion="803" IdObjeto="71" Ordinal="123" Nivel="3" IdAccion="1006" NombreAccion="Imprimir" />
+          <Registro IdAplicacion="803" IdObjeto="180" Ordinal="124" Nivel="2" IdAccion="21" NombreAccion="Notas Reversión Crédito" />
+          <Registro IdAplicacion="803" IdObjeto="74" Ordinal="125" Nivel="3" IdAccion="1002" NombreAccion="Crear" />
+          <Registro IdAplicacion="803" IdObjeto="74" Ordinal="126" Nivel="3" IdAccion="1005" NombreAccion="Anular" />
+          <Registro IdAplicacion="803" IdObjeto="74" Ordinal="127" Nivel="3" IdAccion="1006" NombreAccion="Imprimir" />
+          <Registro IdAplicacion="803" IdObjeto="180" Ordinal="128" Nivel="2" IdAccion="22" NombreAccion="Notas de Intereses por Mora" />
+          <Registro IdAplicacion="803" IdObjeto="60" Ordinal="129" Nivel="3" IdAccion="1006" NombreAccion="Imprimir" />
+          <Registro IdAplicacion="803" IdObjeto="203" Ordinal="130" Nivel="3" IdAccion="1" NombreAccion="Imprimir Notas del Mes" />
+          <Registro IdAplicacion="803" IdObjeto="203" Ordinal="131" Nivel="3" IdAccion="2" NombreAccion="Enviar por Email" />
+          <Registro IdAplicacion="803" IdObjeto="203" Ordinal="132" Nivel="3" IdAccion="3" NombreAccion="Importar Notas Intereses Mora" />
+          <Registro IdAplicacion="803" IdObjeto="180" Ordinal="133" Nivel="2" IdAccion="23" NombreAccion="Notas de Aplicación de Anticipos" />
+          <Registro IdAplicacion="803" IdObjeto="62" Ordinal="134" Nivel="3" IdAccion="1006" NombreAccion="Imprimir" />
+          <Registro IdAplicacion="803" IdObjeto="205" Ordinal="135" Nivel="3" IdAccion="1" NombreAccion="Enviar por Email" />
+          <Registro IdAplicacion="803" IdObjeto="180" Ordinal="136" Nivel="2" IdAccion="24" NombreAccion="Notas Ajuste Cuota de Administración" />
+          <Registro IdAplicacion="803" IdObjeto="76" Ordinal="137" Nivel="3" IdAccion="1006" NombreAccion="Imprimir" />
+          <Registro IdAplicacion="803" IdObjeto="180" Ordinal="138" Nivel="1" IdAccion="25" NombreAccion="EFactura" />
+          <Registro IdAplicacion="803" IdObjeto="180" Ordinal="139" Nivel="2" IdAccion="26" NombreAccion="Procesar Documentos Electrónicos" />
+          <Registro IdAplicacion="803" IdObjeto="180" Ordinal="140" Nivel="2" IdAccion="27" NombreAccion="Procesar Facturas Invalidas" />
+          <Registro IdAplicacion="803" IdObjeto="180" Ordinal="141" Nivel="2" IdAccion="28" NombreAccion="Procesar Notas Invalidas" />
+          <Registro IdAplicacion="803" IdObjeto="180" Ordinal="142" Nivel="2" IdAccion="29" NombreAccion="Informe de Contingencia" />
+          <Registro IdAplicacion="803" IdObjeto="80" Ordinal="143" Nivel="3" IdAccion="1002" NombreAccion="Crear" />
+          <Registro IdAplicacion="803" IdObjeto="80" Ordinal="144" Nivel="3" IdAccion="1003" NombreAccion="Modificar" />
+          <Registro IdAplicacion="803" IdObjeto="180" Ordinal="145" Nivel="2" IdAccion="30" NombreAccion="Importar Facturas Contingencia" />
+          <Registro IdAplicacion="803" IdObjeto="180" Ordinal="146" Nivel="1" IdAccion="31" NombreAccion="Herramientas" />
+          <Registro IdAplicacion="803" IdObjeto="180" Ordinal="147" Nivel="2" IdAccion="32" NombreAccion="Correo electrónico" />
+          <Registro IdAplicacion="803" IdObjeto="180" Ordinal="148" Nivel="2" IdAccion="33" NombreAccion="Generar Interfaz Contable" />
+          <Registro IdAplicacion="803" IdObjeto="180" Ordinal="149" Nivel="2" IdAccion="34" NombreAccion="Copia de Seguridad" />
+          <Registro IdAplicacion="803" IdObjeto="180" Ordinal="150" Nivel="2" IdAccion="35" NombreAccion="Log de la Aplicación" />
+          <Registro IdAplicacion="803" IdObjeto="180" Ordinal="151" Nivel="2" IdAccion="36" NombreAccion="Consultas SQL" />
+          <Registro IdAplicacion="803" IdObjeto="8" Ordinal="152" Nivel="3" IdAccion="1004" NombreAccion="Suprimir" />
+        </Registros>
+      </Tabla>
+      <Tabla Nombre="PanTblCiudades" Vinculada="N">
+        <Comandos>
+          <Comando Tipo="SQL" Condicion="VBD&lt;68" Secuencia="Fin" Accion="FSH"
+                 Parametros="UPDATE PanTblCiudades SET IdPais = 'CO' WHERE IdPais = '57'" />
+          <Comando Tipo="SQL" Condicion="VBD&lt;68" Secuencia="Fin" Accion="FSH"
+                 Parametros="UPDATE PanTblCiudades SET IdPais = '' WHERE IdPais = '0'" />
+        </Comandos>
+        <Columnas>
+          <Columna Nombre="IdCiudad" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdDepartamento" Requerido="S" TipoDato="UBYTE" />
+          <Columna Nombre="IdPais" Requerido="S" TipoDato="String" Longitud="2" />
+          <Columna Nombre="Nombre" Requerido="S" TipoDato="VSTRING" Longitud="50" />
+        </Columnas>
+        <Indices>
+          <Indice Nombre="PK_PanTblCiudades" Principal="S" Unico="S" NulosIndice="IndexNullsDisallow">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdPais" Orden="ASC" />
+              <ColumnaIndice Nombre="IdDepartamento" Orden="ASC" />
+              <ColumnaIndice Nombre="IdCiudad" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+          <Indice Nombre="Nombre" Principal="N" Unico="N" NulosIndice="IndexNullsDisallow">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="Nombre" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+        </Indices>
+        <Registros>
+          <Registro IdCiudad="0" IdDepartamento="0" IdPais="0" Nombre="&lt;Ninguno&gt;" />
+          <Registro IdCiudad="1" IdDepartamento="5" IdPais="CO" Nombre="MEDELLÍN" />
+          <Registro IdCiudad="2" IdDepartamento="5" IdPais="CO" Nombre="ABEJORRAL" />
+          <Registro IdCiudad="4" IdDepartamento="5" IdPais="CO" Nombre="ABRIAQUÍ" />
+          <Registro IdCiudad="21" IdDepartamento="5" IdPais="CO" Nombre="ALEJANDRÍA" />
+          <Registro IdCiudad="30" IdDepartamento="5" IdPais="CO" Nombre="AMAGÁ" />
+          <Registro IdCiudad="31" IdDepartamento="5" IdPais="CO" Nombre="AMALFI" />
+          <Registro IdCiudad="34" IdDepartamento="5" IdPais="CO" Nombre="ANDES" />
+          <Registro IdCiudad="36" IdDepartamento="5" IdPais="CO" Nombre="ANGELÓPOLIS" />
+          <Registro IdCiudad="38" IdDepartamento="5" IdPais="CO" Nombre="ANGOSTURA" />
+          <Registro IdCiudad="40" IdDepartamento="5" IdPais="CO" Nombre="ANORÍ" />
+          <Registro IdCiudad="42" IdDepartamento="5" IdPais="CO" Nombre="SANTAFE DE ANTIOQUIA" />
+          <Registro IdCiudad="44" IdDepartamento="5" IdPais="CO" Nombre="ANZA" />
+          <Registro IdCiudad="45" IdDepartamento="5" IdPais="CO" Nombre="APARTADÓ" />
+          <Registro IdCiudad="51" IdDepartamento="5" IdPais="CO" Nombre="ARBOLETES" />
+          <Registro IdCiudad="55" IdDepartamento="5" IdPais="CO" Nombre="ARGELIA" />
+          <Registro IdCiudad="59" IdDepartamento="5" IdPais="CO" Nombre="ARMENIA" />
+          <Registro IdCiudad="79" IdDepartamento="5" IdPais="CO" Nombre="BARBOSA" />
+          <Registro IdCiudad="86" IdDepartamento="5" IdPais="CO" Nombre="BELMIRA" />
+          <Registro IdCiudad="88" IdDepartamento="5" IdPais="CO" Nombre="BELLO" />
+          <Registro IdCiudad="91" IdDepartamento="5" IdPais="CO" Nombre="BETANIA" />
+          <Registro IdCiudad="93" IdDepartamento="5" IdPais="CO" Nombre="BETULIA" />
+          <Registro IdCiudad="101" IdDepartamento="5" IdPais="CO" Nombre="CIUDAD BOLÍVAR" />
+          <Registro IdCiudad="107" IdDepartamento="5" IdPais="CO" Nombre="BRICEÑO" />
+          <Registro IdCiudad="113" IdDepartamento="5" IdPais="CO" Nombre="BURITICÁ" />
+          <Registro IdCiudad="120" IdDepartamento="5" IdPais="CO" Nombre="CÁCERES" />
+          <Registro IdCiudad="125" IdDepartamento="5" IdPais="CO" Nombre="CAICEDO" />
+          <Registro IdCiudad="129" IdDepartamento="5" IdPais="CO" Nombre="CALDAS" />
+          <Registro IdCiudad="134" IdDepartamento="5" IdPais="CO" Nombre="CAMPAMENTO" />
+          <Registro IdCiudad="138" IdDepartamento="5" IdPais="CO" Nombre="CAÑASGORDAS" />
+          <Registro IdCiudad="142" IdDepartamento="5" IdPais="CO" Nombre="CARACOLÍ" />
+          <Registro IdCiudad="145" IdDepartamento="5" IdPais="CO" Nombre="CARAMANTA" />
+          <Registro IdCiudad="147" IdDepartamento="5" IdPais="CO" Nombre="CAREPA" />
+          <Registro IdCiudad="148" IdDepartamento="5" IdPais="CO" Nombre="CARMEN DE VIBORAL" />
+          <Registro IdCiudad="150" IdDepartamento="5" IdPais="CO" Nombre="CAROLINA" />
+          <Registro IdCiudad="154" IdDepartamento="5" IdPais="CO" Nombre="CAUCASIA" />
+          <Registro IdCiudad="172" IdDepartamento="5" IdPais="CO" Nombre="CHIGORODO" />
+          <Registro IdCiudad="190" IdDepartamento="5" IdPais="CO" Nombre="CISNEROS" />
+          <Registro IdCiudad="197" IdDepartamento="5" IdPais="CO" Nombre="COCORNA" />
+          <Registro IdCiudad="206" IdDepartamento="5" IdPais="CO" Nombre="CONCEPCIÓN" />
+          <Registro IdCiudad="209" IdDepartamento="5" IdPais="CO" Nombre="CONCORDIA" />
+          <Registro IdCiudad="212" IdDepartamento="5" IdPais="CO" Nombre="COPACABANA" />
+          <Registro IdCiudad="234" IdDepartamento="5" IdPais="CO" Nombre="DABEIBA" />
+          <Registro IdCiudad="237" IdDepartamento="5" IdPais="CO" Nombre="DON MATÍAS" />
+          <Registro IdCiudad="240" IdDepartamento="5" IdPais="CO" Nombre="EBEJICO" />
+          <Registro IdCiudad="250" IdDepartamento="5" IdPais="CO" Nombre="EL BAGRE" />
+          <Registro IdCiudad="264" IdDepartamento="5" IdPais="CO" Nombre="ENTRERRIOS" />
+          <Registro IdCiudad="266" IdDepartamento="5" IdPais="CO" Nombre="ENVIGADO" />
+          <Registro IdCiudad="282" IdDepartamento="5" IdPais="CO" Nombre="FREDONIA" />
+          <Registro IdCiudad="284" IdDepartamento="5" IdPais="CO" Nombre="FRONTINO" />
+          <Registro IdCiudad="306" IdDepartamento="5" IdPais="CO" Nombre="GIRALDO" />
+          <Registro IdCiudad="308" IdDepartamento="5" IdPais="CO" Nombre="GIRARDOTA" />
+          <Registro IdCiudad="310" IdDepartamento="5" IdPais="CO" Nombre="GOMEZ PLATA" />
+          <Registro IdCiudad="313" IdDepartamento="5" IdPais="CO" Nombre="GRANADA" />
+          <Registro IdCiudad="315" IdDepartamento="5" IdPais="CO" Nombre="GUADALUPE" />
+          <Registro IdCiudad="318" IdDepartamento="5" IdPais="CO" Nombre="GUARNE" />
+          <Registro IdCiudad="321" IdDepartamento="5" IdPais="CO" Nombre="GUATAPE" />
+          <Registro IdCiudad="347" IdDepartamento="5" IdPais="CO" Nombre="HELICONIA" />
+          <Registro IdCiudad="353" IdDepartamento="5" IdPais="CO" Nombre="HISPANIA" />
+          <Registro IdCiudad="360" IdDepartamento="5" IdPais="CO" Nombre="ITAGUÍ" />
+          <Registro IdCiudad="361" IdDepartamento="5" IdPais="CO" Nombre="ITUANGO" />
+          <Registro IdCiudad="364" IdDepartamento="5" IdPais="CO" Nombre="JARDÍN" />
+          <Registro IdCiudad="368" IdDepartamento="5" IdPais="CO" Nombre="JERICÓ" />
+          <Registro IdCiudad="376" IdDepartamento="5" IdPais="CO" Nombre="LA CEJA" />
+          <Registro IdCiudad="380" IdDepartamento="5" IdPais="CO" Nombre="LA ESTRELLA" />
+          <Registro IdCiudad="400" IdDepartamento="5" IdPais="CO" Nombre="LA UNIÓN" />
+          <Registro IdCiudad="411" IdDepartamento="5" IdPais="CO" Nombre="LIBORINA" />
+          <Registro IdCiudad="425" IdDepartamento="5" IdPais="CO" Nombre="MACEO" />
+          <Registro IdCiudad="440" IdDepartamento="5" IdPais="CO" Nombre="MARINILLA" />
+          <Registro IdCiudad="467" IdDepartamento="5" IdPais="CO" Nombre="MONTEBELLO" />
+          <Registro IdCiudad="475" IdDepartamento="5" IdPais="CO" Nombre="MURINDO" />
+          <Registro IdCiudad="480" IdDepartamento="5" IdPais="CO" Nombre="MUTATA" />
+          <Registro IdCiudad="483" IdDepartamento="5" IdPais="CO" Nombre="NARIÑO" />
+          <Registro IdCiudad="490" IdDepartamento="5" IdPais="CO" Nombre="NECOCLÍ" />
+          <Registro IdCiudad="495" IdDepartamento="5" IdPais="CO" Nombre="NECHÍ" />
+          <Registro IdCiudad="501" IdDepartamento="5" IdPais="CO" Nombre="OLAYA" />
+          <Registro IdCiudad="541" IdDepartamento="5" IdPais="CO" Nombre="PEÑOL" />
+          <Registro IdCiudad="543" IdDepartamento="5" IdPais="CO" Nombre="PEQUE" />
+          <Registro IdCiudad="576" IdDepartamento="5" IdPais="CO" Nombre="PUEBLORRICO" />
+          <Registro IdCiudad="579" IdDepartamento="5" IdPais="CO" Nombre="PUERTO BERRIO" />
+          <Registro IdCiudad="585" IdDepartamento="5" IdPais="CO" Nombre="PUERTO NARÉ (LA MAGDALENA" />
+          <Registro IdCiudad="591" IdDepartamento="5" IdPais="CO" Nombre="PUERTO TRIUNFO" />
+          <Registro IdCiudad="604" IdDepartamento="5" IdPais="CO" Nombre="REMEDIOS" />
+          <Registro IdCiudad="607" IdDepartamento="5" IdPais="CO" Nombre="RETIRO" />
+          <Registro IdCiudad="615" IdDepartamento="5" IdPais="CO" Nombre="RIONEGRO" />
+          <Registro IdCiudad="628" IdDepartamento="5" IdPais="CO" Nombre="SABANALARGA" />
+          <Registro IdCiudad="631" IdDepartamento="5" IdPais="CO" Nombre="SABANETA" />
+          <Registro IdCiudad="642" IdDepartamento="5" IdPais="CO" Nombre="SALGAR" />
+          <Registro IdCiudad="647" IdDepartamento="5" IdPais="CO" Nombre="SAN ANDRES" />
+          <Registro IdCiudad="649" IdDepartamento="5" IdPais="CO" Nombre="SAN CARLOS" />
+          <Registro IdCiudad="652" IdDepartamento="5" IdPais="CO" Nombre="SAN FRANCISCO" />
+          <Registro IdCiudad="656" IdDepartamento="5" IdPais="CO" Nombre="SAN JERÓNIMO" />
+          <Registro IdCiudad="658" IdDepartamento="5" IdPais="CO" Nombre="SAN JOSÉ DE LA MONTAÑA" />
+          <Registro IdCiudad="659" IdDepartamento="5" IdPais="CO" Nombre="SAN JUAN DE URABÁ" />
+          <Registro IdCiudad="660" IdDepartamento="5" IdPais="CO" Nombre="SAN LUIS" />
+          <Registro IdCiudad="664" IdDepartamento="5" IdPais="CO" Nombre="SAN PEDRO" />
+          <Registro IdCiudad="665" IdDepartamento="5" IdPais="CO" Nombre="SAN PEDRO DE URABÁ" />
+          <Registro IdCiudad="667" IdDepartamento="5" IdPais="CO" Nombre="SAN RAFAEL" />
+          <Registro IdCiudad="670" IdDepartamento="5" IdPais="CO" Nombre="SAN ROQUE" />
+          <Registro IdCiudad="674" IdDepartamento="5" IdPais="CO" Nombre="SAN VICENTE" />
+          <Registro IdCiudad="679" IdDepartamento="5" IdPais="CO" Nombre="SANTA BÁRBARA" />
+          <Registro IdCiudad="686" IdDepartamento="5" IdPais="CO" Nombre="SANTA.ROSA DE OSOS" />
+          <Registro IdCiudad="690" IdDepartamento="5" IdPais="CO" Nombre="SANTO DOMINGO" />
+          <Registro IdCiudad="697" IdDepartamento="5" IdPais="CO" Nombre="SANTUARIO" />
+          <Registro IdCiudad="736" IdDepartamento="5" IdPais="CO" Nombre="SEGOVIA" />
+          <Registro IdCiudad="756" IdDepartamento="5" IdPais="CO" Nombre="SONSÓN" />
+          <Registro IdCiudad="761" IdDepartamento="5" IdPais="CO" Nombre="SOPETRÁN" />
+          <Registro IdCiudad="789" IdDepartamento="5" IdPais="CO" Nombre="TÁMESIS" />
+          <Registro IdCiudad="790" IdDepartamento="5" IdPais="CO" Nombre="TARAZÁ" />
+          <Registro IdCiudad="792" IdDepartamento="5" IdPais="CO" Nombre="TARSO" />
+          <Registro IdCiudad="809" IdDepartamento="5" IdPais="CO" Nombre="TITIRIBÍ" />
+          <Registro IdCiudad="819" IdDepartamento="5" IdPais="CO" Nombre="TOLEDO" />
+          <Registro IdCiudad="837" IdDepartamento="5" IdPais="CO" Nombre="TURBO" />
+          <Registro IdCiudad="842" IdDepartamento="5" IdPais="CO" Nombre="URAMITA" />
+          <Registro IdCiudad="847" IdDepartamento="5" IdPais="CO" Nombre="URRAO" />
+          <Registro IdCiudad="854" IdDepartamento="5" IdPais="CO" Nombre="VALDIVIA" />
+          <Registro IdCiudad="856" IdDepartamento="5" IdPais="CO" Nombre="VALPARAÍSO" />
+          <Registro IdCiudad="858" IdDepartamento="5" IdPais="CO" Nombre="VEGACHÍ" />
+          <Registro IdCiudad="861" IdDepartamento="5" IdPais="CO" Nombre="VENECIA" />
+          <Registro IdCiudad="873" IdDepartamento="5" IdPais="CO" Nombre="VIGIA DEL FUERTE" />
+          <Registro IdCiudad="885" IdDepartamento="5" IdPais="CO" Nombre="YALI" />
+          <Registro IdCiudad="887" IdDepartamento="5" IdPais="CO" Nombre="YARUMAL" />
+          <Registro IdCiudad="890" IdDepartamento="5" IdPais="CO" Nombre="YOLOMBÓ" />
+          <Registro IdCiudad="893" IdDepartamento="5" IdPais="CO" Nombre="YONDÓ" />
+          <Registro IdCiudad="895" IdDepartamento="5" IdPais="CO" Nombre="ZARAGOZA" />
+          <Registro IdCiudad="1" IdDepartamento="8" IdPais="CO" Nombre="BARRANQUILLA" />
+          <Registro IdCiudad="78" IdDepartamento="8" IdPais="CO" Nombre="BARANOA" />
+          <Registro IdCiudad="137" IdDepartamento="8" IdPais="CO" Nombre="CAMPO DE LA CRUZ" />
+          <Registro IdCiudad="141" IdDepartamento="8" IdPais="CO" Nombre="CANDELARIA" />
+          <Registro IdCiudad="296" IdDepartamento="8" IdPais="CO" Nombre="GALAPA" />
+          <Registro IdCiudad="372" IdDepartamento="8" IdPais="CO" Nombre="JUAN DE ACOSTA" />
+          <Registro IdCiudad="421" IdDepartamento="8" IdPais="CO" Nombre="LURUACO" />
+          <Registro IdCiudad="433" IdDepartamento="8" IdPais="CO" Nombre="MALAMBO" />
+          <Registro IdCiudad="436" IdDepartamento="8" IdPais="CO" Nombre="MANATÍ" />
+          <Registro IdCiudad="520" IdDepartamento="8" IdPais="CO" Nombre="PALMAR DE VARELA" />
+          <Registro IdCiudad="549" IdDepartamento="8" IdPais="CO" Nombre="PIOJO" />
+          <Registro IdCiudad="558" IdDepartamento="8" IdPais="CO" Nombre="POLONUEVO" />
+          <Registro IdCiudad="560" IdDepartamento="8" IdPais="CO" Nombre="PONEDERA" />
+          <Registro IdCiudad="573" IdDepartamento="8" IdPais="CO" Nombre="PUERTO COLOMBIA" />
+          <Registro IdCiudad="606" IdDepartamento="8" IdPais="CO" Nombre="REPELÓN" />
+          <Registro IdCiudad="634" IdDepartamento="8" IdPais="CO" Nombre="SABANAGRANDE" />
+          <Registro IdCiudad="638" IdDepartamento="8" IdPais="CO" Nombre="SABANALARGA" />
+          <Registro IdCiudad="675" IdDepartamento="8" IdPais="CO" Nombre="SANTA LUCÍA" />
+          <Registro IdCiudad="685" IdDepartamento="8" IdPais="CO" Nombre="SANTO TOMÁS" />
+          <Registro IdCiudad="758" IdDepartamento="8" IdPais="CO" Nombre="SOLEDAD" />
+          <Registro IdCiudad="770" IdDepartamento="8" IdPais="CO" Nombre="SUÁN" />
+          <Registro IdCiudad="832" IdDepartamento="8" IdPais="CO" Nombre="TUBARÁ" />
+          <Registro IdCiudad="849" IdDepartamento="8" IdPais="CO" Nombre="USIACURÍ" />
+          <Registro IdCiudad="1" IdDepartamento="11" IdPais="CO" Nombre="BOGOTÁ D.C." />
+          <Registro IdCiudad="1" IdDepartamento="13" IdPais="CO" Nombre="CARTAGENA" />
+          <Registro IdCiudad="6" IdDepartamento="13" IdPais="CO" Nombre="ACHÍ" />
+          <Registro IdCiudad="52" IdDepartamento="13" IdPais="CO" Nombre="ARJONA" />
+          <Registro IdCiudad="74" IdDepartamento="13" IdPais="CO" Nombre="BARRANCO DE LOBA" />
+          <Registro IdCiudad="140" IdDepartamento="13" IdPais="CO" Nombre="CALAMAR" />
+          <Registro IdCiudad="212" IdDepartamento="13" IdPais="CO" Nombre="CÓRDOBA" />
+          <Registro IdCiudad="244" IdDepartamento="13" IdPais="CO" Nombre="EL CARMEN DE BOLÍVAR" />
+          <Registro IdCiudad="248" IdDepartamento="13" IdPais="CO" Nombre="EL GUAMO" />
+          <Registro IdCiudad="430" IdDepartamento="13" IdPais="CO" Nombre="MAGANGUÉ" />
+          <Registro IdCiudad="433" IdDepartamento="13" IdPais="CO" Nombre="MAHATES" />
+          <Registro IdCiudad="440" IdDepartamento="13" IdPais="CO" Nombre="MARGARITA" />
+          <Registro IdCiudad="442" IdDepartamento="13" IdPais="CO" Nombre="MARÍA LA BAJA" />
+          <Registro IdCiudad="468" IdDepartamento="13" IdPais="CO" Nombre="MOMPÓS" />
+          <Registro IdCiudad="473" IdDepartamento="13" IdPais="CO" Nombre="MORALES" />
+          <Registro IdCiudad="549" IdDepartamento="13" IdPais="CO" Nombre="PINILLOS" />
+          <Registro IdCiudad="600" IdDepartamento="13" IdPais="CO" Nombre="RÍO VIEJO" />
+          <Registro IdCiudad="647" IdDepartamento="13" IdPais="CO" Nombre="SAN ESTANISLAO" />
+          <Registro IdCiudad="650" IdDepartamento="13" IdPais="CO" Nombre="SAN FERNANDO" />
+          <Registro IdCiudad="654" IdDepartamento="13" IdPais="CO" Nombre="SAN JACINTO" />
+          <Registro IdCiudad="657" IdDepartamento="13" IdPais="CO" Nombre="SAN JUAN NEPOMUCENO" />
+          <Registro IdCiudad="667" IdDepartamento="13" IdPais="CO" Nombre="SAN MARTÍN DE LOBA" />
+          <Registro IdCiudad="670" IdDepartamento="13" IdPais="CO" Nombre="SAN PABLO" />
+          <Registro IdCiudad="673" IdDepartamento="13" IdPais="CO" Nombre="SANTA CATALINA" />
+          <Registro IdCiudad="683" IdDepartamento="13" IdPais="CO" Nombre="SANTA ROSA" />
+          <Registro IdCiudad="688" IdDepartamento="13" IdPais="CO" Nombre="SANTA ROSA DEL SUR" />
+          <Registro IdCiudad="744" IdDepartamento="13" IdPais="CO" Nombre="SIMITÍ" />
+          <Registro IdCiudad="760" IdDepartamento="13" IdPais="CO" Nombre="SOPLAVIENTO" />
+          <Registro IdCiudad="780" IdDepartamento="13" IdPais="CO" Nombre="TALAIGA NUEVO" />
+          <Registro IdCiudad="836" IdDepartamento="13" IdPais="CO" Nombre="TURBACO" />
+          <Registro IdCiudad="838" IdDepartamento="13" IdPais="CO" Nombre="TURBANÁ" />
+          <Registro IdCiudad="873" IdDepartamento="13" IdPais="CO" Nombre="VILLANUEVA" />
+          <Registro IdCiudad="894" IdDepartamento="13" IdPais="CO" Nombre="ZAMBRANO" />
+          <Registro IdCiudad="1" IdDepartamento="15" IdPais="CO" Nombre="TUNJA" />
+          <Registro IdCiudad="22" IdDepartamento="15" IdPais="CO" Nombre="ALMEIdA" />
+          <Registro IdCiudad="47" IdDepartamento="15" IdPais="CO" Nombre="AQUITANIA" />
+          <Registro IdCiudad="51" IdDepartamento="15" IdPais="CO" Nombre="ARCABUCO" />
+          <Registro IdCiudad="87" IdDepartamento="15" IdPais="CO" Nombre="BELÉN" />
+          <Registro IdCiudad="90" IdDepartamento="15" IdPais="CO" Nombre="BERBEO" />
+          <Registro IdCiudad="92" IdDepartamento="15" IdPais="CO" Nombre="BETEITIVA" />
+          <Registro IdCiudad="97" IdDepartamento="15" IdPais="CO" Nombre="BOAVITA" />
+          <Registro IdCiudad="104" IdDepartamento="15" IdPais="CO" Nombre="BOYACÁ" />
+          <Registro IdCiudad="106" IdDepartamento="15" IdPais="CO" Nombre="BRICEÑO" />
+          <Registro IdCiudad="109" IdDepartamento="15" IdPais="CO" Nombre="BUENAVISTA" />
+          <Registro IdCiudad="114" IdDepartamento="15" IdPais="CO" Nombre="BUSBANZA" />
+          <Registro IdCiudad="131" IdDepartamento="15" IdPais="CO" Nombre="CALDAS" />
+          <Registro IdCiudad="135" IdDepartamento="15" IdPais="CO" Nombre="CAMPOHERMOSO" />
+          <Registro IdCiudad="162" IdDepartamento="15" IdPais="CO" Nombre="CERINZA" />
+          <Registro IdCiudad="172" IdDepartamento="15" IdPais="CO" Nombre="CHINAVITA" />
+          <Registro IdCiudad="176" IdDepartamento="15" IdPais="CO" Nombre="CHIQUINQUIRÁ" />
+          <Registro IdCiudad="180" IdDepartamento="15" IdPais="CO" Nombre="CHISCAS" />
+          <Registro IdCiudad="183" IdDepartamento="15" IdPais="CO" Nombre="CHITA" />
+          <Registro IdCiudad="185" IdDepartamento="15" IdPais="CO" Nombre="CHITARAQUE" />
+          <Registro IdCiudad="187" IdDepartamento="15" IdPais="CO" Nombre="CHIVATÁ" />
+          <Registro IdCiudad="189" IdDepartamento="15" IdPais="CO" Nombre="CIÉNEGA" />
+          <Registro IdCiudad="204" IdDepartamento="15" IdPais="CO" Nombre="CÓMBITA" />
+          <Registro IdCiudad="212" IdDepartamento="15" IdPais="CO" Nombre="COPER" />
+          <Registro IdCiudad="215" IdDepartamento="15" IdPais="CO" Nombre="CORRALES" />
+          <Registro IdCiudad="218" IdDepartamento="15" IdPais="CO" Nombre="COVARACHÍA" />
+          <Registro IdCiudad="223" IdDepartamento="15" IdPais="CO" Nombre="CUBARÁ" />
+          <Registro IdCiudad="224" IdDepartamento="15" IdPais="CO" Nombre="CUCAITA" />
+          <Registro IdCiudad="226" IdDepartamento="15" IdPais="CO" Nombre="CUITIVA" />
+          <Registro IdCiudad="232" IdDepartamento="15" IdPais="CO" Nombre="CHIQUIZA" />
+          <Registro IdCiudad="236" IdDepartamento="15" IdPais="CO" Nombre="CHIVOR" />
+          <Registro IdCiudad="238" IdDepartamento="15" IdPais="CO" Nombre="DUITAMA" />
+          <Registro IdCiudad="244" IdDepartamento="15" IdPais="CO" Nombre="EL COCUY" />
+          <Registro IdCiudad="248" IdDepartamento="15" IdPais="CO" Nombre="EL ESPINO" />
+          <Registro IdCiudad="272" IdDepartamento="15" IdPais="CO" Nombre="FIRAVITOBA" />
+          <Registro IdCiudad="276" IdDepartamento="15" IdPais="CO" Nombre="FLORESTA" />
+          <Registro IdCiudad="293" IdDepartamento="15" IdPais="CO" Nombre="GACHANTIVÁ" />
+          <Registro IdCiudad="296" IdDepartamento="15" IdPais="CO" Nombre="GÁMEZA" />
+          <Registro IdCiudad="299" IdDepartamento="15" IdPais="CO" Nombre="GARAGOA" />
+          <Registro IdCiudad="317" IdDepartamento="15" IdPais="CO" Nombre="GUACAMAYAS" />
+          <Registro IdCiudad="322" IdDepartamento="15" IdPais="CO" Nombre="GUATEQUE" />
+          <Registro IdCiudad="325" IdDepartamento="15" IdPais="CO" Nombre="GUAYATÁ" />
+          <Registro IdCiudad="332" IdDepartamento="15" IdPais="CO" Nombre="GUICÁN" />
+          <Registro IdCiudad="362" IdDepartamento="15" IdPais="CO" Nombre="IZA" />
+          <Registro IdCiudad="367" IdDepartamento="15" IdPais="CO" Nombre="JENESANO" />
+          <Registro IdCiudad="368" IdDepartamento="15" IdPais="CO" Nombre="JERICÓ" />
+          <Registro IdCiudad="377" IdDepartamento="15" IdPais="CO" Nombre="LABRANZAGRANDE" />
+          <Registro IdCiudad="380" IdDepartamento="15" IdPais="CO" Nombre="LA CAPILLA" />
+          <Registro IdCiudad="401" IdDepartamento="15" IdPais="CO" Nombre="LA VICTORIA" />
+          <Registro IdCiudad="403" IdDepartamento="15" IdPais="CO" Nombre="LA UVITA" />
+          <Registro IdCiudad="407" IdDepartamento="15" IdPais="CO" Nombre="VILLA DE LEYVA" />
+          <Registro IdCiudad="425" IdDepartamento="15" IdPais="CO" Nombre="MACANAL" />
+          <Registro IdCiudad="442" IdDepartamento="15" IdPais="CO" Nombre="MARIPÍ" />
+          <Registro IdCiudad="455" IdDepartamento="15" IdPais="CO" Nombre="MIRAFLORES" />
+          <Registro IdCiudad="464" IdDepartamento="15" IdPais="CO" Nombre="MONGUA" />
+          <Registro IdCiudad="466" IdDepartamento="15" IdPais="CO" Nombre="MONGUÍ" />
+          <Registro IdCiudad="469" IdDepartamento="15" IdPais="CO" Nombre="MONIQUIRÁ" />
+          <Registro IdCiudad="476" IdDepartamento="15" IdPais="CO" Nombre="MOTAVITA" />
+          <Registro IdCiudad="480" IdDepartamento="15" IdPais="CO" Nombre="MUZO" />
+          <Registro IdCiudad="491" IdDepartamento="15" IdPais="CO" Nombre="NOBSA" />
+          <Registro IdCiudad="494" IdDepartamento="15" IdPais="CO" Nombre="NUEVO COLÓN" />
+          <Registro IdCiudad="500" IdDepartamento="15" IdPais="CO" Nombre="OICATA" />
+          <Registro IdCiudad="507" IdDepartamento="15" IdPais="CO" Nombre="OTANCHE" />
+          <Registro IdCiudad="511" IdDepartamento="15" IdPais="CO" Nombre="PACHAVITA" />
+          <Registro IdCiudad="514" IdDepartamento="15" IdPais="CO" Nombre="PÁEZ" />
+          <Registro IdCiudad="516" IdDepartamento="15" IdPais="CO" Nombre="PAIPA" />
+          <Registro IdCiudad="518" IdDepartamento="15" IdPais="CO" Nombre="PAJARITO" />
+          <Registro IdCiudad="522" IdDepartamento="15" IdPais="CO" Nombre="PANQUEBA" />
+          <Registro IdCiudad="531" IdDepartamento="15" IdPais="CO" Nombre="PAUNA" />
+          <Registro IdCiudad="533" IdDepartamento="15" IdPais="CO" Nombre="PAYA" />
+          <Registro IdCiudad="537" IdDepartamento="15" IdPais="CO" Nombre="PAZ DE RÍO" />
+          <Registro IdCiudad="542" IdDepartamento="15" IdPais="CO" Nombre="PESCA" />
+          <Registro IdCiudad="550" IdDepartamento="15" IdPais="CO" Nombre="PISBA" />
+          <Registro IdCiudad="572" IdDepartamento="15" IdPais="CO" Nombre="PUERTO BOYACÁ" />
+          <Registro IdCiudad="580" IdDepartamento="15" IdPais="CO" Nombre="QUÍPAMA" />
+          <Registro IdCiudad="599" IdDepartamento="15" IdPais="CO" Nombre="RAMIRIQUÍ" />
+          <Registro IdCiudad="600" IdDepartamento="15" IdPais="CO" Nombre="RÁQUIRA" />
+          <Registro IdCiudad="621" IdDepartamento="15" IdPais="CO" Nombre="RONDÓN" />
+          <Registro IdCiudad="632" IdDepartamento="15" IdPais="CO" Nombre="SABOYÁ" />
+          <Registro IdCiudad="638" IdDepartamento="15" IdPais="CO" Nombre="SÁCHICA" />
+          <Registro IdCiudad="646" IdDepartamento="15" IdPais="CO" Nombre="SAMACÁ" />
+          <Registro IdCiudad="660" IdDepartamento="15" IdPais="CO" Nombre="SAN EDUARDO" />
+          <Registro IdCiudad="664" IdDepartamento="15" IdPais="CO" Nombre="SAN JOSÉ DE PARE" />
+          <Registro IdCiudad="667" IdDepartamento="15" IdPais="CO" Nombre="SAN LUIS DE GACENO" />
+          <Registro IdCiudad="673" IdDepartamento="15" IdPais="CO" Nombre="SAN MATEO" />
+          <Registro IdCiudad="676" IdDepartamento="15" IdPais="CO" Nombre="SAN MIGUEL DE SEMA" />
+          <Registro IdCiudad="681" IdDepartamento="15" IdPais="CO" Nombre="SAN PABLO DE BORBUR" />
+          <Registro IdCiudad="686" IdDepartamento="15" IdPais="CO" Nombre="SANTANA" />
+          <Registro IdCiudad="690" IdDepartamento="15" IdPais="CO" Nombre="SANTA MARÍA" />
+          <Registro IdCiudad="693" IdDepartamento="15" IdPais="CO" Nombre="SANTA ROSA DE VITERBO" />
+          <Registro IdCiudad="696" IdDepartamento="15" IdPais="CO" Nombre="SANTA SOFÍA" />
+          <Registro IdCiudad="720" IdDepartamento="15" IdPais="CO" Nombre="SATIVANORTE" />
+          <Registro IdCiudad="723" IdDepartamento="15" IdPais="CO" Nombre="SATIVASUR" />
+          <Registro IdCiudad="740" IdDepartamento="15" IdPais="CO" Nombre="SIACHOQUE" />
+          <Registro IdCiudad="753" IdDepartamento="15" IdPais="CO" Nombre="SOATÁ" />
+          <Registro IdCiudad="755" IdDepartamento="15" IdPais="CO" Nombre="SOCOTA" />
+          <Registro IdCiudad="757" IdDepartamento="15" IdPais="CO" Nombre="SOCHA" />
+          <Registro IdCiudad="759" IdDepartamento="15" IdPais="CO" Nombre="SOGAMOSO" />
+          <Registro IdCiudad="761" IdDepartamento="15" IdPais="CO" Nombre="SOMONDOCO" />
+          <Registro IdCiudad="762" IdDepartamento="15" IdPais="CO" Nombre="SORA" />
+          <Registro IdCiudad="763" IdDepartamento="15" IdPais="CO" Nombre="SOTAQUIRÁ" />
+          <Registro IdCiudad="764" IdDepartamento="15" IdPais="CO" Nombre="SORACÁ" />
+          <Registro IdCiudad="774" IdDepartamento="15" IdPais="CO" Nombre="SUSACÓN" />
+          <Registro IdCiudad="776" IdDepartamento="15" IdPais="CO" Nombre="SUTAMARCHÁN" />
+          <Registro IdCiudad="778" IdDepartamento="15" IdPais="CO" Nombre="SUTATENZA" />
+          <Registro IdCiudad="790" IdDepartamento="15" IdPais="CO" Nombre="TASCO" />
+          <Registro IdCiudad="798" IdDepartamento="15" IdPais="CO" Nombre="TENZA" />
+          <Registro IdCiudad="804" IdDepartamento="15" IdPais="CO" Nombre="TIBANÁ" />
+          <Registro IdCiudad="806" IdDepartamento="15" IdPais="CO" Nombre="TIBASOSA" />
+          <Registro IdCiudad="808" IdDepartamento="15" IdPais="CO" Nombre="TINJACÁ" />
+          <Registro IdCiudad="810" IdDepartamento="15" IdPais="CO" Nombre="TIPACOQUE" />
+          <Registro IdCiudad="814" IdDepartamento="15" IdPais="CO" Nombre="TOCA" />
+          <Registro IdCiudad="816" IdDepartamento="15" IdPais="CO" Nombre="TOGUI" />
+          <Registro IdCiudad="820" IdDepartamento="15" IdPais="CO" Nombre="TOPAGA" />
+          <Registro IdCiudad="822" IdDepartamento="15" IdPais="CO" Nombre="TOTA" />
+          <Registro IdCiudad="832" IdDepartamento="15" IdPais="CO" Nombre="TUNUNGUA" />
+          <Registro IdCiudad="835" IdDepartamento="15" IdPais="CO" Nombre="TURMEQUÉ" />
+          <Registro IdCiudad="837" IdDepartamento="15" IdPais="CO" Nombre="TUTA" />
+          <Registro IdCiudad="839" IdDepartamento="15" IdPais="CO" Nombre="TUTAZA" />
+          <Registro IdCiudad="842" IdDepartamento="15" IdPais="CO" Nombre="UMBITA" />
+          <Registro IdCiudad="861" IdDepartamento="15" IdPais="CO" Nombre="VENTAQUEMADA" />
+          <Registro IdCiudad="879" IdDepartamento="15" IdPais="CO" Nombre="VIRACACHA" />
+          <Registro IdCiudad="897" IdDepartamento="15" IdPais="CO" Nombre="ZETAQUIRÁ" />
+          <Registro IdCiudad="1" IdDepartamento="17" IdPais="CO" Nombre="MANIZALES" />
+          <Registro IdCiudad="13" IdDepartamento="17" IdPais="CO" Nombre="AGUADAS" />
+          <Registro IdCiudad="42" IdDepartamento="17" IdPais="CO" Nombre="ANSERMA" />
+          <Registro IdCiudad="50" IdDepartamento="17" IdPais="CO" Nombre="ARANZAZU" />
+          <Registro IdCiudad="88" IdDepartamento="17" IdPais="CO" Nombre="BELALCÁZAR" />
+          <Registro IdCiudad="174" IdDepartamento="17" IdPais="CO" Nombre="CHINCHINÁ" />
+          <Registro IdCiudad="272" IdDepartamento="17" IdPais="CO" Nombre="FILADELFIA" />
+          <Registro IdCiudad="380" IdDepartamento="17" IdPais="CO" Nombre="LA DORADA" />
+          <Registro IdCiudad="388" IdDepartamento="17" IdPais="CO" Nombre="LA MERCED" />
+          <Registro IdCiudad="433" IdDepartamento="17" IdPais="CO" Nombre="MANZANARES" />
+          <Registro IdCiudad="442" IdDepartamento="17" IdPais="CO" Nombre="MARMATO" />
+          <Registro IdCiudad="444" IdDepartamento="17" IdPais="CO" Nombre="MARQUETALIA" />
+          <Registro IdCiudad="446" IdDepartamento="17" IdPais="CO" Nombre="MARULANDA" />
+          <Registro IdCiudad="486" IdDepartamento="17" IdPais="CO" Nombre="NEIRA" />
+          <Registro IdCiudad="513" IdDepartamento="17" IdPais="CO" Nombre="PÁCORA" />
+          <Registro IdCiudad="524" IdDepartamento="17" IdPais="CO" Nombre="PALESTINA" />
+          <Registro IdCiudad="541" IdDepartamento="17" IdPais="CO" Nombre="PENSILVANIA" />
+          <Registro IdCiudad="614" IdDepartamento="17" IdPais="CO" Nombre="RIOSUCIO" />
+          <Registro IdCiudad="616" IdDepartamento="17" IdPais="CO" Nombre="RISARALDA" />
+          <Registro IdCiudad="653" IdDepartamento="17" IdPais="CO" Nombre="SALAMINA" />
+          <Registro IdCiudad="662" IdDepartamento="17" IdPais="CO" Nombre="SAMANÁ" />
+          <Registro IdCiudad="777" IdDepartamento="17" IdPais="CO" Nombre="SUPÍA" />
+          <Registro IdCiudad="867" IdDepartamento="17" IdPais="CO" Nombre="VICTORIA" />
+          <Registro IdCiudad="873" IdDepartamento="17" IdPais="CO" Nombre="VILLAMARÍA" />
+          <Registro IdCiudad="877" IdDepartamento="17" IdPais="CO" Nombre="VITERBO" />
+          <Registro IdCiudad="1" IdDepartamento="18" IdPais="CO" Nombre="FLORENCIA" />
+          <Registro IdCiudad="29" IdDepartamento="18" IdPais="CO" Nombre="ALBANIA" />
+          <Registro IdCiudad="94" IdDepartamento="18" IdPais="CO" Nombre="BELÉN DE LOS ANDAQUIES" />
+          <Registro IdCiudad="150" IdDepartamento="18" IdPais="CO" Nombre="CARTAGENA DEL CHAIRÁ" />
+          <Registro IdCiudad="205" IdDepartamento="18" IdPais="CO" Nombre="CURRILLO" />
+          <Registro IdCiudad="247" IdDepartamento="18" IdPais="CO" Nombre="EL DONCELLO" />
+          <Registro IdCiudad="256" IdDepartamento="18" IdPais="CO" Nombre="EL PAUJÍL" />
+          <Registro IdCiudad="410" IdDepartamento="18" IdPais="CO" Nombre="LA MONTAÑITA" />
+          <Registro IdCiudad="460" IdDepartamento="18" IdPais="CO" Nombre="MILÁN" />
+          <Registro IdCiudad="479" IdDepartamento="18" IdPais="CO" Nombre="MORELIA" />
+          <Registro IdCiudad="592" IdDepartamento="18" IdPais="CO" Nombre="PUERTO RICO" />
+          <Registro IdCiudad="610" IdDepartamento="18" IdPais="CO" Nombre="SAN JOSÉ DE LA FRAGUA" />
+          <Registro IdCiudad="753" IdDepartamento="18" IdPais="CO" Nombre="SAN VICENTE DEL CAGUAN" />
+          <Registro IdCiudad="756" IdDepartamento="18" IdPais="CO" Nombre="SOLANO" />
+          <Registro IdCiudad="860" IdDepartamento="18" IdPais="CO" Nombre="VALPARAÍSO" />
+          <Registro IdCiudad="1" IdDepartamento="19" IdPais="CO" Nombre="POPAYÁN" />
+          <Registro IdCiudad="22" IdDepartamento="19" IdPais="CO" Nombre="ALMAGUER" />
+          <Registro IdCiudad="50" IdDepartamento="19" IdPais="CO" Nombre="ARGELIA" />
+          <Registro IdCiudad="75" IdDepartamento="19" IdPais="CO" Nombre="BALBOA" />
+          <Registro IdCiudad="100" IdDepartamento="19" IdPais="CO" Nombre="BOLÍVAR" />
+          <Registro IdCiudad="110" IdDepartamento="19" IdPais="CO" Nombre="BUENOS AIRES" />
+          <Registro IdCiudad="130" IdDepartamento="19" IdPais="CO" Nombre="CAJIBÍO" />
+          <Registro IdCiudad="137" IdDepartamento="19" IdPais="CO" Nombre="CALDONO" />
+          <Registro IdCiudad="142" IdDepartamento="19" IdPais="CO" Nombre="CALOTO" />
+          <Registro IdCiudad="212" IdDepartamento="19" IdPais="CO" Nombre="CORINTO" />
+          <Registro IdCiudad="256" IdDepartamento="19" IdPais="CO" Nombre="EL TAMBO" />
+          <Registro IdCiudad="290" IdDepartamento="19" IdPais="CO" Nombre="FLORENCIA" />
+          <Registro IdCiudad="318" IdDepartamento="19" IdPais="CO" Nombre="GUAPI" />
+          <Registro IdCiudad="355" IdDepartamento="19" IdPais="CO" Nombre="INZA" />
+          <Registro IdCiudad="364" IdDepartamento="19" IdPais="CO" Nombre="JAMBALÓ" />
+          <Registro IdCiudad="392" IdDepartamento="19" IdPais="CO" Nombre="LA SIERRA" />
+          <Registro IdCiudad="397" IdDepartamento="19" IdPais="CO" Nombre="LA VEGA" />
+          <Registro IdCiudad="418" IdDepartamento="19" IdPais="CO" Nombre="LÓPEZ" />
+          <Registro IdCiudad="450" IdDepartamento="19" IdPais="CO" Nombre="MERCADERES" />
+          <Registro IdCiudad="455" IdDepartamento="19" IdPais="CO" Nombre="MIRANDA" />
+          <Registro IdCiudad="473" IdDepartamento="19" IdPais="CO" Nombre="MORALES" />
+          <Registro IdCiudad="513" IdDepartamento="19" IdPais="CO" Nombre="PADILLA" />
+          <Registro IdCiudad="517" IdDepartamento="19" IdPais="CO" Nombre="PÁEZ" />
+          <Registro IdCiudad="532" IdDepartamento="19" IdPais="CO" Nombre="PATÍA" />
+          <Registro IdCiudad="548" IdDepartamento="19" IdPais="CO" Nombre="PIENDAMÓ" />
+          <Registro IdCiudad="573" IdDepartamento="19" IdPais="CO" Nombre="PUERTO TEJADA" />
+          <Registro IdCiudad="585" IdDepartamento="19" IdPais="CO" Nombre="PURACÉ" />
+          <Registro IdCiudad="622" IdDepartamento="19" IdPais="CO" Nombre="ROSAS" />
+          <Registro IdCiudad="693" IdDepartamento="19" IdPais="CO" Nombre="SAN SEBASTIÁN" />
+          <Registro IdCiudad="698" IdDepartamento="19" IdPais="CO" Nombre="SANTANDER DE QUILICHAO" />
+          <Registro IdCiudad="701" IdDepartamento="19" IdPais="CO" Nombre="SANTA ROSA" />
+          <Registro IdCiudad="743" IdDepartamento="19" IdPais="CO" Nombre="SILVIA" />
+          <Registro IdCiudad="760" IdDepartamento="19" IdPais="CO" Nombre="SOTARÁ" />
+          <Registro IdCiudad="780" IdDepartamento="19" IdPais="CO" Nombre="SUÁREZ" />
+          <Registro IdCiudad="807" IdDepartamento="19" IdPais="CO" Nombre="TIMBÍO" />
+          <Registro IdCiudad="809" IdDepartamento="19" IdPais="CO" Nombre="TIMBIQUÍ" />
+          <Registro IdCiudad="821" IdDepartamento="19" IdPais="CO" Nombre="TORIBÍO" />
+          <Registro IdCiudad="824" IdDepartamento="19" IdPais="CO" Nombre="TOTORÓ" />
+          <Registro IdCiudad="1" IdDepartamento="20" IdPais="CO" Nombre="VALLEDUPAR" />
+          <Registro IdCiudad="11" IdDepartamento="20" IdPais="CO" Nombre="AGUACHICA" />
+          <Registro IdCiudad="13" IdDepartamento="20" IdPais="CO" Nombre="AGUSTÍN CODAZZI" />
+          <Registro IdCiudad="32" IdDepartamento="20" IdPais="CO" Nombre="ASTREA" />
+          <Registro IdCiudad="45" IdDepartamento="20" IdPais="CO" Nombre="BECERRIL" />
+          <Registro IdCiudad="60" IdDepartamento="20" IdPais="CO" Nombre="BOSCONIA" />
+          <Registro IdCiudad="175" IdDepartamento="20" IdPais="CO" Nombre="CHIMICHAGUA" />
+          <Registro IdCiudad="178" IdDepartamento="20" IdPais="CO" Nombre="CHIRIGUANÁ" />
+          <Registro IdCiudad="228" IdDepartamento="20" IdPais="CO" Nombre="CURUMANÍ" />
+          <Registro IdCiudad="238" IdDepartamento="20" IdPais="CO" Nombre="EL COPEY" />
+          <Registro IdCiudad="250" IdDepartamento="20" IdPais="CO" Nombre="EL PASO" />
+          <Registro IdCiudad="295" IdDepartamento="20" IdPais="CO" Nombre="GAMARRA" />
+          <Registro IdCiudad="310" IdDepartamento="20" IdPais="CO" Nombre="GONZÁLEZ" />
+          <Registro IdCiudad="383" IdDepartamento="20" IdPais="CO" Nombre="LA GLORIA" />
+          <Registro IdCiudad="400" IdDepartamento="20" IdPais="CO" Nombre="LA JAGUA DE IBIRICO" />
+          <Registro IdCiudad="443" IdDepartamento="20" IdPais="CO" Nombre="MANAURE" />
+          <Registro IdCiudad="517" IdDepartamento="20" IdPais="CO" Nombre="PAILITAS" />
+          <Registro IdCiudad="550" IdDepartamento="20" IdPais="CO" Nombre="PELAYA" />
+          <Registro IdCiudad="614" IdDepartamento="20" IdPais="CO" Nombre="RÍO DE ORO" />
+          <Registro IdCiudad="621" IdDepartamento="20" IdPais="CO" Nombre="LA PAZ" />
+          <Registro IdCiudad="710" IdDepartamento="20" IdPais="CO" Nombre="SAN ALBERTO" />
+          <Registro IdCiudad="750" IdDepartamento="20" IdPais="CO" Nombre="SAN DIEGO" />
+          <Registro IdCiudad="770" IdDepartamento="20" IdPais="CO" Nombre="SAN MARTÍN" />
+          <Registro IdCiudad="787" IdDepartamento="20" IdPais="CO" Nombre="TAMALAMEQUE" />
+          <Registro IdCiudad="1" IdDepartamento="23" IdPais="CO" Nombre="MONTERÍA" />
+          <Registro IdCiudad="68" IdDepartamento="23" IdPais="CO" Nombre="AYAPEL" />
+          <Registro IdCiudad="79" IdDepartamento="23" IdPais="CO" Nombre="BUENAVISTA" />
+          <Registro IdCiudad="90" IdDepartamento="23" IdPais="CO" Nombre="CANALETE" />
+          <Registro IdCiudad="162" IdDepartamento="23" IdPais="CO" Nombre="CERETÉ" />
+          <Registro IdCiudad="168" IdDepartamento="23" IdPais="CO" Nombre="CHIMÁ" />
+          <Registro IdCiudad="182" IdDepartamento="23" IdPais="CO" Nombre="CHINÚ" />
+          <Registro IdCiudad="189" IdDepartamento="23" IdPais="CO" Nombre="CIÉNAGA DE ORO" />
+          <Registro IdCiudad="417" IdDepartamento="23" IdPais="CO" Nombre="LORICA" />
+          <Registro IdCiudad="419" IdDepartamento="23" IdPais="CO" Nombre="LOS CÓRDOBAS" />
+          <Registro IdCiudad="464" IdDepartamento="23" IdPais="CO" Nombre="MOMIL" />
+          <Registro IdCiudad="466" IdDepartamento="23" IdPais="CO" Nombre="MONTELIBANO" />
+          <Registro IdCiudad="500" IdDepartamento="23" IdPais="CO" Nombre="MOÑITOS" />
+          <Registro IdCiudad="555" IdDepartamento="23" IdPais="CO" Nombre="PLANETA RICA" />
+          <Registro IdCiudad="570" IdDepartamento="23" IdPais="CO" Nombre="PUEBLO NUEVO" />
+          <Registro IdCiudad="574" IdDepartamento="23" IdPais="CO" Nombre="PUERTO ESCONDIdO" />
+          <Registro IdCiudad="580" IdDepartamento="23" IdPais="CO" Nombre="PUERTO LIBERTADOR" />
+          <Registro IdCiudad="586" IdDepartamento="23" IdPais="CO" Nombre="PURÍSIMA" />
+          <Registro IdCiudad="660" IdDepartamento="23" IdPais="CO" Nombre="SAHAGÚN" />
+          <Registro IdCiudad="670" IdDepartamento="23" IdPais="CO" Nombre="SAN ANDRÉS DE SOTAVENTO" />
+          <Registro IdCiudad="672" IdDepartamento="23" IdPais="CO" Nombre="SAN ANTERO" />
+          <Registro IdCiudad="675" IdDepartamento="23" IdPais="CO" Nombre="SAN BERNARDO DEL VIENTO" />
+          <Registro IdCiudad="678" IdDepartamento="23" IdPais="CO" Nombre="SAN CARLOS" />
+          <Registro IdCiudad="686" IdDepartamento="23" IdPais="CO" Nombre="SAN PELAYO" />
+          <Registro IdCiudad="807" IdDepartamento="23" IdPais="CO" Nombre="TIERRALTA" />
+          <Registro IdCiudad="855" IdDepartamento="23" IdPais="CO" Nombre="VALENCIA" />
+          <Registro IdCiudad="1" IdDepartamento="25" IdPais="CO" Nombre="AGUA DE DIOS" />
+          <Registro IdCiudad="19" IdDepartamento="25" IdPais="CO" Nombre="ALBÁN" />
+          <Registro IdCiudad="35" IdDepartamento="25" IdPais="CO" Nombre="ANAPOIMA" />
+          <Registro IdCiudad="40" IdDepartamento="25" IdPais="CO" Nombre="ANOLAIMA" />
+          <Registro IdCiudad="53" IdDepartamento="25" IdPais="CO" Nombre="ARBELÁEZ" />
+          <Registro IdCiudad="86" IdDepartamento="25" IdPais="CO" Nombre="BELTRÁN" />
+          <Registro IdCiudad="95" IdDepartamento="25" IdPais="CO" Nombre="BITUIMA" />
+          <Registro IdCiudad="99" IdDepartamento="25" IdPais="CO" Nombre="BOJACÁ" />
+          <Registro IdCiudad="120" IdDepartamento="25" IdPais="CO" Nombre="CABRERA" />
+          <Registro IdCiudad="123" IdDepartamento="25" IdPais="CO" Nombre="CACHIPAY" />
+          <Registro IdCiudad="126" IdDepartamento="25" IdPais="CO" Nombre="CAJICÁ" />
+          <Registro IdCiudad="148" IdDepartamento="25" IdPais="CO" Nombre="CAPARRAPÍ" />
+          <Registro IdCiudad="151" IdDepartamento="25" IdPais="CO" Nombre="CAQUEZA" />
+          <Registro IdCiudad="154" IdDepartamento="25" IdPais="CO" Nombre="CARMEN DE CARUPA" />
+          <Registro IdCiudad="168" IdDepartamento="25" IdPais="CO" Nombre="CHAGUANÍ" />
+          <Registro IdCiudad="175" IdDepartamento="25" IdPais="CO" Nombre="CHÍA" />
+          <Registro IdCiudad="178" IdDepartamento="25" IdPais="CO" Nombre="CHIPAQUE" />
+          <Registro IdCiudad="181" IdDepartamento="25" IdPais="CO" Nombre="CHOACHÍ" />
+          <Registro IdCiudad="183" IdDepartamento="25" IdPais="CO" Nombre="CHOCONTÁ" />
+          <Registro IdCiudad="200" IdDepartamento="25" IdPais="CO" Nombre="COGUA" />
+          <Registro IdCiudad="214" IdDepartamento="25" IdPais="CO" Nombre="COTA" />
+          <Registro IdCiudad="224" IdDepartamento="25" IdPais="CO" Nombre="CUCUNUBÁ" />
+          <Registro IdCiudad="245" IdDepartamento="25" IdPais="CO" Nombre="EL COLEGIO" />
+          <Registro IdCiudad="258" IdDepartamento="25" IdPais="CO" Nombre="EL PEÑÓN" />
+          <Registro IdCiudad="260" IdDepartamento="25" IdPais="CO" Nombre="EL ROSAL" />
+          <Registro IdCiudad="269" IdDepartamento="25" IdPais="CO" Nombre="FACATATIVÁ" />
+          <Registro IdCiudad="279" IdDepartamento="25" IdPais="CO" Nombre="FÓMEQUE" />
+          <Registro IdCiudad="281" IdDepartamento="25" IdPais="CO" Nombre="FOSCA" />
+          <Registro IdCiudad="286" IdDepartamento="25" IdPais="CO" Nombre="FUNZA" />
+          <Registro IdCiudad="288" IdDepartamento="25" IdPais="CO" Nombre="FÚQUENE" />
+          <Registro IdCiudad="290" IdDepartamento="25" IdPais="CO" Nombre="FUSAGASUGÁ" />
+          <Registro IdCiudad="293" IdDepartamento="25" IdPais="CO" Nombre="GACHALÁ" />
+          <Registro IdCiudad="295" IdDepartamento="25" IdPais="CO" Nombre="GACHANCIPÁ" />
+          <Registro IdCiudad="297" IdDepartamento="25" IdPais="CO" Nombre="GACHETÁ" />
+          <Registro IdCiudad="299" IdDepartamento="25" IdPais="CO" Nombre="GAMA" />
+          <Registro IdCiudad="307" IdDepartamento="25" IdPais="CO" Nombre="GIRARDOT" />
+          <Registro IdCiudad="317" IdDepartamento="25" IdPais="CO" Nombre="GUACHETÁ" />
+          <Registro IdCiudad="320" IdDepartamento="25" IdPais="CO" Nombre="GUADUAS" />
+          <Registro IdCiudad="322" IdDepartamento="25" IdPais="CO" Nombre="GUASCA" />
+          <Registro IdCiudad="324" IdDepartamento="25" IdPais="CO" Nombre="GUATAQUÍ" />
+          <Registro IdCiudad="326" IdDepartamento="25" IdPais="CO" Nombre="GUATAVITA" />
+          <Registro IdCiudad="328" IdDepartamento="25" IdPais="CO" Nombre="GUAYABAL DE SÍQUIMA" />
+          <Registro IdCiudad="335" IdDepartamento="25" IdPais="CO" Nombre="GUAYABETAL" />
+          <Registro IdCiudad="339" IdDepartamento="25" IdPais="CO" Nombre="GUTIÉRREZ" />
+          <Registro IdCiudad="368" IdDepartamento="25" IdPais="CO" Nombre="JERUSALÉN" />
+          <Registro IdCiudad="372" IdDepartamento="25" IdPais="CO" Nombre="JUNÍN" />
+          <Registro IdCiudad="377" IdDepartamento="25" IdPais="CO" Nombre="LA CALERA" />
+          <Registro IdCiudad="386" IdDepartamento="25" IdPais="CO" Nombre="LA MESA" />
+          <Registro IdCiudad="394" IdDepartamento="25" IdPais="CO" Nombre="LA PALMA" />
+          <Registro IdCiudad="398" IdDepartamento="25" IdPais="CO" Nombre="LA PEÑA" />
+          <Registro IdCiudad="402" IdDepartamento="25" IdPais="CO" Nombre="LA VEGA" />
+          <Registro IdCiudad="407" IdDepartamento="25" IdPais="CO" Nombre="LENGUAZAQUE" />
+          <Registro IdCiudad="426" IdDepartamento="25" IdPais="CO" Nombre="MACHETÁ" />
+          <Registro IdCiudad="430" IdDepartamento="25" IdPais="CO" Nombre="MADRId" />
+          <Registro IdCiudad="436" IdDepartamento="25" IdPais="CO" Nombre="MANTA" />
+          <Registro IdCiudad="438" IdDepartamento="25" IdPais="CO" Nombre="MEDINA" />
+          <Registro IdCiudad="473" IdDepartamento="25" IdPais="CO" Nombre="MOSQUERA" />
+          <Registro IdCiudad="483" IdDepartamento="25" IdPais="CO" Nombre="NARIÑO" />
+          <Registro IdCiudad="486" IdDepartamento="25" IdPais="CO" Nombre="NEMOCÓN" />
+          <Registro IdCiudad="488" IdDepartamento="25" IdPais="CO" Nombre="NILO" />
+          <Registro IdCiudad="489" IdDepartamento="25" IdPais="CO" Nombre="NIMAIMA" />
+          <Registro IdCiudad="491" IdDepartamento="25" IdPais="CO" Nombre="NOCAIMA" />
+          <Registro IdCiudad="506" IdDepartamento="25" IdPais="CO" Nombre="VENECIA" />
+          <Registro IdCiudad="513" IdDepartamento="25" IdPais="CO" Nombre="PACHO" />
+          <Registro IdCiudad="518" IdDepartamento="25" IdPais="CO" Nombre="PAIME" />
+          <Registro IdCiudad="524" IdDepartamento="25" IdPais="CO" Nombre="PANDI" />
+          <Registro IdCiudad="530" IdDepartamento="25" IdPais="CO" Nombre="PARATEBUENO" />
+          <Registro IdCiudad="535" IdDepartamento="25" IdPais="CO" Nombre="PASCA" />
+          <Registro IdCiudad="572" IdDepartamento="25" IdPais="CO" Nombre="PUERTO SALGAR" />
+          <Registro IdCiudad="580" IdDepartamento="25" IdPais="CO" Nombre="PULÍ" />
+          <Registro IdCiudad="592" IdDepartamento="25" IdPais="CO" Nombre="QUEBRADANEGRA" />
+          <Registro IdCiudad="594" IdDepartamento="25" IdPais="CO" Nombre="QUETAME" />
+          <Registro IdCiudad="596" IdDepartamento="25" IdPais="CO" Nombre="QUIPILE" />
+          <Registro IdCiudad="599" IdDepartamento="25" IdPais="CO" Nombre="APULO" />
+          <Registro IdCiudad="612" IdDepartamento="25" IdPais="CO" Nombre="RICAURTE" />
+          <Registro IdCiudad="645" IdDepartamento="25" IdPais="CO" Nombre="SAN ANTONIO DEL TEQUENDAM" />
+          <Registro IdCiudad="649" IdDepartamento="25" IdPais="CO" Nombre="SAN BERNARDO" />
+          <Registro IdCiudad="653" IdDepartamento="25" IdPais="CO" Nombre="SAN CAYETANO" />
+          <Registro IdCiudad="658" IdDepartamento="25" IdPais="CO" Nombre="SAN FRANCISCO" />
+          <Registro IdCiudad="662" IdDepartamento="25" IdPais="CO" Nombre="SAN JUAN DE RIO SECO" />
+          <Registro IdCiudad="718" IdDepartamento="25" IdPais="CO" Nombre="SASAIMA" />
+          <Registro IdCiudad="736" IdDepartamento="25" IdPais="CO" Nombre="SESQUILÉ" />
+          <Registro IdCiudad="740" IdDepartamento="25" IdPais="CO" Nombre="SIBATÉ" />
+          <Registro IdCiudad="743" IdDepartamento="25" IdPais="CO" Nombre="SILVANIA" />
+          <Registro IdCiudad="745" IdDepartamento="25" IdPais="CO" Nombre="SIMIJACA" />
+          <Registro IdCiudad="754" IdDepartamento="25" IdPais="CO" Nombre="SOACHA" />
+          <Registro IdCiudad="758" IdDepartamento="25" IdPais="CO" Nombre="SOPÓ" />
+          <Registro IdCiudad="769" IdDepartamento="25" IdPais="CO" Nombre="SUBACHOQUE" />
+          <Registro IdCiudad="772" IdDepartamento="25" IdPais="CO" Nombre="SUESCA" />
+          <Registro IdCiudad="777" IdDepartamento="25" IdPais="CO" Nombre="SUPATÁ" />
+          <Registro IdCiudad="779" IdDepartamento="25" IdPais="CO" Nombre="SUSA" />
+          <Registro IdCiudad="781" IdDepartamento="25" IdPais="CO" Nombre="SUTATAUSA" />
+          <Registro IdCiudad="785" IdDepartamento="25" IdPais="CO" Nombre="TABIO" />
+          <Registro IdCiudad="793" IdDepartamento="25" IdPais="CO" Nombre="TAUSA" />
+          <Registro IdCiudad="797" IdDepartamento="25" IdPais="CO" Nombre="TENA" />
+          <Registro IdCiudad="799" IdDepartamento="25" IdPais="CO" Nombre="TENJO" />
+          <Registro IdCiudad="805" IdDepartamento="25" IdPais="CO" Nombre="TIBACUY" />
+          <Registro IdCiudad="807" IdDepartamento="25" IdPais="CO" Nombre="TIBIRITA" />
+          <Registro IdCiudad="815" IdDepartamento="25" IdPais="CO" Nombre="TOCAIMA" />
+          <Registro IdCiudad="817" IdDepartamento="25" IdPais="CO" Nombre="TOCANCIPÁ" />
+          <Registro IdCiudad="823" IdDepartamento="25" IdPais="CO" Nombre="TOPAIPÍ" />
+          <Registro IdCiudad="839" IdDepartamento="25" IdPais="CO" Nombre="UBALÁ" />
+          <Registro IdCiudad="841" IdDepartamento="25" IdPais="CO" Nombre="UBAQUE" />
+          <Registro IdCiudad="843" IdDepartamento="25" IdPais="CO" Nombre="UBATÉ" />
+          <Registro IdCiudad="845" IdDepartamento="25" IdPais="CO" Nombre="UNE" />
+          <Registro IdCiudad="851" IdDepartamento="25" IdPais="CO" Nombre="UTICA" />
+          <Registro IdCiudad="862" IdDepartamento="25" IdPais="CO" Nombre="VERGARA" />
+          <Registro IdCiudad="867" IdDepartamento="25" IdPais="CO" Nombre="VIANÍ" />
+          <Registro IdCiudad="871" IdDepartamento="25" IdPais="CO" Nombre="VILLAGOMEZ" />
+          <Registro IdCiudad="873" IdDepartamento="25" IdPais="CO" Nombre="VILLAPINZÓN" />
+          <Registro IdCiudad="875" IdDepartamento="25" IdPais="CO" Nombre="VILLETA" />
+          <Registro IdCiudad="878" IdDepartamento="25" IdPais="CO" Nombre="VIOTÁ" />
+          <Registro IdCiudad="885" IdDepartamento="25" IdPais="CO" Nombre="YACOPÍ" />
+          <Registro IdCiudad="898" IdDepartamento="25" IdPais="CO" Nombre="ZIPACÓN" />
+          <Registro IdCiudad="899" IdDepartamento="25" IdPais="CO" Nombre="ZIPAQUIRÁ" />
+          <Registro IdCiudad="1" IdDepartamento="27" IdPais="CO" Nombre="QUIBDÓ" />
+          <Registro IdCiudad="6" IdDepartamento="27" IdPais="CO" Nombre="ACANDÍ" />
+          <Registro IdCiudad="25" IdDepartamento="27" IdPais="CO" Nombre="ALTO BAUDÓ" />
+          <Registro IdCiudad="73" IdDepartamento="27" IdPais="CO" Nombre="BAGADÓ" />
+          <Registro IdCiudad="75" IdDepartamento="27" IdPais="CO" Nombre="BAHÍA SOLANO" />
+          <Registro IdCiudad="77" IdDepartamento="27" IdPais="CO" Nombre="BAJO BAUDÓ" />
+          <Registro IdCiudad="99" IdDepartamento="27" IdPais="CO" Nombre="BOJAYÁ" />
+          <Registro IdCiudad="205" IdDepartamento="27" IdPais="CO" Nombre="CONDOTO" />
+          <Registro IdCiudad="245" IdDepartamento="27" IdPais="CO" Nombre="EL CARMEN DE ATRATO" />
+          <Registro IdCiudad="250" IdDepartamento="27" IdPais="CO" Nombre="EL LITORAL DEL SAN JUAN" />
+          <Registro IdCiudad="361" IdDepartamento="27" IdPais="CO" Nombre="ITSMINA" />
+          <Registro IdCiudad="372" IdDepartamento="27" IdPais="CO" Nombre="JURADÓ" />
+          <Registro IdCiudad="413" IdDepartamento="27" IdPais="CO" Nombre="LLORÓ" />
+          <Registro IdCiudad="491" IdDepartamento="27" IdPais="CO" Nombre="NOVITA" />
+          <Registro IdCiudad="495" IdDepartamento="27" IdPais="CO" Nombre="NUQUÍ" />
+          <Registro IdCiudad="615" IdDepartamento="27" IdPais="CO" Nombre="RIOSUCIO" />
+          <Registro IdCiudad="660" IdDepartamento="27" IdPais="CO" Nombre="SAN JOSÉ DEL PALMAR" />
+          <Registro IdCiudad="745" IdDepartamento="27" IdPais="CO" Nombre="SIPÍ" />
+          <Registro IdCiudad="787" IdDepartamento="27" IdPais="CO" Nombre="TADÓ" />
+          <Registro IdCiudad="800" IdDepartamento="27" IdPais="CO" Nombre="UNGUÍA" />
+          <Registro IdCiudad="1" IdDepartamento="41" IdPais="CO" Nombre="NEIVA" />
+          <Registro IdCiudad="6" IdDepartamento="41" IdPais="CO" Nombre="ACEVEDO" />
+          <Registro IdCiudad="13" IdDepartamento="41" IdPais="CO" Nombre="AGRADO" />
+          <Registro IdCiudad="16" IdDepartamento="41" IdPais="CO" Nombre="AIPE" />
+          <Registro IdCiudad="20" IdDepartamento="41" IdPais="CO" Nombre="ALGECIRAS" />
+          <Registro IdCiudad="26" IdDepartamento="41" IdPais="CO" Nombre="ALTAMIRA" />
+          <Registro IdCiudad="78" IdDepartamento="41" IdPais="CO" Nombre="BARAYA" />
+          <Registro IdCiudad="132" IdDepartamento="41" IdPais="CO" Nombre="CAMPOALEGRE" />
+          <Registro IdCiudad="206" IdDepartamento="41" IdPais="CO" Nombre="COLOMBIA" />
+          <Registro IdCiudad="244" IdDepartamento="41" IdPais="CO" Nombre="ELÍAS" />
+          <Registro IdCiudad="298" IdDepartamento="41" IdPais="CO" Nombre="GARZÓN" />
+          <Registro IdCiudad="306" IdDepartamento="41" IdPais="CO" Nombre="GIGANTE" />
+          <Registro IdCiudad="319" IdDepartamento="41" IdPais="CO" Nombre="GUADALUPE" />
+          <Registro IdCiudad="349" IdDepartamento="41" IdPais="CO" Nombre="HOBO" />
+          <Registro IdCiudad="357" IdDepartamento="41" IdPais="CO" Nombre="IQUIRA" />
+          <Registro IdCiudad="359" IdDepartamento="41" IdPais="CO" Nombre="ISNOS" />
+          <Registro IdCiudad="378" IdDepartamento="41" IdPais="CO" Nombre="LA ARGENTINA" />
+          <Registro IdCiudad="396" IdDepartamento="41" IdPais="CO" Nombre="LA PLATA" />
+          <Registro IdCiudad="483" IdDepartamento="41" IdPais="CO" Nombre="NATAGA" />
+          <Registro IdCiudad="503" IdDepartamento="41" IdPais="CO" Nombre="OPORAPA" />
+          <Registro IdCiudad="518" IdDepartamento="41" IdPais="CO" Nombre="PAICOL" />
+          <Registro IdCiudad="524" IdDepartamento="41" IdPais="CO" Nombre="PALERMO" />
+          <Registro IdCiudad="530" IdDepartamento="41" IdPais="CO" Nombre="PALESTINA" />
+          <Registro IdCiudad="548" IdDepartamento="41" IdPais="CO" Nombre="PITAL" />
+          <Registro IdCiudad="551" IdDepartamento="41" IdPais="CO" Nombre="PITALITO" />
+          <Registro IdCiudad="615" IdDepartamento="41" IdPais="CO" Nombre="RIVERA" />
+          <Registro IdCiudad="660" IdDepartamento="41" IdPais="CO" Nombre="SALADOBLANCO" />
+          <Registro IdCiudad="668" IdDepartamento="41" IdPais="CO" Nombre="SAN AGUSTÍN" />
+          <Registro IdCiudad="676" IdDepartamento="41" IdPais="CO" Nombre="SANTA MARÍA" />
+          <Registro IdCiudad="770" IdDepartamento="41" IdPais="CO" Nombre="SUAZA" />
+          <Registro IdCiudad="791" IdDepartamento="41" IdPais="CO" Nombre="TARQUI" />
+          <Registro IdCiudad="797" IdDepartamento="41" IdPais="CO" Nombre="TESALIA" />
+          <Registro IdCiudad="799" IdDepartamento="41" IdPais="CO" Nombre="TELLO" />
+          <Registro IdCiudad="801" IdDepartamento="41" IdPais="CO" Nombre="TERUEL" />
+          <Registro IdCiudad="807" IdDepartamento="41" IdPais="CO" Nombre="TIMANÁ" />
+          <Registro IdCiudad="872" IdDepartamento="41" IdPais="CO" Nombre="VILLAVIEJA" />
+          <Registro IdCiudad="885" IdDepartamento="41" IdPais="CO" Nombre="YAGUARÁ" />
+          <Registro IdCiudad="1" IdDepartamento="44" IdPais="CO" Nombre="RIOHACHA" />
+          <Registro IdCiudad="78" IdDepartamento="44" IdPais="CO" Nombre="BARRANCAS" />
+          <Registro IdCiudad="110" IdDepartamento="44" IdPais="CO" Nombre="EL MOLINO" />
+          <Registro IdCiudad="279" IdDepartamento="44" IdPais="CO" Nombre="FONSECA" />
+          <Registro IdCiudad="430" IdDepartamento="44" IdPais="CO" Nombre="MAICAO" />
+          <Registro IdCiudad="560" IdDepartamento="44" IdPais="CO" Nombre="MANAURE" />
+          <Registro IdCiudad="650" IdDepartamento="44" IdPais="CO" Nombre="SAN JUAN DEL CESAR" />
+          <Registro IdCiudad="847" IdDepartamento="44" IdPais="CO" Nombre="URIBIA" />
+          <Registro IdCiudad="855" IdDepartamento="44" IdPais="CO" Nombre="URUMITA" />
+          <Registro IdCiudad="874" IdDepartamento="44" IdPais="CO" Nombre="VILLANUEVA" />
+          <Registro IdCiudad="1" IdDepartamento="47" IdPais="CO" Nombre="SANTA MARTA" />
+          <Registro IdCiudad="53" IdDepartamento="47" IdPais="CO" Nombre="ARACATACA" />
+          <Registro IdCiudad="58" IdDepartamento="47" IdPais="CO" Nombre="ARIGUANÍ" />
+          <Registro IdCiudad="161" IdDepartamento="47" IdPais="CO" Nombre="CERRO SAN ANTONIO" />
+          <Registro IdCiudad="170" IdDepartamento="47" IdPais="CO" Nombre="CHIVOLO" />
+          <Registro IdCiudad="189" IdDepartamento="47" IdPais="CO" Nombre="CIÉNAGA" />
+          <Registro IdCiudad="245" IdDepartamento="47" IdPais="CO" Nombre="EL BANCO" />
+          <Registro IdCiudad="258" IdDepartamento="47" IdPais="CO" Nombre="EL PIÑÓN" />
+          <Registro IdCiudad="288" IdDepartamento="47" IdPais="CO" Nombre="FUNDACIÓN" />
+          <Registro IdCiudad="318" IdDepartamento="47" IdPais="CO" Nombre="GUAMAL" />
+          <Registro IdCiudad="541" IdDepartamento="47" IdPais="CO" Nombre="PEDRAZA" />
+          <Registro IdCiudad="551" IdDepartamento="47" IdPais="CO" Nombre="PIVIJAY" />
+          <Registro IdCiudad="555" IdDepartamento="47" IdPais="CO" Nombre="PLATO" />
+          <Registro IdCiudad="570" IdDepartamento="47" IdPais="CO" Nombre="PUEBLOVIEJO" />
+          <Registro IdCiudad="605" IdDepartamento="47" IdPais="CO" Nombre="REMOLINO" />
+          <Registro IdCiudad="675" IdDepartamento="47" IdPais="CO" Nombre="SALAMINA" />
+          <Registro IdCiudad="692" IdDepartamento="47" IdPais="CO" Nombre="SAN SEBASTIÁN DE BUENAVIS" />
+          <Registro IdCiudad="703" IdDepartamento="47" IdPais="CO" Nombre="SAN ZENÓN" />
+          <Registro IdCiudad="707" IdDepartamento="47" IdPais="CO" Nombre="SANTA ANA" />
+          <Registro IdCiudad="745" IdDepartamento="47" IdPais="CO" Nombre="SITIONUEVO" />
+          <Registro IdCiudad="798" IdDepartamento="47" IdPais="CO" Nombre="TENERIFE" />
+          <Registro IdCiudad="1" IdDepartamento="50" IdPais="CO" Nombre="VILLAVICENCIO" />
+          <Registro IdCiudad="6" IdDepartamento="50" IdPais="CO" Nombre="ACACIAS" />
+          <Registro IdCiudad="110" IdDepartamento="50" IdPais="CO" Nombre="BARRANCA DE UPIA" />
+          <Registro IdCiudad="124" IdDepartamento="50" IdPais="CO" Nombre="CABUYARO" />
+          <Registro IdCiudad="150" IdDepartamento="50" IdPais="CO" Nombre="CASTILLA LA NUEVA" />
+          <Registro IdCiudad="223" IdDepartamento="50" IdPais="CO" Nombre="SAN LUIS DE CUBARRAL" />
+          <Registro IdCiudad="226" IdDepartamento="50" IdPais="CO" Nombre="CUMARAL" />
+          <Registro IdCiudad="245" IdDepartamento="50" IdPais="CO" Nombre="EL CALVARIO" />
+          <Registro IdCiudad="251" IdDepartamento="50" IdPais="CO" Nombre="EL CASTILLO" />
+          <Registro IdCiudad="270" IdDepartamento="50" IdPais="CO" Nombre="EL DORADO" />
+          <Registro IdCiudad="287" IdDepartamento="50" IdPais="CO" Nombre="FUENTE DE ORO" />
+          <Registro IdCiudad="313" IdDepartamento="50" IdPais="CO" Nombre="GRANADA" />
+          <Registro IdCiudad="318" IdDepartamento="50" IdPais="CO" Nombre="GUAMAL" />
+          <Registro IdCiudad="325" IdDepartamento="50" IdPais="CO" Nombre="MAPIRIPÁN" />
+          <Registro IdCiudad="330" IdDepartamento="50" IdPais="CO" Nombre="MESETAS" />
+          <Registro IdCiudad="350" IdDepartamento="50" IdPais="CO" Nombre="LA MACARENA" />
+          <Registro IdCiudad="370" IdDepartamento="50" IdPais="CO" Nombre="LA URIBE" />
+          <Registro IdCiudad="400" IdDepartamento="50" IdPais="CO" Nombre="LEJANÍAS" />
+          <Registro IdCiudad="450" IdDepartamento="50" IdPais="CO" Nombre="PUERTO CONCORDIA" />
+          <Registro IdCiudad="568" IdDepartamento="50" IdPais="CO" Nombre="PUERTO GAITÁN" />
+          <Registro IdCiudad="573" IdDepartamento="50" IdPais="CO" Nombre="PUERTO LÓPEZ" />
+          <Registro IdCiudad="577" IdDepartamento="50" IdPais="CO" Nombre="PUERTO LLERAS" />
+          <Registro IdCiudad="590" IdDepartamento="50" IdPais="CO" Nombre="PUERTO RICO" />
+          <Registro IdCiudad="606" IdDepartamento="50" IdPais="CO" Nombre="RESTREPO" />
+          <Registro IdCiudad="680" IdDepartamento="50" IdPais="CO" Nombre="SAN CARLOS DE GUAROA" />
+          <Registro IdCiudad="683" IdDepartamento="50" IdPais="CO" Nombre="SAN JUAN DE ARAMA" />
+          <Registro IdCiudad="686" IdDepartamento="50" IdPais="CO" Nombre="SAN JUANITO" />
+          <Registro IdCiudad="689" IdDepartamento="50" IdPais="CO" Nombre="SAN MARTÍN" />
+          <Registro IdCiudad="711" IdDepartamento="50" IdPais="CO" Nombre="VISTA HERMOSA" />
+          <Registro IdCiudad="1" IdDepartamento="52" IdPais="CO" Nombre="PASTO" />
+          <Registro IdCiudad="19" IdDepartamento="52" IdPais="CO" Nombre="ALBÁN" />
+          <Registro IdCiudad="22" IdDepartamento="52" IdPais="CO" Nombre="ALDANA" />
+          <Registro IdCiudad="36" IdDepartamento="52" IdPais="CO" Nombre="ANCUYÁ" />
+          <Registro IdCiudad="51" IdDepartamento="52" IdPais="CO" Nombre="ARBOLEDA" />
+          <Registro IdCiudad="79" IdDepartamento="52" IdPais="CO" Nombre="BARBACOAS" />
+          <Registro IdCiudad="83" IdDepartamento="52" IdPais="CO" Nombre="BELÉN" />
+          <Registro IdCiudad="110" IdDepartamento="52" IdPais="CO" Nombre="BUESACO" />
+          <Registro IdCiudad="203" IdDepartamento="52" IdPais="CO" Nombre="COLÓN" />
+          <Registro IdCiudad="207" IdDepartamento="52" IdPais="CO" Nombre="CONSACA" />
+          <Registro IdCiudad="210" IdDepartamento="52" IdPais="CO" Nombre="CONTADERO" />
+          <Registro IdCiudad="215" IdDepartamento="52" IdPais="CO" Nombre="CÓRDOBA" />
+          <Registro IdCiudad="224" IdDepartamento="52" IdPais="CO" Nombre="CUASPUD" />
+          <Registro IdCiudad="227" IdDepartamento="52" IdPais="CO" Nombre="CUMBAL" />
+          <Registro IdCiudad="233" IdDepartamento="52" IdPais="CO" Nombre="CUMBITARA" />
+          <Registro IdCiudad="240" IdDepartamento="52" IdPais="CO" Nombre="CHACHAG³Í" />
+          <Registro IdCiudad="250" IdDepartamento="52" IdPais="CO" Nombre="EL CHARCO" />
+          <Registro IdCiudad="256" IdDepartamento="52" IdPais="CO" Nombre="EL ROSARIO" />
+          <Registro IdCiudad="258" IdDepartamento="52" IdPais="CO" Nombre="EL TABLÓN" />
+          <Registro IdCiudad="260" IdDepartamento="52" IdPais="CO" Nombre="EL TAMBO" />
+          <Registro IdCiudad="287" IdDepartamento="52" IdPais="CO" Nombre="FUNES" />
+          <Registro IdCiudad="317" IdDepartamento="52" IdPais="CO" Nombre="GUACHUCAL" />
+          <Registro IdCiudad="320" IdDepartamento="52" IdPais="CO" Nombre="GUAITARILLA" />
+          <Registro IdCiudad="323" IdDepartamento="52" IdPais="CO" Nombre="GUALMATÁN" />
+          <Registro IdCiudad="352" IdDepartamento="52" IdPais="CO" Nombre="ILES" />
+          <Registro IdCiudad="354" IdDepartamento="52" IdPais="CO" Nombre="IMUÉS" />
+          <Registro IdCiudad="356" IdDepartamento="52" IdPais="CO" Nombre="IPIALES" />
+          <Registro IdCiudad="378" IdDepartamento="52" IdPais="CO" Nombre="LA CRUZ" />
+          <Registro IdCiudad="381" IdDepartamento="52" IdPais="CO" Nombre="LA FLORIdA" />
+          <Registro IdCiudad="385" IdDepartamento="52" IdPais="CO" Nombre="LA LLANADA" />
+          <Registro IdCiudad="390" IdDepartamento="52" IdPais="CO" Nombre="LA TOLA" />
+          <Registro IdCiudad="399" IdDepartamento="52" IdPais="CO" Nombre="LA UNIÓN" />
+          <Registro IdCiudad="405" IdDepartamento="52" IdPais="CO" Nombre="LEIVA" />
+          <Registro IdCiudad="411" IdDepartamento="52" IdPais="CO" Nombre="LINARES" />
+          <Registro IdCiudad="418" IdDepartamento="52" IdPais="CO" Nombre="LOS ANDES" />
+          <Registro IdCiudad="427" IdDepartamento="52" IdPais="CO" Nombre="MAGUÍ" />
+          <Registro IdCiudad="435" IdDepartamento="52" IdPais="CO" Nombre="MALLAMA" />
+          <Registro IdCiudad="473" IdDepartamento="52" IdPais="CO" Nombre="MOSQUERA" />
+          <Registro IdCiudad="490" IdDepartamento="52" IdPais="CO" Nombre="OLAYA HERRERA" />
+          <Registro IdCiudad="506" IdDepartamento="52" IdPais="CO" Nombre="OSPINA" />
+          <Registro IdCiudad="520" IdDepartamento="52" IdPais="CO" Nombre="FRANCISCO PIZARRO" />
+          <Registro IdCiudad="540" IdDepartamento="52" IdPais="CO" Nombre="POLICARPA" />
+          <Registro IdCiudad="560" IdDepartamento="52" IdPais="CO" Nombre="POTOSÍ" />
+          <Registro IdCiudad="565" IdDepartamento="52" IdPais="CO" Nombre="PROVIdENCIA" />
+          <Registro IdCiudad="573" IdDepartamento="52" IdPais="CO" Nombre="PUERRES" />
+          <Registro IdCiudad="585" IdDepartamento="52" IdPais="CO" Nombre="PUPIALES" />
+          <Registro IdCiudad="612" IdDepartamento="52" IdPais="CO" Nombre="RICAURTE" />
+          <Registro IdCiudad="621" IdDepartamento="52" IdPais="CO" Nombre="ROBERTO PAYÁN" />
+          <Registro IdCiudad="678" IdDepartamento="52" IdPais="CO" Nombre="SAMANIEGO" />
+          <Registro IdCiudad="683" IdDepartamento="52" IdPais="CO" Nombre="SANDONÁ" />
+          <Registro IdCiudad="685" IdDepartamento="52" IdPais="CO" Nombre="SAN BERNARDO" />
+          <Registro IdCiudad="687" IdDepartamento="52" IdPais="CO" Nombre="SAN LORENZO" />
+          <Registro IdCiudad="693" IdDepartamento="52" IdPais="CO" Nombre="SAN PABLO" />
+          <Registro IdCiudad="694" IdDepartamento="52" IdPais="CO" Nombre="SAN PEDRO DE CARTAGO" />
+          <Registro IdCiudad="696" IdDepartamento="52" IdPais="CO" Nombre="SANTA BÁRBARA" />
+          <Registro IdCiudad="699" IdDepartamento="52" IdPais="CO" Nombre="SANTACRUZ" />
+          <Registro IdCiudad="720" IdDepartamento="52" IdPais="CO" Nombre="SAPUYÉS" />
+          <Registro IdCiudad="786" IdDepartamento="52" IdPais="CO" Nombre="TAMINANGO" />
+          <Registro IdCiudad="788" IdDepartamento="52" IdPais="CO" Nombre="TANGUA" />
+          <Registro IdCiudad="835" IdDepartamento="52" IdPais="CO" Nombre="TUMACO" />
+          <Registro IdCiudad="838" IdDepartamento="52" IdPais="CO" Nombre="TÚQUERRES" />
+          <Registro IdCiudad="885" IdDepartamento="52" IdPais="CO" Nombre="YACUANQUER" />
+          <Registro IdCiudad="1" IdDepartamento="54" IdPais="CO" Nombre="CÚCUTA" />
+          <Registro IdCiudad="3" IdDepartamento="54" IdPais="CO" Nombre="ABREGO" />
+          <Registro IdCiudad="51" IdDepartamento="54" IdPais="CO" Nombre="ARBOLEDAS" />
+          <Registro IdCiudad="99" IdDepartamento="54" IdPais="CO" Nombre="BOCHALEMA" />
+          <Registro IdCiudad="109" IdDepartamento="54" IdPais="CO" Nombre="BUCARASICA" />
+          <Registro IdCiudad="125" IdDepartamento="54" IdPais="CO" Nombre="CÁCOTA" />
+          <Registro IdCiudad="128" IdDepartamento="54" IdPais="CO" Nombre="CÁCHIRA" />
+          <Registro IdCiudad="172" IdDepartamento="54" IdPais="CO" Nombre="CHINÁCOTA" />
+          <Registro IdCiudad="174" IdDepartamento="54" IdPais="CO" Nombre="CHITAGÁ" />
+          <Registro IdCiudad="206" IdDepartamento="54" IdPais="CO" Nombre="CONVENCIÓN" />
+          <Registro IdCiudad="223" IdDepartamento="54" IdPais="CO" Nombre="CUCUTILLA" />
+          <Registro IdCiudad="239" IdDepartamento="54" IdPais="CO" Nombre="DURANIA" />
+          <Registro IdCiudad="245" IdDepartamento="54" IdPais="CO" Nombre="EL CARMEN" />
+          <Registro IdCiudad="250" IdDepartamento="54" IdPais="CO" Nombre="EL TARRA" />
+          <Registro IdCiudad="261" IdDepartamento="54" IdPais="CO" Nombre="EL ZULIA" />
+          <Registro IdCiudad="313" IdDepartamento="54" IdPais="CO" Nombre="GRAMALOTE" />
+          <Registro IdCiudad="344" IdDepartamento="54" IdPais="CO" Nombre="HACARÍ" />
+          <Registro IdCiudad="347" IdDepartamento="54" IdPais="CO" Nombre="HERRÁN" />
+          <Registro IdCiudad="377" IdDepartamento="54" IdPais="CO" Nombre="LABATECA" />
+          <Registro IdCiudad="385" IdDepartamento="54" IdPais="CO" Nombre="LA ESPERANZA" />
+          <Registro IdCiudad="398" IdDepartamento="54" IdPais="CO" Nombre="LA PLAYA" />
+          <Registro IdCiudad="405" IdDepartamento="54" IdPais="CO" Nombre="LOS PATIOS" />
+          <Registro IdCiudad="418" IdDepartamento="54" IdPais="CO" Nombre="LOURDES" />
+          <Registro IdCiudad="480" IdDepartamento="54" IdPais="CO" Nombre="MUTISCUA" />
+          <Registro IdCiudad="498" IdDepartamento="54" IdPais="CO" Nombre="OCAÑA" />
+          <Registro IdCiudad="518" IdDepartamento="54" IdPais="CO" Nombre="PAMPLONA" />
+          <Registro IdCiudad="520" IdDepartamento="54" IdPais="CO" Nombre="PAMPLONITA" />
+          <Registro IdCiudad="553" IdDepartamento="54" IdPais="CO" Nombre="PUERTO SANTANDER" />
+          <Registro IdCiudad="599" IdDepartamento="54" IdPais="CO" Nombre="RAGONVALIA" />
+          <Registro IdCiudad="660" IdDepartamento="54" IdPais="CO" Nombre="SALAZAR" />
+          <Registro IdCiudad="670" IdDepartamento="54" IdPais="CO" Nombre="SAN CALIXTO" />
+          <Registro IdCiudad="673" IdDepartamento="54" IdPais="CO" Nombre="SAN CAYETANO" />
+          <Registro IdCiudad="680" IdDepartamento="54" IdPais="CO" Nombre="SANTIAGO" />
+          <Registro IdCiudad="720" IdDepartamento="54" IdPais="CO" Nombre="SARDINATA" />
+          <Registro IdCiudad="743" IdDepartamento="54" IdPais="CO" Nombre="SILOS" />
+          <Registro IdCiudad="800" IdDepartamento="54" IdPais="CO" Nombre="TEORAMA" />
+          <Registro IdCiudad="810" IdDepartamento="54" IdPais="CO" Nombre="TIBÚ" />
+          <Registro IdCiudad="820" IdDepartamento="54" IdPais="CO" Nombre="TOLEDO" />
+          <Registro IdCiudad="871" IdDepartamento="54" IdPais="CO" Nombre="VILLA CARO" />
+          <Registro IdCiudad="874" IdDepartamento="54" IdPais="CO" Nombre="VILLA DEL ROSARIO" />
+          <Registro IdCiudad="1" IdDepartamento="63" IdPais="CO" Nombre="ARMENIA" />
+          <Registro IdCiudad="111" IdDepartamento="63" IdPais="CO" Nombre="BUENAVISTA" />
+          <Registro IdCiudad="130" IdDepartamento="63" IdPais="CO" Nombre="CALARCÁ" />
+          <Registro IdCiudad="190" IdDepartamento="63" IdPais="CO" Nombre="CIRCASIA" />
+          <Registro IdCiudad="212" IdDepartamento="63" IdPais="CO" Nombre="CÓRDOBA" />
+          <Registro IdCiudad="272" IdDepartamento="63" IdPais="CO" Nombre="FILANDIA" />
+          <Registro IdCiudad="302" IdDepartamento="63" IdPais="CO" Nombre="GÉNOVA" />
+          <Registro IdCiudad="401" IdDepartamento="63" IdPais="CO" Nombre="LA TEBAIdA" />
+          <Registro IdCiudad="470" IdDepartamento="63" IdPais="CO" Nombre="MONTENEGRO" />
+          <Registro IdCiudad="548" IdDepartamento="63" IdPais="CO" Nombre="PIJAO" />
+          <Registro IdCiudad="594" IdDepartamento="63" IdPais="CO" Nombre="QUIMBAYA" />
+          <Registro IdCiudad="690" IdDepartamento="63" IdPais="CO" Nombre="SALENTO" />
+          <Registro IdCiudad="1" IdDepartamento="66" IdPais="CO" Nombre="PEREIRA" />
+          <Registro IdCiudad="45" IdDepartamento="66" IdPais="CO" Nombre="APÍA" />
+          <Registro IdCiudad="75" IdDepartamento="66" IdPais="CO" Nombre="BALBOA" />
+          <Registro IdCiudad="88" IdDepartamento="66" IdPais="CO" Nombre="BELÉN DE UMBRIA" />
+          <Registro IdCiudad="170" IdDepartamento="66" IdPais="CO" Nombre="DOSQUEBRADAS" />
+          <Registro IdCiudad="318" IdDepartamento="66" IdPais="CO" Nombre="GUATICA" />
+          <Registro IdCiudad="383" IdDepartamento="66" IdPais="CO" Nombre="LA CELIA" />
+          <Registro IdCiudad="400" IdDepartamento="66" IdPais="CO" Nombre="LA VIRGINIA" />
+          <Registro IdCiudad="440" IdDepartamento="66" IdPais="CO" Nombre="MARSELLA" />
+          <Registro IdCiudad="456" IdDepartamento="66" IdPais="CO" Nombre="MISTRATO" />
+          <Registro IdCiudad="572" IdDepartamento="66" IdPais="CO" Nombre="PUEBLO RICO" />
+          <Registro IdCiudad="594" IdDepartamento="66" IdPais="CO" Nombre="QUINCHÍA" />
+          <Registro IdCiudad="682" IdDepartamento="66" IdPais="CO" Nombre="SANTA ROSA DE CABAL" />
+          <Registro IdCiudad="687" IdDepartamento="66" IdPais="CO" Nombre="SANTUARIO" />
+          <Registro IdCiudad="1" IdDepartamento="68" IdPais="CO" Nombre="BUCARAMANGA" />
+          <Registro IdCiudad="13" IdDepartamento="68" IdPais="CO" Nombre="AGUADA" />
+          <Registro IdCiudad="20" IdDepartamento="68" IdPais="CO" Nombre="ALBANIA" />
+          <Registro IdCiudad="51" IdDepartamento="68" IdPais="CO" Nombre="ARATOCA" />
+          <Registro IdCiudad="77" IdDepartamento="68" IdPais="CO" Nombre="BARBOSA" />
+          <Registro IdCiudad="79" IdDepartamento="68" IdPais="CO" Nombre="BARICHARA" />
+          <Registro IdCiudad="81" IdDepartamento="68" IdPais="CO" Nombre="BARRANCABERMEJA" />
+          <Registro IdCiudad="92" IdDepartamento="68" IdPais="CO" Nombre="BETULIA" />
+          <Registro IdCiudad="101" IdDepartamento="68" IdPais="CO" Nombre="BOLÍVAR" />
+          <Registro IdCiudad="121" IdDepartamento="68" IdPais="CO" Nombre="CABRERA" />
+          <Registro IdCiudad="132" IdDepartamento="68" IdPais="CO" Nombre="CALIFORNIA" />
+          <Registro IdCiudad="147" IdDepartamento="68" IdPais="CO" Nombre="CAPITANEJO" />
+          <Registro IdCiudad="152" IdDepartamento="68" IdPais="CO" Nombre="CARCASI" />
+          <Registro IdCiudad="160" IdDepartamento="68" IdPais="CO" Nombre="CEPITÁ" />
+          <Registro IdCiudad="162" IdDepartamento="68" IdPais="CO" Nombre="CERRITO" />
+          <Registro IdCiudad="167" IdDepartamento="68" IdPais="CO" Nombre="CHARALÁ" />
+          <Registro IdCiudad="169" IdDepartamento="68" IdPais="CO" Nombre="CHARTA" />
+          <Registro IdCiudad="176" IdDepartamento="68" IdPais="CO" Nombre="CHIMÁ" />
+          <Registro IdCiudad="179" IdDepartamento="68" IdPais="CO" Nombre="CHIPATÁ" />
+          <Registro IdCiudad="190" IdDepartamento="68" IdPais="CO" Nombre="CIMITARRA" />
+          <Registro IdCiudad="207" IdDepartamento="68" IdPais="CO" Nombre="CONCEPCIÓN" />
+          <Registro IdCiudad="209" IdDepartamento="68" IdPais="CO" Nombre="CONFINES" />
+          <Registro IdCiudad="211" IdDepartamento="68" IdPais="CO" Nombre="CONTRATACIÓN" />
+          <Registro IdCiudad="217" IdDepartamento="68" IdPais="CO" Nombre="COROMORO" />
+          <Registro IdCiudad="229" IdDepartamento="68" IdPais="CO" Nombre="CURITÍ" />
+          <Registro IdCiudad="235" IdDepartamento="68" IdPais="CO" Nombre="EL CARMEN DE CHUCURI" />
+          <Registro IdCiudad="245" IdDepartamento="68" IdPais="CO" Nombre="EL GUACAMAYO" />
+          <Registro IdCiudad="250" IdDepartamento="68" IdPais="CO" Nombre="EL PEÑÓN" />
+          <Registro IdCiudad="255" IdDepartamento="68" IdPais="CO" Nombre="EL PLAYÓN" />
+          <Registro IdCiudad="264" IdDepartamento="68" IdPais="CO" Nombre="ENCINO" />
+          <Registro IdCiudad="266" IdDepartamento="68" IdPais="CO" Nombre="ENCISO" />
+          <Registro IdCiudad="271" IdDepartamento="68" IdPais="CO" Nombre="FLORIÁN" />
+          <Registro IdCiudad="276" IdDepartamento="68" IdPais="CO" Nombre="FLORIdABLANCA" />
+          <Registro IdCiudad="296" IdDepartamento="68" IdPais="CO" Nombre="GALÁN" />
+          <Registro IdCiudad="298" IdDepartamento="68" IdPais="CO" Nombre="GAMBITA" />
+          <Registro IdCiudad="307" IdDepartamento="68" IdPais="CO" Nombre="GIRÓN" />
+          <Registro IdCiudad="318" IdDepartamento="68" IdPais="CO" Nombre="GUACA" />
+          <Registro IdCiudad="320" IdDepartamento="68" IdPais="CO" Nombre="GUADALUPE" />
+          <Registro IdCiudad="322" IdDepartamento="68" IdPais="CO" Nombre="GUAPOTA" />
+          <Registro IdCiudad="324" IdDepartamento="68" IdPais="CO" Nombre="GUAVATA" />
+          <Registro IdCiudad="327" IdDepartamento="68" IdPais="CO" Nombre="G³EPSA" />
+          <Registro IdCiudad="344" IdDepartamento="68" IdPais="CO" Nombre="HATO" />
+          <Registro IdCiudad="368" IdDepartamento="68" IdPais="CO" Nombre="JESUS MARÍA" />
+          <Registro IdCiudad="370" IdDepartamento="68" IdPais="CO" Nombre="JORDÁN" />
+          <Registro IdCiudad="377" IdDepartamento="68" IdPais="CO" Nombre="LA BELLEZA" />
+          <Registro IdCiudad="385" IdDepartamento="68" IdPais="CO" Nombre="LANDAZURI" />
+          <Registro IdCiudad="397" IdDepartamento="68" IdPais="CO" Nombre="LA PAZ" />
+          <Registro IdCiudad="406" IdDepartamento="68" IdPais="CO" Nombre="LEBRIJA" />
+          <Registro IdCiudad="418" IdDepartamento="68" IdPais="CO" Nombre="LOS SANTOS" />
+          <Registro IdCiudad="425" IdDepartamento="68" IdPais="CO" Nombre="MACARAVITA" />
+          <Registro IdCiudad="432" IdDepartamento="68" IdPais="CO" Nombre="MÁLAGA" />
+          <Registro IdCiudad="444" IdDepartamento="68" IdPais="CO" Nombre="MATANZA" />
+          <Registro IdCiudad="464" IdDepartamento="68" IdPais="CO" Nombre="MOGOTES" />
+          <Registro IdCiudad="468" IdDepartamento="68" IdPais="CO" Nombre="MOLAGAVITA" />
+          <Registro IdCiudad="498" IdDepartamento="68" IdPais="CO" Nombre="OCAMONTE" />
+          <Registro IdCiudad="500" IdDepartamento="68" IdPais="CO" Nombre="OIBA" />
+          <Registro IdCiudad="502" IdDepartamento="68" IdPais="CO" Nombre="ONZAGA" />
+          <Registro IdCiudad="522" IdDepartamento="68" IdPais="CO" Nombre="PALMAR" />
+          <Registro IdCiudad="524" IdDepartamento="68" IdPais="CO" Nombre="PALMAS DEL SOCORRO" />
+          <Registro IdCiudad="533" IdDepartamento="68" IdPais="CO" Nombre="PARAMO" />
+          <Registro IdCiudad="547" IdDepartamento="68" IdPais="CO" Nombre="PIEDECUESTA" />
+          <Registro IdCiudad="549" IdDepartamento="68" IdPais="CO" Nombre="PINCHOTE" />
+          <Registro IdCiudad="572" IdDepartamento="68" IdPais="CO" Nombre="PUENTE NACIONAL" />
+          <Registro IdCiudad="573" IdDepartamento="68" IdPais="CO" Nombre="PUERTO PARRA" />
+          <Registro IdCiudad="575" IdDepartamento="68" IdPais="CO" Nombre="PUERTO WILCHES" />
+          <Registro IdCiudad="615" IdDepartamento="68" IdPais="CO" Nombre="RIONEGRO" />
+          <Registro IdCiudad="655" IdDepartamento="68" IdPais="CO" Nombre="SABANA DE TORRES" />
+          <Registro IdCiudad="669" IdDepartamento="68" IdPais="CO" Nombre="SAN ANDRES" />
+          <Registro IdCiudad="673" IdDepartamento="68" IdPais="CO" Nombre="SAN BENITO" />
+          <Registro IdCiudad="679" IdDepartamento="68" IdPais="CO" Nombre="SAN GIL" />
+          <Registro IdCiudad="682" IdDepartamento="68" IdPais="CO" Nombre="SAN JOAQUÍN" />
+          <Registro IdCiudad="684" IdDepartamento="68" IdPais="CO" Nombre="SAN JOSÉ DE MIRANDA" />
+          <Registro IdCiudad="686" IdDepartamento="68" IdPais="CO" Nombre="SAN MIGUEL" />
+          <Registro IdCiudad="689" IdDepartamento="68" IdPais="CO" Nombre="SAN VICENTE DE CHUCURÍ" />
+          <Registro IdCiudad="705" IdDepartamento="68" IdPais="CO" Nombre="SANTA BÁRBARA" />
+          <Registro IdCiudad="720" IdDepartamento="68" IdPais="CO" Nombre="SANTA HELENA DEL OPÓN" />
+          <Registro IdCiudad="745" IdDepartamento="68" IdPais="CO" Nombre="SIMACOTA" />
+          <Registro IdCiudad="755" IdDepartamento="68" IdPais="CO" Nombre="SOCORRO" />
+          <Registro IdCiudad="770" IdDepartamento="68" IdPais="CO" Nombre="SUAITA" />
+          <Registro IdCiudad="773" IdDepartamento="68" IdPais="CO" Nombre="SUCRE" />
+          <Registro IdCiudad="780" IdDepartamento="68" IdPais="CO" Nombre="SURATÁ" />
+          <Registro IdCiudad="820" IdDepartamento="68" IdPais="CO" Nombre="TONA" />
+          <Registro IdCiudad="855" IdDepartamento="68" IdPais="CO" Nombre="VALLE DE SAN JOSÉ" />
+          <Registro IdCiudad="861" IdDepartamento="68" IdPais="CO" Nombre="VÉLEZ" />
+          <Registro IdCiudad="867" IdDepartamento="68" IdPais="CO" Nombre="VETAS" />
+          <Registro IdCiudad="872" IdDepartamento="68" IdPais="CO" Nombre="VILLANUEVA" />
+          <Registro IdCiudad="895" IdDepartamento="68" IdPais="CO" Nombre="ZAPATOCA" />
+          <Registro IdCiudad="1" IdDepartamento="70" IdPais="CO" Nombre="SINCELEJO" />
+          <Registro IdCiudad="110" IdDepartamento="70" IdPais="CO" Nombre="BUENAVISTA" />
+          <Registro IdCiudad="124" IdDepartamento="70" IdPais="CO" Nombre="CAIMITO" />
+          <Registro IdCiudad="204" IdDepartamento="70" IdPais="CO" Nombre="COLOSO" />
+          <Registro IdCiudad="215" IdDepartamento="70" IdPais="CO" Nombre="COROZAL" />
+          <Registro IdCiudad="230" IdDepartamento="70" IdPais="CO" Nombre="CHALÁN" />
+          <Registro IdCiudad="235" IdDepartamento="70" IdPais="CO" Nombre="GALERAS" />
+          <Registro IdCiudad="265" IdDepartamento="70" IdPais="CO" Nombre="GUARANDA" />
+          <Registro IdCiudad="400" IdDepartamento="70" IdPais="CO" Nombre="LA UNIÓN" />
+          <Registro IdCiudad="418" IdDepartamento="70" IdPais="CO" Nombre="LOS PALMITOS" />
+          <Registro IdCiudad="429" IdDepartamento="70" IdPais="CO" Nombre="MAJAGUAL" />
+          <Registro IdCiudad="473" IdDepartamento="70" IdPais="CO" Nombre="MORROA" />
+          <Registro IdCiudad="508" IdDepartamento="70" IdPais="CO" Nombre="OVEJAS" />
+          <Registro IdCiudad="523" IdDepartamento="70" IdPais="CO" Nombre="PALMITO" />
+          <Registro IdCiudad="670" IdDepartamento="70" IdPais="CO" Nombre="SAMPUÉS" />
+          <Registro IdCiudad="678" IdDepartamento="70" IdPais="CO" Nombre="SAN BENITO ABAD" />
+          <Registro IdCiudad="702" IdDepartamento="70" IdPais="CO" Nombre="SAN JUAN DE BETULIA" />
+          <Registro IdCiudad="708" IdDepartamento="70" IdPais="CO" Nombre="SAN MARCOS" />
+          <Registro IdCiudad="713" IdDepartamento="70" IdPais="CO" Nombre="SAN ONOFRE" />
+          <Registro IdCiudad="717" IdDepartamento="70" IdPais="CO" Nombre="SAN PEDRO" />
+          <Registro IdCiudad="742" IdDepartamento="70" IdPais="CO" Nombre="SINCE" />
+          <Registro IdCiudad="771" IdDepartamento="70" IdPais="CO" Nombre="SUCRE" />
+          <Registro IdCiudad="820" IdDepartamento="70" IdPais="CO" Nombre="TOLÚ" />
+          <Registro IdCiudad="823" IdDepartamento="70" IdPais="CO" Nombre="TOLUVIEJO" />
+          <Registro IdCiudad="1" IdDepartamento="73" IdPais="CO" Nombre="IBAGUÉ" />
+          <Registro IdCiudad="24" IdDepartamento="73" IdPais="CO" Nombre="ALPUJARRA" />
+          <Registro IdCiudad="26" IdDepartamento="73" IdPais="CO" Nombre="ALVARADO" />
+          <Registro IdCiudad="30" IdDepartamento="73" IdPais="CO" Nombre="AMBALEMA" />
+          <Registro IdCiudad="43" IdDepartamento="73" IdPais="CO" Nombre="ANZOATEGUI" />
+          <Registro IdCiudad="55" IdDepartamento="73" IdPais="CO" Nombre="ARMERO" />
+          <Registro IdCiudad="67" IdDepartamento="73" IdPais="CO" Nombre="ATACO" />
+          <Registro IdCiudad="124" IdDepartamento="73" IdPais="CO" Nombre="CAJAMARCA" />
+          <Registro IdCiudad="148" IdDepartamento="73" IdPais="CO" Nombre="CARMEN DE APICALÁ" />
+          <Registro IdCiudad="152" IdDepartamento="73" IdPais="CO" Nombre="CASABIANCA" />
+          <Registro IdCiudad="168" IdDepartamento="73" IdPais="CO" Nombre="CHAPARRAL" />
+          <Registro IdCiudad="200" IdDepartamento="73" IdPais="CO" Nombre="COELLO" />
+          <Registro IdCiudad="217" IdDepartamento="73" IdPais="CO" Nombre="COYAIMA" />
+          <Registro IdCiudad="226" IdDepartamento="73" IdPais="CO" Nombre="CUNDAY" />
+          <Registro IdCiudad="236" IdDepartamento="73" IdPais="CO" Nombre="DOLORES" />
+          <Registro IdCiudad="268" IdDepartamento="73" IdPais="CO" Nombre="ESPINAL" />
+          <Registro IdCiudad="270" IdDepartamento="73" IdPais="CO" Nombre="FALAN" />
+          <Registro IdCiudad="275" IdDepartamento="73" IdPais="CO" Nombre="FLANDES" />
+          <Registro IdCiudad="283" IdDepartamento="73" IdPais="CO" Nombre="FRESNO" />
+          <Registro IdCiudad="319" IdDepartamento="73" IdPais="CO" Nombre="GUAMO" />
+          <Registro IdCiudad="347" IdDepartamento="73" IdPais="CO" Nombre="HERVEO" />
+          <Registro IdCiudad="349" IdDepartamento="73" IdPais="CO" Nombre="HONDA" />
+          <Registro IdCiudad="352" IdDepartamento="73" IdPais="CO" Nombre="ICONONZO" />
+          <Registro IdCiudad="408" IdDepartamento="73" IdPais="CO" Nombre="LERIdA" />
+          <Registro IdCiudad="411" IdDepartamento="73" IdPais="CO" Nombre="LIBANO" />
+          <Registro IdCiudad="443" IdDepartamento="73" IdPais="CO" Nombre="MARIQUITA" />
+          <Registro IdCiudad="449" IdDepartamento="73" IdPais="CO" Nombre="MELGAR" />
+          <Registro IdCiudad="461" IdDepartamento="73" IdPais="CO" Nombre="MURILLO" />
+          <Registro IdCiudad="483" IdDepartamento="73" IdPais="CO" Nombre="NATAGAIMA" />
+          <Registro IdCiudad="504" IdDepartamento="73" IdPais="CO" Nombre="ORTEGA" />
+          <Registro IdCiudad="547" IdDepartamento="73" IdPais="CO" Nombre="PIEDRAS" />
+          <Registro IdCiudad="555" IdDepartamento="73" IdPais="CO" Nombre="PLANADAS" />
+          <Registro IdCiudad="563" IdDepartamento="73" IdPais="CO" Nombre="PRADO" />
+          <Registro IdCiudad="585" IdDepartamento="73" IdPais="CO" Nombre="PURIFICACIÓN" />
+          <Registro IdCiudad="616" IdDepartamento="73" IdPais="CO" Nombre="RIOBLANCO" />
+          <Registro IdCiudad="622" IdDepartamento="73" IdPais="CO" Nombre="RONCESVALLES" />
+          <Registro IdCiudad="624" IdDepartamento="73" IdPais="CO" Nombre="ROVIRA" />
+          <Registro IdCiudad="671" IdDepartamento="73" IdPais="CO" Nombre="SALDAÑA" />
+          <Registro IdCiudad="675" IdDepartamento="73" IdPais="CO" Nombre="SAN ANTONIO" />
+          <Registro IdCiudad="678" IdDepartamento="73" IdPais="CO" Nombre="SAN LUIS" />
+          <Registro IdCiudad="686" IdDepartamento="73" IdPais="CO" Nombre="SANTA ISABEL" />
+          <Registro IdCiudad="770" IdDepartamento="73" IdPais="CO" Nombre="SUÁREZ" />
+          <Registro IdCiudad="854" IdDepartamento="73" IdPais="CO" Nombre="VALLE DE SAN JUAN" />
+          <Registro IdCiudad="861" IdDepartamento="73" IdPais="CO" Nombre="VENADILLO" />
+          <Registro IdCiudad="870" IdDepartamento="73" IdPais="CO" Nombre="VILLAHERMOSA" />
+          <Registro IdCiudad="873" IdDepartamento="73" IdPais="CO" Nombre="VILLARRICA" />
+          <Registro IdCiudad="1" IdDepartamento="76" IdPais="CO" Nombre="CALI" />
+          <Registro IdCiudad="20" IdDepartamento="76" IdPais="CO" Nombre="ALCALÁ" />
+          <Registro IdCiudad="36" IdDepartamento="76" IdPais="CO" Nombre="ANDALUCÍA" />
+          <Registro IdCiudad="41" IdDepartamento="76" IdPais="CO" Nombre="ANSERMANUEVO" />
+          <Registro IdCiudad="54" IdDepartamento="76" IdPais="CO" Nombre="ARGELIA" />
+          <Registro IdCiudad="100" IdDepartamento="76" IdPais="CO" Nombre="BOLÍVAR" />
+          <Registro IdCiudad="109" IdDepartamento="76" IdPais="CO" Nombre="BUENAVENTURA" />
+          <Registro IdCiudad="111" IdDepartamento="76" IdPais="CO" Nombre="BUGA" />
+          <Registro IdCiudad="113" IdDepartamento="76" IdPais="CO" Nombre="BUGALAGRANDE" />
+          <Registro IdCiudad="122" IdDepartamento="76" IdPais="CO" Nombre="CAICEDONIA" />
+          <Registro IdCiudad="126" IdDepartamento="76" IdPais="CO" Nombre="DARIÉN" />
+          <Registro IdCiudad="130" IdDepartamento="76" IdPais="CO" Nombre="CANDELARIA" />
+          <Registro IdCiudad="147" IdDepartamento="76" IdPais="CO" Nombre="CARTAGO" />
+          <Registro IdCiudad="233" IdDepartamento="76" IdPais="CO" Nombre="DAGUA" />
+          <Registro IdCiudad="243" IdDepartamento="76" IdPais="CO" Nombre="EL AGUILA" />
+          <Registro IdCiudad="246" IdDepartamento="76" IdPais="CO" Nombre="EL CAIRO" />
+          <Registro IdCiudad="248" IdDepartamento="76" IdPais="CO" Nombre="EL CERRITO" />
+          <Registro IdCiudad="250" IdDepartamento="76" IdPais="CO" Nombre="EL DOVIO" />
+          <Registro IdCiudad="275" IdDepartamento="76" IdPais="CO" Nombre="FLORIdA" />
+          <Registro IdCiudad="306" IdDepartamento="76" IdPais="CO" Nombre="GINEBRA" />
+          <Registro IdCiudad="318" IdDepartamento="76" IdPais="CO" Nombre="GUACARI" />
+          <Registro IdCiudad="364" IdDepartamento="76" IdPais="CO" Nombre="JAMUNDÍ" />
+          <Registro IdCiudad="377" IdDepartamento="76" IdPais="CO" Nombre="LA CUMBRE" />
+          <Registro IdCiudad="400" IdDepartamento="76" IdPais="CO" Nombre="LA UNIÓN" />
+          <Registro IdCiudad="403" IdDepartamento="76" IdPais="CO" Nombre="LA VICTORIA" />
+          <Registro IdCiudad="497" IdDepartamento="76" IdPais="CO" Nombre="OBANDO" />
+          <Registro IdCiudad="520" IdDepartamento="76" IdPais="CO" Nombre="PALMIRA" />
+          <Registro IdCiudad="563" IdDepartamento="76" IdPais="CO" Nombre="PRADERA" />
+          <Registro IdCiudad="606" IdDepartamento="76" IdPais="CO" Nombre="RESTREPO" />
+          <Registro IdCiudad="616" IdDepartamento="76" IdPais="CO" Nombre="RIOFRÍO" />
+          <Registro IdCiudad="622" IdDepartamento="76" IdPais="CO" Nombre="ROLDANILLO" />
+          <Registro IdCiudad="670" IdDepartamento="76" IdPais="CO" Nombre="SAN PEDRO" />
+          <Registro IdCiudad="736" IdDepartamento="76" IdPais="CO" Nombre="SEVILLA" />
+          <Registro IdCiudad="823" IdDepartamento="76" IdPais="CO" Nombre="TORO" />
+          <Registro IdCiudad="828" IdDepartamento="76" IdPais="CO" Nombre="TRUJILLO" />
+          <Registro IdCiudad="834" IdDepartamento="76" IdPais="CO" Nombre="TULUÁ" />
+          <Registro IdCiudad="845" IdDepartamento="76" IdPais="CO" Nombre="ULLOA" />
+          <Registro IdCiudad="863" IdDepartamento="76" IdPais="CO" Nombre="VERSALLES" />
+          <Registro IdCiudad="869" IdDepartamento="76" IdPais="CO" Nombre="VIJES" />
+          <Registro IdCiudad="890" IdDepartamento="76" IdPais="CO" Nombre="YOTOCO" />
+          <Registro IdCiudad="892" IdDepartamento="76" IdPais="CO" Nombre="YUMBO" />
+          <Registro IdCiudad="895" IdDepartamento="76" IdPais="CO" Nombre="ZARZAL" />
+          <Registro IdCiudad="1" IdDepartamento="81" IdPais="CO" Nombre="ARAUCA" />
+          <Registro IdCiudad="65" IdDepartamento="81" IdPais="CO" Nombre="ARAUQUITA" />
+          <Registro IdCiudad="220" IdDepartamento="81" IdPais="CO" Nombre="CRAVO NORTE" />
+          <Registro IdCiudad="300" IdDepartamento="81" IdPais="CO" Nombre="FORTUL" />
+          <Registro IdCiudad="591" IdDepartamento="81" IdPais="CO" Nombre="PUERTO RONDÓN" />
+          <Registro IdCiudad="736" IdDepartamento="81" IdPais="CO" Nombre="SARAVENA" />
+          <Registro IdCiudad="794" IdDepartamento="81" IdPais="CO" Nombre="TAME" />
+          <Registro IdCiudad="1" IdDepartamento="85" IdPais="CO" Nombre="YOPAL" />
+          <Registro IdCiudad="10" IdDepartamento="85" IdPais="CO" Nombre="AGUAZUL" />
+          <Registro IdCiudad="15" IdDepartamento="85" IdPais="CO" Nombre="CHAMEZA" />
+          <Registro IdCiudad="125" IdDepartamento="85" IdPais="CO" Nombre="HATO COROZAL" />
+          <Registro IdCiudad="136" IdDepartamento="85" IdPais="CO" Nombre="LA SALINA" />
+          <Registro IdCiudad="139" IdDepartamento="85" IdPais="CO" Nombre="MANÍ" />
+          <Registro IdCiudad="162" IdDepartamento="85" IdPais="CO" Nombre="MONTERREY" />
+          <Registro IdCiudad="225" IdDepartamento="85" IdPais="CO" Nombre="NUNCHÍA" />
+          <Registro IdCiudad="230" IdDepartamento="85" IdPais="CO" Nombre="OROCUÉ" />
+          <Registro IdCiudad="250" IdDepartamento="85" IdPais="CO" Nombre="PAZ DE ARIPORO" />
+          <Registro IdCiudad="263" IdDepartamento="85" IdPais="CO" Nombre="PORE" />
+          <Registro IdCiudad="279" IdDepartamento="85" IdPais="CO" Nombre="RECETOR" />
+          <Registro IdCiudad="300" IdDepartamento="85" IdPais="CO" Nombre="SABANALARGA" />
+          <Registro IdCiudad="315" IdDepartamento="85" IdPais="CO" Nombre="SÁCAMA" />
+          <Registro IdCiudad="325" IdDepartamento="85" IdPais="CO" Nombre="SAN LUIS DE PALENQUE" />
+          <Registro IdCiudad="400" IdDepartamento="85" IdPais="CO" Nombre="TÁMARA" />
+          <Registro IdCiudad="410" IdDepartamento="85" IdPais="CO" Nombre="TAURAMENA" />
+          <Registro IdCiudad="430" IdDepartamento="85" IdPais="CO" Nombre="TRINIdAD" />
+          <Registro IdCiudad="440" IdDepartamento="85" IdPais="CO" Nombre="VILLANUEVA" />
+          <Registro IdCiudad="1" IdDepartamento="86" IdPais="CO" Nombre="MOCOA" />
+          <Registro IdCiudad="219" IdDepartamento="86" IdPais="CO" Nombre="COLÓN" />
+          <Registro IdCiudad="320" IdDepartamento="86" IdPais="CO" Nombre="ORITO" />
+          <Registro IdCiudad="568" IdDepartamento="86" IdPais="CO" Nombre="PUERTO ASIS" />
+          <Registro IdCiudad="569" IdDepartamento="86" IdPais="CO" Nombre="PUERTO CAICEDO" />
+          <Registro IdCiudad="571" IdDepartamento="86" IdPais="CO" Nombre="PUERTO GUZMÁN" />
+          <Registro IdCiudad="573" IdDepartamento="86" IdPais="CO" Nombre="PUERTO LEGUÍZAMO" />
+          <Registro IdCiudad="749" IdDepartamento="86" IdPais="CO" Nombre="SIBUNDOY" />
+          <Registro IdCiudad="755" IdDepartamento="86" IdPais="CO" Nombre="SAN FRANCISCO" />
+          <Registro IdCiudad="760" IdDepartamento="86" IdPais="CO" Nombre="SANTIAGO" />
+          <Registro IdCiudad="865" IdDepartamento="86" IdPais="CO" Nombre="VALLE DEL GUAMUÉZ" />
+          <Registro IdCiudad="885" IdDepartamento="86" IdPais="CO" Nombre="VILLAGARZÓN" />
+          <Registro IdCiudad="1" IdDepartamento="88" IdPais="CO" Nombre="SAN ANDRÉS" />
+          <Registro IdCiudad="564" IdDepartamento="88" IdPais="CO" Nombre="PROVIdENCIA" />
+          <Registro IdCiudad="1" IdDepartamento="91" IdPais="CO" Nombre="LETICIA" />
+          <Registro IdCiudad="263" IdDepartamento="91" IdPais="CO" Nombre="EL ENCANTO" />
+          <Registro IdCiudad="405" IdDepartamento="91" IdPais="CO" Nombre="LA CHORRERA" />
+          <Registro IdCiudad="407" IdDepartamento="91" IdPais="CO" Nombre="LA PEDRERA" />
+          <Registro IdCiudad="460" IdDepartamento="91" IdPais="CO" Nombre="MIRITÍ-PARANÁ" />
+          <Registro IdCiudad="540" IdDepartamento="91" IdPais="CO" Nombre="PUERTO NARIÑO" />
+          <Registro IdCiudad="669" IdDepartamento="91" IdPais="CO" Nombre="PUERTO SANTANDER" />
+          <Registro IdCiudad="798" IdDepartamento="91" IdPais="CO" Nombre="TARAPACÁ" />
+          <Registro IdCiudad="1" IdDepartamento="94" IdPais="CO" Nombre="INÍRIDA" />
+          <Registro IdCiudad="343" IdDepartamento="94" IdPais="CO" Nombre="BARRANCO MINA" />
+          <Registro IdCiudad="663" IdDepartamento="94" IdPais="CO" Nombre="CORREGIMIENTO DEPARTAMENT" />
+          <Registro IdCiudad="883" IdDepartamento="94" IdPais="CO" Nombre="SAN FELIPE" />
+          <Registro IdCiudad="884" IdDepartamento="94" IdPais="CO" Nombre="PUERTO COLOMBIA" />
+          <Registro IdCiudad="885" IdDepartamento="94" IdPais="CO" Nombre="LA GUADALUPE" />
+          <Registro IdCiudad="886" IdDepartamento="94" IdPais="CO" Nombre="CACAHUAL" />
+          <Registro IdCiudad="887" IdDepartamento="94" IdPais="CO" Nombre="PANA PANA" />
+          <Registro IdCiudad="888" IdDepartamento="94" IdPais="CO" Nombre="MORICHAL" />
+          <Registro IdCiudad="1" IdDepartamento="95" IdPais="CO" Nombre="SAN JOSÉ DEL GUAVIARE" />
+          <Registro IdCiudad="15" IdDepartamento="95" IdPais="CO" Nombre="CALAMAR" />
+          <Registro IdCiudad="25" IdDepartamento="95" IdPais="CO" Nombre="EL RETORNO" />
+          <Registro IdCiudad="200" IdDepartamento="95" IdPais="CO" Nombre="MIRAFLORES" />
+          <Registro IdCiudad="1" IdDepartamento="97" IdPais="CO" Nombre="MITÚ" />
+          <Registro IdCiudad="161" IdDepartamento="97" IdPais="CO" Nombre="CARURU" />
+          <Registro IdCiudad="511" IdDepartamento="97" IdPais="CO" Nombre="PACOA" />
+          <Registro IdCiudad="666" IdDepartamento="97" IdPais="CO" Nombre="TARAIRA" />
+          <Registro IdCiudad="777" IdDepartamento="97" IdPais="CO" Nombre="PAPUNAHUA" />
+          <Registro IdCiudad="889" IdDepartamento="97" IdPais="CO" Nombre="YAVARATE" />
+          <Registro IdCiudad="1" IdDepartamento="99" IdPais="CO" Nombre="PUERTO CARREÑO" />
+          <Registro IdCiudad="524" IdDepartamento="99" IdPais="CO" Nombre="LA PRIMAVERA" />
+          <Registro IdCiudad="572" IdDepartamento="99" IdPais="CO" Nombre="SANTA RITA" />
+          <Registro IdCiudad="624" IdDepartamento="99" IdPais="CO" Nombre="SANTA ROSALIA" />
+          <Registro IdCiudad="760" IdDepartamento="99" IdPais="CO" Nombre="SAN JOSÉ DE OCUNE" />
+        </Registros>
+      </Tabla>
+      <Tabla Nombre="PanTblConstantes" Vinculada="N">
+        <Columnas>
+          <Columna Nombre="Dato" Requerido="S" TipoDato="VSTRING" Longitud="80" />
+          <Columna Nombre="IdConstante" Requerido="S" TipoDato="UBYTE" />
+          <Columna Nombre="IdGrupo" Requerido="S" TipoDato="UBYTE" />
+        </Columnas>
+        <Indices>
+          <Indice Nombre="PK_PanTblConstantes" Principal="S" Unico="S" NulosIndice="IndexNullsDisallow">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdGrupo" Orden="ASC" />
+              <ColumnaIndice Nombre="IdConstante" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+        </Indices>
+        <Registros>
+          <!--Ojo: El orden de las columnas en el registro debe ser igual al orden en que estan dfinidas las
+          columnas en el nodo "Columnas"-->
+          <!--Panorama 1: enuTipoCambioContrasena-->
+          <Registro Dato="0 - Ninguno" IdConstante="0" IdGrupo="1" />
+          <Registro Dato="1 - No Cambiar" IdConstante="1" IdGrupo="1" />
+          <Registro Dato="2 - Proxima vez" IdConstante="2" IdGrupo="1" />
+          <Registro Dato="3 - Al vencimiento" IdConstante="3" IdGrupo="1" />
+          <!--Panorama 2: enuTipoLicenciamiento-->
+          <Registro Dato="0 - Ninguno" IdConstante="0" IdGrupo="2" />
+          <Registro Dato="1 - Por Estacion" IdConstante="1" IdGrupo="2" />
+          <Registro Dato="2 - Por Copropiedad" IdConstante="2" IdGrupo="2" />
+          <Registro Dato="3 - Por Instancia" IdConstante="3" IdGrupo="2" />
+          <!--Panorama 3: enuTipoDocIdentidad-->
+          <Registro Dato="0 - Ninguno" IdConstante="0" IdGrupo="3" />
+          <Registro Dato="1 - Cédula de Ciudadanía" IdConstante="1" IdGrupo="3" />
+          <Registro Dato="2 - Tarjeta Identidad" IdConstante="2" IdGrupo="3" />
+          <Registro Dato="3 - Cédula Extranjería" IdConstante="3" IdGrupo="3" />
+          <Registro Dato="4 - NIT" IdConstante="4" IdGrupo="3" />
+          <Registro Dato="5 - NUIP" IdConstante="5" IdGrupo="3" />
+          <Registro Dato="6 - Registro Civil" IdConstante="6" IdGrupo="3" />
+          <Registro Dato="7 - Pasaporte" IdConstante="7" IdGrupo="3" />
+          <Registro Dato="8 - Doc. de Identificación Extranjero" IdConstante="8" IdGrupo="3" />
+          <Registro Dato="9 - Tarjeta de Extranjería" IdConstante="9" IdGrupo="3" />
+          <Registro Dato="10 - NIT de otro País" IdConstante="10" IdGrupo="3" />
+          <Registro Dato="11 - PEP" IdConstante="11" IdGrupo="3" />
+          <!--Panorama 4: enuTipoTercero-->
+          <Registro Dato="0 - Ninguna" IdConstante="0" IdGrupo="4" />
+          <Registro Dato="1 - Persona Natural" IdConstante="1" IdGrupo="4" />
+          <Registro Dato="2 - Persona Jurídica" IdConstante="2" IdGrupo="4" />
+          <!--Panorama 5: enuCategoriaImagen-->
+          <Registro Dato="0 - Ninguna" IdConstante="0"  IdGrupo="5" />
+          <Registro Dato="1 - Foto Tercero" IdConstante="1"  IdGrupo="5" />
+          <Registro Dato="2 - Foto Extintor" IdConstante="2"  IdGrupo="5" />
+          <Registro Dato="3 - Médicas" IdConstante="3"  IdGrupo="5" />
+          <Registro Dato="4 - Documentos" IdConstante="4"  IdGrupo="5" />
+          <Registro Dato="5 - Firmas" IdConstante="5"  IdGrupo="5" />
+          <!--Panorama 6: enuTipoCuenta-->
+          <Registro Dato="0 - Ninguno" IdConstante="0"  IdGrupo="6" />
+          <Registro Dato="1 - Débito" IdConstante="1"  IdGrupo="6" />
+          <Registro Dato="2 - Crédito" IdConstante="2"  IdGrupo="6" />
+          <!--Panorama 7: enuOrigenInstancia-->
+          <Registro Dato="0 - Ninguno" IdConstante="0"  IdGrupo="7" />
+          <Registro Dato="1 - Estacion Trabajo" IdConstante="1"  IdGrupo="7" />
+          <Registro Dato="2 - Url" IdConstante="2"  IdGrupo="7" />
+          <Registro Dato="3 - Movil" IdConstante="3"  IdGrupo="7" />
+          <!--Panorama 8: enuTipoLog-->
+          <Registro Dato="0 - Ninguno" IdConstante="0"  IdGrupo="8" />
+          <Registro Dato="1 - Accion" IdConstante="1"  IdGrupo="8" />
+          <Registro Dato="2 - Cambio" IdConstante="2"  IdGrupo="8" />
+          <!--Panorama 9: enuTipoConsulta-->
+          <Registro Dato="0 - Ninguno" IdConstante="0"  IdGrupo="9" />
+          <Registro Dato="1 - Select" IdConstante="1"  IdGrupo="9" />
+          <Registro Dato="2 - Update" IdConstante="2"  IdGrupo="9" />
+          <Registro Dato="3 - Insert" IdConstante="3"  IdGrupo="9" />
+          <Registro Dato="4 - Delete" IdConstante="4"  IdGrupo="9" />
+          <Registro Dato="5 - Consulta" IdConstante="5"  IdGrupo="9" />
+          <!--Panorama 10: enuTipoNomTercero-->
+          <Registro Dato="0 - Ninguno" IdConstante="0"  IdGrupo="10" />
+          <Registro Dato="1 - Mayúscula sostenida" IdConstante="1"  IdGrupo="10" />
+          <Registro Dato="2 - Mayúscula inicial" IdConstante="2"  IdGrupo="10" />
+          <Registro Dato="3 - Como ingresada" IdConstante="3"  IdGrupo="10" />
+        </Registros>
+      </Tabla>
+      <Tabla Nombre="PanTblDefAplicaciones" Vinculada="N">
+        <Columnas>
+          <Columna Nombre="Edicion" Requerido="N" TipoDato="STRING" Longitud="20" />
+          <Columna Nombre="IdAplicacion" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdTblTipoLicenciamiento" Requerido="S" TipoDato="UBYTE"
+                 Comentario="IdGrupo:15; 0:Ninguno; 1:Por Estacion; 2:Por Copropiedad; 3:Por Instancia" />
+          <Columna Nombre="Nombre" Requerido="S" TipoDato="STRING" Longitud="30" />
+          <Columna Nombre="PrefijoAplicacion" Requerido="S" TipoDato="STRING" Longitud="3" />
+          <Columna Nombre="PrefijoEdicion" Requerido="S" TipoDato="STRING" Longitud="2" />
+          <Columna Nombre="PrefijoTablas" Requerido="S" TipoDato="STRING" Longitud="3" />
+          <Columna Nombre="UsaCarpetas" Requerido="S" TipoDato="BOOLEAN" />
+        </Columnas>
+        <Indices>
+          <Indice Nombre="PK_PanTblDefAplicaciones" Principal="S" Unico="S" NulosIndice="IndexNullsDisallow">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdAplicacion" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+        </Indices>
+        <Registros>
+          <Registro Edicion="" IdAplicacion="100" IdTblTipoLicenciamiento="0" Nombre="Administrador Orión Plus" 
+                    PrefijoAplicacion="ADM" PrefijoEdicion="S" PrefijoTablas="Pan" UsaCarpetas="False" />
+          <Registro Edicion="Plus" IdAplicacion="803" IdTblTipoLicenciamiento="2" Nombre="Orión" 
+                    PrefijoAplicacion="ORI" PrefijoEdicion="P" PrefijoTablas="Ori" UsaCarpetas="True" />
+        </Registros>
+      </Tabla>
+      <Tabla Nombre="PanTblDepartamentos" Vinculada="N">
+        <Comandos>
+          <Comando Tipo="SQL" Condicion="VBD&lt;68" Secuencia="Fin" Accion="FSH"
+                 Parametros="UPDATE PanTblDepartamentos SET IdPais = 'CO' WHERE IdPais = '57'" />
+          <Comando Tipo="SQL" Condicion="VBD&lt;68" Secuencia="Fin" Accion="FSH"
+                 Parametros="UPDATE PanTblDepartamentos SET IdPais = '' WHERE IdPais = '0'" />
+        </Comandos>
+        <Columnas>
+          <Columna Nombre="IdDepartamento" Requerido="S" TipoDato="UBYTE" />
+          <Columna Nombre="IdPais" Requerido="S" TipoDato="STRING" Longitud="2" />
+          <Columna Nombre="Nombre" Requerido="N" TipoDato="VSTRING" Longitud="50" />
+        </Columnas>
+        <Indices>
+          <Indice Nombre="PK_PanTblDepartamentos" Principal="S" Unico="S" NulosIndice="IndexNullsDisallow">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdPais" Orden="ASC" />
+              <ColumnaIndice Nombre="IdDepartamento" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+          <Indice Nombre="Nombre" Principal="N" Unico="N" NulosIndice="IndexNullsDisallow">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="Nombre" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+        </Indices>
+        <Registros>
+          <Registro IdDepartamento="0" IdPais="0" Nombre="&lt;Ninguno&gt;" />
+          <Registro IdDepartamento="5" IdPais="CO" Nombre="ANTIOQUIA" />
+          <Registro IdDepartamento="8" IdPais="CO" Nombre="ATLANTICO" />
+          <Registro IdDepartamento="11" IdPais="CO" Nombre="DISTRITO CAPITAL" />
+          <Registro IdDepartamento="13" IdPais="CO" Nombre="BOLIVAR" />
+          <Registro IdDepartamento="15" IdPais="CO" Nombre="BOYACA" />
+          <Registro IdDepartamento="17" IdPais="CO" Nombre="CALDAS" />
+          <Registro IdDepartamento="18" IdPais="CO" Nombre="CAQUETA" />
+          <Registro IdDepartamento="19" IdPais="CO" Nombre="CAUCA" />
+          <Registro IdDepartamento="20" IdPais="CO" Nombre="CESAR" />
+          <Registro IdDepartamento="23" IdPais="CO" Nombre="CORDOBA" />
+          <Registro IdDepartamento="25" IdPais="CO" Nombre="CUNDINAMARCA" />
+          <Registro IdDepartamento="27" IdPais="CO" Nombre="CHOCO" />
+          <Registro IdDepartamento="41" IdPais="CO" Nombre="HUILA" />
+          <Registro IdDepartamento="44" IdPais="CO" Nombre="GUAJIRA" />
+          <Registro IdDepartamento="47" IdPais="CO" Nombre="MAGDALENA" />
+          <Registro IdDepartamento="50" IdPais="CO" Nombre="META" />
+          <Registro IdDepartamento="52" IdPais="CO" Nombre="NARIÑO" />
+          <Registro IdDepartamento="54" IdPais="CO" Nombre="NORTE SANTANDER" />
+          <Registro IdDepartamento="63" IdPais="CO" Nombre="QUINDIO" />
+          <Registro IdDepartamento="66" IdPais="CO" Nombre="RISARALDA" />
+          <Registro IdDepartamento="68" IdPais="CO" Nombre="SANTANDER" />
+          <Registro IdDepartamento="70" IdPais="CO" Nombre="SUCRE" />
+          <Registro IdDepartamento="73" IdPais="CO" Nombre="TOLIMA" />
+          <Registro IdDepartamento="76" IdPais="CO" Nombre="VALLE" />
+          <Registro IdDepartamento="81" IdPais="CO" Nombre="ARAUCA" />
+          <Registro IdDepartamento="85" IdPais="CO" Nombre="CASANARE" />
+          <Registro IdDepartamento="86" IdPais="CO" Nombre="PUTUMAYO" />
+          <Registro IdDepartamento="88" IdPais="CO" Nombre="SAN ANDRES" />
+          <Registro IdDepartamento="91" IdPais="CO" Nombre="AMAZONAS" />
+          <Registro IdDepartamento="94" IdPais="CO" Nombre="GUAINIA" />
+          <Registro IdDepartamento="95" IdPais="CO" Nombre="GUAVIARE" />
+          <Registro IdDepartamento="97" IdPais="CO" Nombre="VAUPES" />
+          <Registro IdDepartamento="99" IdPais="CO" Nombre="VICHADA" />
+        </Registros>
+      </Tabla>
+      <Tabla Nombre="PanTblPaises" Vinculada="N">
+        <Comandos>
+          <Comando Tipo="SQL" Condicion="VBD&lt;68" Secuencia="Inicio" Accion="FSH"
+                 Parametros="DELETE FROM PanTblPaises" />
+        </Comandos>
+        <Columnas>
+          <Columna Nombre="IdPais" Requerido="S" TipoDato="STRING" Longitud="2" />
+          <Columna Nombre="Nombre" Requerido="S" TipoDato="VSTRING" Longitud="60" />
+        </Columnas>
+        <Indices>
+          <Indice Nombre="PK_PanTblPaises" Principal="S" Unico="S" NulosIndice="IndexNullsDisallow">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="Nombre" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+          <Indice Nombre="Id" Principal="N" Unico="S" NulosIndice="IndexNullsDisallow">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdPais" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+        </Indices>
+        <Registros>
+          <Registro IdPais="AF" Nombre="AFGANISTÁN" />
+          <Registro IdPais="AL" Nombre="ALBANIA" />
+          <Registro IdPais="DE" Nombre="ALEMANIA" />
+          <Registro IdPais="DZ" Nombre="ALGERIA" />
+          <Registro IdPais="AD" Nombre="ANDORRA" />
+          <Registro IdPais="AO" Nombre="ANGOLA" />
+          <Registro IdPais="AI" Nombre="ANGUILA" />
+          <Registro IdPais="AQ" Nombre="ANTÁRTIDA" />
+          <Registro IdPais="AG" Nombre="ANTIGUA Y BARBUDA" />
+          <Registro IdPais="SA" Nombre="ARABIA SAUDITA" />
+          <Registro IdPais="AR" Nombre="ARGENTINA" />
+          <Registro IdPais="AM" Nombre="ARMENIA" />
+          <Registro IdPais="AW" Nombre="ARUBA" />
+          <Registro IdPais="AU" Nombre="AUSTRALIA" />
+          <Registro IdPais="AT" Nombre="AUSTRIA" />
+          <Registro IdPais="AZ" Nombre="AZERBAIYÁN" />
+          <Registro IdPais="BE" Nombre="BÉLGICA" />
+          <Registro IdPais="BS" Nombre="BAHAMAS" />
+          <Registro IdPais="BH" Nombre="BAHREIN" />
+          <Registro IdPais="BD" Nombre="BANGLADESH" />
+          <Registro IdPais="BB" Nombre="BARBADOS" />
+          <Registro IdPais="BZ" Nombre="BELICE" />
+          <Registro IdPais="BJ" Nombre="BENÍN" />
+          <Registro IdPais="BT" Nombre="BHUTÁN" />
+          <Registro IdPais="BY" Nombre="BIELORRUSIA" />
+          <Registro IdPais="MM" Nombre="BIRMANIA" />
+          <Registro IdPais="BO" Nombre="BOLIVIA" />
+          <Registro IdPais="BA" Nombre="BOSNIA Y HERZEGOVINA" />
+          <Registro IdPais="BW" Nombre="BOTSUANA" />
+          <Registro IdPais="BR" Nombre="BRASIL" />
+          <Registro IdPais="BN" Nombre="BRUNÉI" />
+          <Registro IdPais="BG" Nombre="BULGARIA" />
+          <Registro IdPais="BF" Nombre="BURKINA FASO" />
+          <Registro IdPais="BI" Nombre="BURUNDI" />
+          <Registro IdPais="CV" Nombre="CABO VERDE" />
+          <Registro IdPais="KH" Nombre="CAMBOYA" />
+          <Registro IdPais="CM" Nombre="CAMERÚN" />
+          <Registro IdPais="CA" Nombre="CANADÁ" />
+          <Registro IdPais="TD" Nombre="CHAD" />
+          <Registro IdPais="CL" Nombre="CHILE" />
+          <Registro IdPais="CN" Nombre="CHINA" />
+          <Registro IdPais="CY" Nombre="CHIPRE" />
+          <Registro IdPais="VA" Nombre="CIUDAD DEL VATICANO" />
+          <Registro IdPais="CO" Nombre="COLOMBIA" />
+          <Registro IdPais="KM" Nombre="COMORAS" />
+          <Registro IdPais="CG" Nombre="REPÚBLICA CONGO" />
+          <Registro IdPais="CD" Nombre="REPÚBLICA DEMOCRÁTICA CONGO" />
+          <Registro IdPais="KP" Nombre="COREA NORTE" />
+          <Registro IdPais="KR" Nombre="COREA SUR" />
+          <Registro IdPais="CI" Nombre="COSTA DE MARFIL" />
+          <Registro IdPais="CR" Nombre="COSTA RICA" />
+          <Registro IdPais="HR" Nombre="CROACIA" />
+          <Registro IdPais="CU" Nombre="CUBA" />
+          <Registro IdPais="CW" Nombre="CURAZAO" />
+          <Registro IdPais="DK" Nombre="DINAMARCA" />
+          <Registro IdPais="DM" Nombre="DOMINICA" />
+          <Registro IdPais="EC" Nombre="ECUADOR" />
+          <Registro IdPais="EG" Nombre="EGIPTO" />
+          <Registro IdPais="SV" Nombre="EL SALVADOR" />
+          <Registro IdPais="AE" Nombre="EMIRATOS ARABES UNIDOS" />
+          <Registro IdPais="ER" Nombre="ERITREA" />
+          <Registro IdPais="SK" Nombre="ESLOVAQUIA" />
+          <Registro IdPais="SI" Nombre="ESLOVENIA" />
+          <Registro IdPais="ES" Nombre="ESPAÑA" />
+          <Registro IdPais="US" Nombre="ESTADOS UNIDOS DE AMÉRICA" />
+          <Registro IdPais="EE" Nombre="ESTONIA" />
+          <Registro IdPais="ET" Nombre="ETIOPÍA" />
+          <Registro IdPais="PH" Nombre="FILIPINAS" />
+          <Registro IdPais="FI" Nombre="FINLANDIA" />
+          <Registro IdPais="FJ" Nombre="FIYI" />
+          <Registro IdPais="FR" Nombre="FRANCIA" />
+          <Registro IdPais="GA" Nombre="GABÓN" />
+          <Registro IdPais="GM" Nombre="GAMBIA" />
+          <Registro IdPais="GE" Nombre="GEORGIA" />
+          <Registro IdPais="GH" Nombre="GHANA" />
+          <Registro IdPais="GI" Nombre="GIBRALTAR" />
+          <Registro IdPais="GD" Nombre="GRANADA" />
+          <Registro IdPais="GR" Nombre="GRECIA" />
+          <Registro IdPais="GL" Nombre="GROENLANDIA" />
+          <Registro IdPais="GP" Nombre="GUADALUPE" />
+          <Registro IdPais="GU" Nombre="GUAM" />
+          <Registro IdPais="GT" Nombre="GUATEMALA" />
+          <Registro IdPais="GF" Nombre="GUAYANA FRANCESA" />
+          <Registro IdPais="GG" Nombre="GUERNSEY" />
+          <Registro IdPais="GN" Nombre="GUINEA" />
+          <Registro IdPais="GQ" Nombre="GUINEA ECUATORIAL" />
+          <Registro IdPais="GW" Nombre="GUINEA-BISSAU" />
+          <Registro IdPais="GY" Nombre="GUYANA" />
+          <Registro IdPais="HT" Nombre="HAITÍ" />
+          <Registro IdPais="HN" Nombre="HONDURAS" />
+          <Registro IdPais="HK" Nombre="HONG KONG" />
+          <Registro IdPais="HU" Nombre="HUNGRÍA" />
+          <Registro IdPais="IN" Nombre="INDIA" />
+          <Registro IdPais="ID" Nombre="INDONESIA" />
+          <Registro IdPais="IR" Nombre="IRÁN" />
+          <Registro IdPais="IQ" Nombre="IRAK" />
+          <Registro IdPais="IE" Nombre="IRLANDA" />
+          <Registro IdPais="BV" Nombre="ISLA BOUVET" />
+          <Registro IdPais="IM" Nombre="ISLA DE MAN" />
+          <Registro IdPais="CX" Nombre="ISLA DE NAVIDAD" />
+          <Registro IdPais="NF" Nombre="ISLA NORFOLK" />
+          <Registro IdPais="IS" Nombre="ISLANDIA" />
+          <Registro IdPais="BM" Nombre="ISLAS BERMUDAS" />
+          <Registro IdPais="KY" Nombre="ISLAS CAIMÁN" />
+          <Registro IdPais="CC" Nombre="ISLAS COCOS (KEELING)" />
+          <Registro IdPais="CK" Nombre="ISLAS COOK" />
+          <Registro IdPais="AX" Nombre="ISLAS DE Á…LAND" />
+          <Registro IdPais="FO" Nombre="ISLAS FEROE" />
+          <Registro IdPais="GS" Nombre="ISLAS GEORGIAS SUR Y SANDWICH SUR" />
+          <Registro IdPais="HM" Nombre="ISLAS HEARD Y MCDONALD" />
+          <Registro IdPais="MV" Nombre="ISLAS MALDIVAS" />
+          <Registro IdPais="FK" Nombre="ISLAS MALVINAS" />
+          <Registro IdPais="MP" Nombre="ISLAS MARIANAS NORTE" />
+          <Registro IdPais="MH" Nombre="ISLAS MARSHALL" />
+          <Registro IdPais="PN" Nombre="ISLAS PITCAIRN" />
+          <Registro IdPais="SB" Nombre="ISLAS SALOMÓN" />
+          <Registro IdPais="TC" Nombre="ISLAS TURCAS Y CAICOS" />
+          <Registro IdPais="UM" Nombre="ISLAS ULTRAMARINAS MENORES DE ESTADOS UNIDOS" />
+          <Registro IdPais="VG" Nombre="ISLAS VÍRGENES BRITÁNICAS" />
+          <Registro IdPais="VI" Nombre="ISLAS VÍRGENES DE LOS ESTADOS UNIDOS" />
+          <Registro IdPais="IL" Nombre="ISRAEL" />
+          <Registro IdPais="IT" Nombre="ITALIA" />
+          <Registro IdPais="JM" Nombre="JAMAICA" />
+          <Registro IdPais="JP" Nombre="JAPÓN" />
+          <Registro IdPais="JE" Nombre="JERSEY" />
+          <Registro IdPais="JO" Nombre="JORDANIA" />
+          <Registro IdPais="KZ" Nombre="KAZAJISTÁN" />
+          <Registro IdPais="KE" Nombre="KENIA" />
+          <Registro IdPais="KG" Nombre="KIRGUISTÁN" />
+          <Registro IdPais="KI" Nombre="KIRIBATI" />
+          <Registro IdPais="KW" Nombre="KUWAIT" />
+          <Registro IdPais="LB" Nombre="LÍBANO" />
+          <Registro IdPais="LA" Nombre="LAOS" />
+          <Registro IdPais="LS" Nombre="LESOTO" />
+          <Registro IdPais="LV" Nombre="LETONIA" />
+          <Registro IdPais="LR" Nombre="LIBERIA" />
+          <Registro IdPais="LY" Nombre="LIBIA" />
+          <Registro IdPais="LI" Nombre="LIECHTENSTEIN" />
+          <Registro IdPais="LT" Nombre="LITUANIA" />
+          <Registro IdPais="LU" Nombre="LUXEMBURGO" />
+          <Registro IdPais="MX" Nombre="MÉXICO" />
+          <Registro IdPais="MC" Nombre="MÓNACO" />
+          <Registro IdPais="MO" Nombre="MACAO" />
+          <Registro IdPais="MK" Nombre="MACEDÓNIA" />
+          <Registro IdPais="MG" Nombre="MADAGASCAR" />
+          <Registro IdPais="MY" Nombre="MALASIA" />
+          <Registro IdPais="MW" Nombre="MALAWI" />
+          <Registro IdPais="ML" Nombre="MALI" />
+          <Registro IdPais="MT" Nombre="MALTA" />
+          <Registro IdPais="MA" Nombre="MARRUECOS" />
+          <Registro IdPais="MQ" Nombre="MARTINICA" />
+          <Registro IdPais="MU" Nombre="MAURICIO" />
+          <Registro IdPais="MR" Nombre="MAURITANIA" />
+          <Registro IdPais="YT" Nombre="MAYOTTE" />
+          <Registro IdPais="FM" Nombre="MICRONESIA" />
+          <Registro IdPais="MD" Nombre="MOLDAVIA" />
+          <Registro IdPais="MN" Nombre="MONGOLIA" />
+          <Registro IdPais="ME" Nombre="MONTENEGRO" />
+          <Registro IdPais="MS" Nombre="MONTSERRAT" />
+          <Registro IdPais="MZ" Nombre="MOZAMBIQUE" />
+          <Registro IdPais="NA" Nombre="NAMIBIA" />
+          <Registro IdPais="NR" Nombre="NAURU" />
+          <Registro IdPais="NP" Nombre="NEPAL" />
+          <Registro IdPais="NI" Nombre="NICARAGUA" />
+          <Registro IdPais="NE" Nombre="NIGER" />
+          <Registro IdPais="NG" Nombre="NIGERIA" />
+          <Registro IdPais="NU" Nombre="NIUE" />
+          <Registro IdPais="NO" Nombre="NORUEGA" />
+          <Registro IdPais="NC" Nombre="NUEVA CALEDONIA" />
+          <Registro IdPais="NZ" Nombre="NUEVA ZELANDA" />
+          <Registro IdPais="OM" Nombre="OMÁN" />
+          <Registro IdPais="NL" Nombre="PAÍSES BAJOS" />
+          <Registro IdPais="PK" Nombre="PAKISTÁN" />
+          <Registro IdPais="PW" Nombre="PALAU" />
+          <Registro IdPais="PS" Nombre="PALESTINA" />
+          <Registro IdPais="PA" Nombre="PANAMÁ" />
+          <Registro IdPais="PG" Nombre="PAPÚA NUEVA GUINEA" />
+          <Registro IdPais="PY" Nombre="PARAGUAY" />
+          <Registro IdPais="PE" Nombre="PERÚ" />
+          <Registro IdPais="PF" Nombre="POLINESIA FRANCESA" />
+          <Registro IdPais="PL" Nombre="POLONIA" />
+          <Registro IdPais="PT" Nombre="PORTUGAL" />
+          <Registro IdPais="PR" Nombre="PUERTO RICO" />
+          <Registro IdPais="QA" Nombre="QATAR" />
+          <Registro IdPais="GB" Nombre="REINO UNIDO" />
+          <Registro IdPais="CF" Nombre="REPÚBLICA CENTROAFRICANA" />
+          <Registro IdPais="CZ" Nombre="REPÚBLICA CHECA" />
+          <Registro IdPais="DO" Nombre="REPÚBLICA DOMINICANA" />
+          <Registro IdPais="SS" Nombre="REPÚBLICA DE SUDÁN SUR" />
+          <Registro IdPais="RE" Nombre="REUNIÓN" />
+          <Registro IdPais="RW" Nombre="RUANDA" />
+          <Registro IdPais="RO" Nombre="RUMANÍA" />
+          <Registro IdPais="RU" Nombre="RUSIA" />
+          <Registro IdPais="EH" Nombre="SAHARA OCCIDENTAL" />
+          <Registro IdPais="WS" Nombre="SAMOA" />
+          <Registro IdPais="AS" Nombre="SAMOA AMERICANA" />
+          <Registro IdPais="BL" Nombre="SAN BARTOLOMÉ" />
+          <Registro IdPais="KN" Nombre="SAN CRISTÓBAL Y NIEVES" />
+          <Registro IdPais="SM" Nombre="SAN MARINO" />
+          <Registro IdPais="MF" Nombre="SAN MARTÍN (FRANCIA)" />
+          <Registro IdPais="PM" Nombre="SAN PEDRO Y MIQUELÓN" />
+          <Registro IdPais="VC" Nombre="SAN VICENTE Y LAS GRANADINAS" />
+          <Registro IdPais="SH" Nombre="SANTA ELENA" />
+          <Registro IdPais="LC" Nombre="SANTA LUCÍA" />
+          <Registro IdPais="ST" Nombre="SANTO TOMÉ Y PRÍNCIPE" />
+          <Registro IdPais="SN" Nombre="SENEGAL" />
+          <Registro IdPais="RS" Nombre="SERBIA" />
+          <Registro IdPais="SC" Nombre="SEYCHELLES" />
+          <Registro IdPais="SL" Nombre="SIERRA LEONA" />
+          <Registro IdPais="SG" Nombre="SINGAPUR" />
+          <Registro IdPais="SX" Nombre="SINT MAARTEN" />
+          <Registro IdPais="SY" Nombre="SIRIA" />
+          <Registro IdPais="SO" Nombre="SOMALIA" />
+          <Registro IdPais="LK" Nombre="SRI LANKA" />
+          <Registro IdPais="ZA" Nombre="SUDÁFRICA" />
+          <Registro IdPais="SD" Nombre="SUDÁN" />
+          <Registro IdPais="SE" Nombre="SUECIA" />
+          <Registro IdPais="CH" Nombre="SUIZA" />
+          <Registro IdPais="SR" Nombre="SURINÁM" />
+          <Registro IdPais="SJ" Nombre="SVALBARD Y JAN MAYEN" />
+          <Registro IdPais="SZ" Nombre="SWAZILANDIA" />
+          <Registro IdPais="TJ" Nombre="TAYIKISTÁN" />
+          <Registro IdPais="TH" Nombre="TAILANDIA" />
+          <Registro IdPais="TW" Nombre="TAIWÁN" />
+          <Registro IdPais="TZ" Nombre="TANZANIA" />
+          <Registro IdPais="IO" Nombre="TERRITORIO BRITÁNICO OCÉANO ÍNDICO" />
+          <Registro IdPais="TF" Nombre="TERRITORIOS AUSTRALES ANTÁRTICAS FRANCESES" />
+          <Registro IdPais="TL" Nombre="TIMOR ORIENTAL" />
+          <Registro IdPais="TG" Nombre="TOGO" />
+          <Registro IdPais="TK" Nombre="TOKELAU" />
+          <Registro IdPais="TO" Nombre="TONGA" />
+          <Registro IdPais="TT" Nombre="TRINIDAD Y TOBAGO" />
+          <Registro IdPais="TN" Nombre="TUNEZ" />
+          <Registro IdPais="TM" Nombre="TURKMENISTÁN" />
+          <Registro IdPais="TR" Nombre="TURQUÍA" />
+          <Registro IdPais="TV" Nombre="TUVALU" />
+          <Registro IdPais="UA" Nombre="UCRANIA" />
+          <Registro IdPais="UG" Nombre="UGANDA" />
+          <Registro IdPais="UY" Nombre="URUGUAY" />
+          <Registro IdPais="UZ" Nombre="UZBEKISTÁN" />
+          <Registro IdPais="VU" Nombre="VANUATU" />
+          <Registro IdPais="VE" Nombre="VENEZUELA" />
+          <Registro IdPais="VN" Nombre="VIETNAM" />
+          <Registro IdPais="WF" Nombre="WALLIS Y FUTUNA" />
+          <Registro IdPais="YE" Nombre="YEMEN" />
+          <Registro IdPais="DJ" Nombre="YIBUTI" />
+          <Registro IdPais="ZM" Nombre="ZAMBIA" />
+          <Registro IdPais="ZW" Nombre="ZIMBABUE" />
+        </Registros>
+      </Tabla>
+      <Tabla Nombre="PanTblServidoresCorreo" Vinculada="N">
+        <Columnas>
+          <Columna Nombre="HabilitaSSL" Requerido="S" TipoDato="BOOLEAN" />
+          <Columna Nombre="Host" Requerido="S" TipoDato="VSTRING" Longitud="120" />
+          <Columna Nombre="IdServidor" Requerido="S" TipoDato="BYTE" />
+          <Columna Nombre="Nombre" Requerido="S" TipoDato="VSTRING" Longitud="60" />
+          <Columna Nombre="Puerto" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="RequiereAutenticacion" Requerido="S" TipoDato="BOOLEAN" />
+        </Columnas>
+        <Indices>
+          <Indice Nombre="PK_PanTblServidoresCorreo" Principal="S" Unico="S" NulosIndice="IndexNullsDisallow">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdServidor" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+          <Indice Nombre="Servidor" Principal="N" Unico="S" NulosIndice="IndexNullsDisallow">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="Nombre" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+        </Indices>
+        <Registros>
+          <Registro IdServidor="1" Nombre="Outlook/Hotmail-1" Host=" smtp.office365.com" Puerto="587" HabilitaSSL="True" RequiereAutenticacion="True" />
+          <Registro IdServidor="2" Nombre="Outlook/Hotmail-2" Host="smtp-mail.outlook.com" Puerto="587" HabilitaSSL="True" RequiereAutenticacion="True" />
+          <Registro IdServidor="3" Nombre="Gmail" Host="smtp.gmail.com" Puerto="587" HabilitaSSL="True" RequiereAutenticacion="True" />
+          <Registro IdServidor="4" Nombre="Yahoo" Host="smtp.mail.yahoo.com" Puerto="587" HabilitaSSL="True" RequiereAutenticacion="True" />
+          <Registro IdServidor="5" Nombre="Une" Host="smtp1.une.net.co" Puerto="25" HabilitaSSL="False" RequiereAutenticacion="True" />
+        </Registros>
+      </Tabla>
+      <Tabla Nombre="PanTerceros" Vinculada="N">
+        <Comandos>
+          <Comando Tipo="SQL" Condicion="VBD&lt;61" Secuencia="Inicio" Accion="FSH"
+                 Parametros="UPDATE PanTerceros SET Celular = NULL WHERE Celular = 0" />
+          <Comando Tipo="SQL" Condicion="VBD&lt;61" Secuencia="Inicio" Accion="FSH"
+                 Parametros="UPDATE PanTerceros SET Telefono1 = NULL WHERE Telefono1 = 0" />
+          <Comando Tipo="SQL" Condicion="VBD&lt;61" Secuencia="Inicio" Accion="FSH"
+                 Parametros="UPDATE PanTerceros SET Telefono2 = NULL WHERE Telefono2 = 0" />
+          <Comando Tipo="SQL" Condicion="VBD&lt;61" Secuencia="Inicio" Accion="FSH"
+                 Parametros="UPDATE PanTerceros SET IdTblTipoTercero = 2 WHERE IdTblTipoTercero > 1 " />
+          <Comando Tipo="SQL" Condicion="VBD&lt;68" Secuencia="Fin" Accion="FSH"
+                 Parametros="UPDATE PanTerceros SET IdPaisDir = 'CO' WHERE IdPaisDir = '57'" />
+          <Comando Tipo="SQL" Condicion="VBD&lt;68" Secuencia="Fin" Accion="FSH"
+                 Parametros="UPDATE PanTerceros SET IdPaisExp = 'CO' WHERE IdPaisExp = '57'" />
+          <Comando Tipo="SQL" Condicion="VBD&lt;68" Secuencia="Fin" Accion="FSH"
+                 Parametros="UPDATE PanTerceros SET IdPaisDir = '' WHERE IdPaisDir = '0'" />
+          <Comando Tipo="SQL" Condicion="VBD&lt;68" Secuencia="Fin" Accion="FSH"
+                 Parametros="UPDATE PanTerceros SET IdPaisExp = '' WHERE IdPaisExp = '0'" />
+          <Comando Tipo="SQL" Condicion="VBD&lt;70" Secuencia="Inicio" Accion="FSH"
+                 Parametros="UPDATE PanTerceros SET Nombre1 = TRIM(Nombre1)" />
+          <Comando Tipo="SQL" Condicion="VBD&lt;70" Secuencia="Inicio" Accion="FSH"
+                 Parametros="UPDATE PanTerceros SET Nombre2 = TRIM(Nombre2)" />
+          <Comando Tipo="SQL" Condicion="VBD&lt;70" Secuencia="Inicio" Accion="FSH"
+                 Parametros="UPDATE PanTerceros SET Apellido1= TRIM(Apellido1)" />
+          <Comando Tipo="SQL" Condicion="VBD&lt;70" Secuencia="Inicio" Accion="FSH"
+                 Parametros="UPDATE PanTerceros SET Apellido2 = TRIM(Apellido2)" />
+          <Comando Tipo="SQL" Condicion="VBD&lt;70" Secuencia="Inicio" Accion="FSH"
+                 Parametros="UPDATE PanTerceros SET RazonSocial = TRIM(RazonSocial)" />
+        </Comandos>
+        <Columnas>
+          <Columna Nombre="Apellido1" Requerido="N" TipoDato="VSTRING" Longitud="20" />
+          <Columna Nombre="Apellido2" Requerido="N" TipoDato="VSTRING" Longitud="20" />
+          <Columna Nombre="Celular" Requerido="N" TipoDato="STRING" Longitud="15" />
+          <Columna Nombre="Celular2" Requerido="N" TipoDato="STRING" Longitud="15" />
+          <Columna Nombre="CodigoPostal" Requerido="N" TipoDato="STRING" Longitud="6" />
+          <Columna Nombre="Direccion1" Requerido="N" TipoDato="VSTRING" Longitud="80" />
+          <Columna Nombre="Direccion2" Requerido="N" TipoDato="VSTRING" Longitud="80" />
+          <Columna Nombre="PaginaWeb" Requerido="N" TipoDato="VSTRING" Longitud="50" />
+          <Columna Nombre="Email" Requerido="N" TipoDato="VSTRING" Longitud="50" />
+          <Columna Nombre="FechaCreacion" Requerido="N" TipoDato="DATETIME" />
+          <Columna Nombre="FechaModificacion" Requerido="N" TipoDato="DATETIME" />
+          <Columna Nombre="IdCiudadDir" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdDepartamentoDir" Requerido="S" TipoDato="UBYTE" />
+          <Columna Nombre="IdPaisDir" Requerido="S" TipoDato="STRING" Longitud="2" />
+          <Columna Nombre="IdTblTipoId" Requerido="S" TipoDato="UBYTE" 
+                 Comentario="IdGrupo:5; Cedula/Tarjeta/Nit/Extranjeria/Pasaporte/Otro" />
+          <Columna Nombre="IdTblTipoTercero" Requerido="S" TipoDato="UBYTE" 
+                 Comentario="IdGrupo:6; Persona Natural/Persona Jurídica" />
+          <Columna Nombre="IdTercero" Requerido="S" TipoDato="DOUBLE" />
+          <Columna Nombre="IdUsuarioCreo" Requerido="N" TipoDato="VSTRING" Longitud="30" />
+          <Columna Nombre="IdUsuarioModifico" Requerido="N" TipoDato="VSTRING" Longitud="30" />
+          <Columna Nombre="Nombre1" Requerido="N" TipoDato="VSTRING" Longitud="20" />
+          <Columna Nombre="Nombre2" Requerido="N" TipoDato="VSTRING" Longitud="20" />
+          <Columna Nombre="RazonSocial" Requerido="N" TipoDato="VSTRING" Longitud="100" />
+          <Columna Nombre="Telefono1" Requerido="N" TipoDato="STRING" Longitud="15" />
+          <Columna Nombre="Telefono2" Requerido="N" TipoDato="STRING" Longitud="15" />
+        </Columnas>
+        <Indices>
+          <Indice Nombre="PK_PanTerceros" Principal="S" Unico="S" NulosIndice="IndexNullsDisallow">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdTercero" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+          <Indice Nombre="Nombre" Principal="N" Unico="N">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="Nombre1" Orden="ASC" />
+              <ColumnaIndice Nombre="Nombre2" Orden="ASC" />
+              <ColumnaIndice Nombre="RazonSocial" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+        </Indices>
+      </Tabla>
+      <Tabla Nombre="PanUsuarios" Vinculada="N">
+        <Columnas>
+          <Columna Nombre="Activo" Requerido="S" TipoDato="BOOLEAN" />
+          <Columna Nombre="Contrasena" Requerido="S" TipoDato="VSTRING" Longitud="30" />
+          <Columna Nombre="FechaCambio" Requerido="S" TipoDato="DATETIME" />
+          <Columna Nombre="FechaCreacion" Requerido="S" TipoDato="DATETIME" />
+          <Columna Nombre="FechaExpiracion" Requerido="S" TipoDato="DATE" />
+          <Columna Nombre="IdTblTipoCambioContrasena" Requerido="S" TipoDato="UBYTE" 
+                   Comentario="IdGrupo:1; 0:Ninguno; 1:No Cambiar; 2:Proxima vez; 3:Al Vencimiento" />
+          <Columna Nombre="IdUsuario" Requerido="S" TipoDato="VSTRING" Longitud="30" />
+          <Columna Nombre="Nombre" Requerido="S" TipoDato="VSTRING" Longitud="50" />
+        </Columnas>
+        <Indices>
+          <Indice Nombre="PK_PanUsuarios"  Principal="S" Unico="S">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdUsuario" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice> 
+        </Indices>
+      </Tabla>
+      <Tabla Nombre="PanVersiones" Vinculada="N">
+        <Columnas>
+          <Columna Nombre="IdAplicacion" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="Tamano" Requerido="N" TipoDato="SINGLE" />
+          <Columna Nombre="Version" Requerido="S" TipoDato="SHORT" />
+        </Columnas>
+        <Indices>
+          <Indice Nombre="PK_PanVersiones" Principal="S" Unico="S">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdAplicacion" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+        </Indices>
+      </Tabla>
+    </Tablas> 
+  </BD>
+</ActualiceBD>

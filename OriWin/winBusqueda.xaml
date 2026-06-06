@@ -1,0 +1,67 @@
+﻿<Window x:Class="WinBusqueda"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    WindowStartupLocation="Manual" Title="Ventana Busqueda" Height="520" Width="500" 
+    Loaded="Window_Loaded">
+    <Grid x:Name="grdBusqueda" Button.Click="OnBotonClic">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition MinHeight="100"/>
+            <RowDefinition Height="35"/>
+        </Grid.RowDefinitions>
+        <StaticResource ResourceKey="RecImgCabeza" />
+        <StaticResource ResourceKey="RecImgCuerpo" />
+        <DockPanel Grid.Row="0" Name="dcpMensajes">
+            <Label x:Name="lblTitulo" Canvas.Left="40" DockPanel.Dock="Top" 
+                   Margin="5,15,10,0" Padding="0" 
+                   Content="BUSQUEDA ..." IsTabStop="False"
+                   Background="Transparent" Foreground="White" FontSize="18" FontStyle="Italic"/>
+            <Label Content=""  Foreground="Blue" Name="lblMensajesBus" Height="18"
+                   Background="Transparent" VerticalContentAlignment="Center"                
+                   HorizontalContentAlignment="Center" Padding="5,0,0,0"/>
+        </DockPanel>
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60"/>
+                <RowDefinition MinHeight="60"/>
+            </Grid.RowDefinitions>
+            <Canvas Grid.Row="0">
+                <Label Canvas.Left="20" Canvas.Top="10" Padding="0" Content="Buscar por ..." 
+                       IsTabStop="False" Background="Transparent"/>
+                <ComboBox x:Name="cboNombreBusqueda" Canvas.Left="20" Canvas.Top="30" 
+                          Width="230" Padding="6,1,1,1" Background="Transparent"  
+                          TabIndex="1" Height="19"/>
+                <Label Canvas.Left="280" Canvas.Top="10" Padding="0" Content="Buscar:" IsTabStop="False"
+                        Background="Transparent"/>
+                <TextBox x:Name="txtBuscar" Canvas.Left="280" Canvas.Top="30" Width="180" 
+                    Background="Transparent"  TabIndex="2"/>
+            </Canvas>
+            <DataGrid x:Name="dgrBusqueda"  Grid.Row="1"
+                    VerticalScrollBarVisibility="Auto" IsEnabled="True"
+                    HorizontalScrollBarVisibility="Auto" IsReadOnly="True" IsTabStop="True"
+                    IsSynchronizedWithCurrentItem="True" 
+                    SelectionMode="Single"  SelectionUnit="FullRow"
+                    Background="Transparent" ItemsSource="{Binding}">
+                <DataGrid.CellStyle>
+                    <Style TargetType="DataGridCell">
+                        <Style.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Background" Value="LightGray"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </DataGrid.CellStyle>
+            </DataGrid>
+        </Grid>
+        <Grid Grid.Row="2" x:Name="grdPieVentana">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="40"/>
+            </Grid.RowDefinitions>
+            <Canvas Name="cnvBotones" Grid.Row="0">
+                <StaticResource ResourceKey="RecCnvAceCan"/>
+            </Canvas>
+            <StaticResource ResourceKey="RecDcpPiePaginaGral"/>
+        </Grid>
+    </Grid>
+</Window>

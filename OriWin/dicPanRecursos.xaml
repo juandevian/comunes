@@ -1,0 +1,649 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!--Estilos de toolbar y sus botones y separadores-->
+    <!--Estilos de la fila donde esta ubicada la ToolBar-->
+    <Style TargetType="RowDefinition" x:Key="RecRdeGde">
+        <Setter Property="Height" Value="95" />
+    </Style>
+    <Style TargetType="RowDefinition" x:Key="RecRdeMed">
+        <Setter Property="Height" Value="85" />
+    </Style>
+    <Style TargetType="RowDefinition" x:Key="RecRdePeq">
+        <Setter Property="Height" Value="75" />
+    </Style>
+    <!--Estilos de la ToolBar-->
+    <!--ToolBar Ventanas Principal y Parametrizar-->
+    <Style TargetType="ToolBar" x:Key="RecTlbGdePpal">
+        <Setter Property="Height" Value="60" />
+    </Style>
+    <Style TargetType="ToolBar" x:Key="RecTlbMedPpal">
+        <Setter Property="Height" Value="50" />
+    </Style>
+    <Style TargetType="ToolBar" x:Key="RecTlbPeqPpal">
+        <Setter Property="Height" Value="40" />
+    </Style>
+    <!--ToolBar General-->
+    <Style TargetType="ToolBar" x:Key="RecTlbGde">
+        <Setter Property="Height" Value="45" />
+    </Style>
+    <Style TargetType="ToolBar" x:Key="RecTlbMed">
+        <Setter Property="Height" Value="40" />
+    </Style>
+    <Style TargetType="ToolBar" x:Key="RecTlbPeq">
+        <Setter Property="Height" Value="35" />
+    </Style>
+    <!--Estilos de los Botones de la ToolBar-->
+    <Style TargetType="Button" x:Key="RecBttTlb">
+        <Setter Property="IsTabStop" Value="False"/>
+        <Setter Property="MaxHeight" Value="60"/>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Opacity" Value=".7" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <Style TargetType="Button" x:Key="RecBttHabilitado" BasedOn="{StaticResource RecBttTlb}">
+        <Setter Property="IsEnabled" Value="True"/>
+        <Setter Property="Opacity" Value="1"/>
+    </Style>
+    <Style TargetType="Button" x:Key="RecBttDesHabilitado" BasedOn="{StaticResource RecBttTlb}">
+        <Setter Property="IsEnabled" Value="False"/>
+        <Setter Property="Opacity" Value=".5"/>
+    </Style>
+    <!--Botones Toolbar Ventana Principal-->
+    <Style TargetType="Button" x:Key="RecBttTlbGdePpal" BasedOn="{StaticResource RecBttTlb}">
+        <Setter Property="Padding" Value="2,1,2,1" />
+    </Style>
+    <Style TargetType="Button" x:Key="RecBttTlbMedPpal" BasedOn="{StaticResource RecBttTlb}">
+        <Setter Property="Padding" Value="1.5,1,1.5,1" />
+    </Style>
+    <Style TargetType="Button" x:Key="RecBttTlbPeqPpal" BasedOn="{StaticResource RecBttTlb}">
+        <Setter Property="Padding" Value="1,1,1,1" />
+    </Style>
+    <!--Estilos de los Separadores de la ToolBar-->
+    <Style TargetType="Separator" x:Key="RecSepComun">
+        <Setter Property="Background" Value="Gray" />
+        <Setter Property="Opacity" Value=".8" />
+        <Setter Property="Margin" Value="2,8,2,8" />
+    </Style>
+    <Style TargetType="Separator" x:Key="RecSepTlbGdePpal" BasedOn="{StaticResource RecSepComun}">
+        <Setter Property="Width" Value="4" />
+    </Style>
+    <Style TargetType="Separator" x:Key="RecSepTlbMedPpal" BasedOn="{StaticResource RecSepComun}">
+        <Setter Property="Width" Value="3.5" />
+        <Setter Property="Padding" Value="1.5,1,1.5,1" />
+    </Style>
+    <Style TargetType="Separator" x:Key="RecSepTlbPeqPpal" BasedOn="{StaticResource RecSepComun}">
+        <Setter Property="Width" Value="3" />
+        <Setter Property="Padding" Value="1,1,1,1" />
+    </Style>
+    <Style TargetType="Separator" x:Key="RecSepTlbGde" BasedOn="{StaticResource RecSepComun}">
+        <Setter Property="Background" Value="Gray" />
+        <!--<Setter Property="Height" Value="40" />-->
+        <Setter Property="Width" Value="3.5" />
+        <Setter Property="Padding" Value="1,1" />
+    </Style>
+    <Style TargetType="Separator" x:Key="RecSepTlbMed" BasedOn="{StaticResource RecSepComun}">
+        <!--<Setter Property="Height" Value="35" />-->
+        <Setter Property="Width" Value="3.0" />
+        <Setter Property="Padding" Value="2,1,2,1" />
+    </Style>
+    <Style TargetType="Separator" x:Key="RecSepTlbPeq" BasedOn="{StaticResource RecSepComun}">
+        <!--<Setter Property="Height" Value="30" />-->
+        <Setter Property="Width" Value="2.5" />
+        <Setter Property="Padding" Value="1,1,1,1" />
+    </Style>
+    <!--Estilo de TabControl-->
+    <Style TargetType="TabControl" x:Key="RecTabCtrl">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Margin" Value="5,0"/>
+        <Setter Property="BorderBrush" Value="Gray"/>
+        <Setter Property="BorderThickness" Value="0.5"/>
+    </Style>
+    <Style TargetType="TabItem" x:Key="RecTabItem">
+        <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TabItem">
+                    <Border Name="Border" BorderThickness="1,1,1,0" 
+                            BorderBrush="Gray" CornerRadius="4,4,0,0" Margin="5,5,5,0">
+                        <ContentPresenter x:Name="ContentSite"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                        ContentSource="Header"
+                                        Margin="5,0"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter TargetName="Border" Property="Background" Value="Gray" />
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="False">
+                            <Setter TargetName="Border" Property="Background" Value="LightGray" />
+                            <Setter TargetName="Border" Property="Opacity" Value=".5" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <!--Estilos de los Menues-->
+    <Style TargetType="MenuItem" x:Key="RecMnuItemPri">
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="Padding" Value="10,0,10,0"/>
+        <Setter Property="IsTabStop" Value="False"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+    </Style>
+    <Style TargetType="MenuItem" x:Key="RecMnuItemPriDes"  BasedOn="{StaticResource RecMnuItemPri}">
+        <Setter Property="IsEnabled" Value="False"/>
+        <Setter Property="Background" Value="LightGray"/>
+        <Setter Property="Foreground" Value="White"/>
+    </Style>
+    <Style TargetType="MenuItem" x:Key="RecMnuItemPriHab" BasedOn="{StaticResource RecMnuItemPri}">
+        <Setter Property="IsEnabled" Value="True"/>
+        <Setter Property="Background" Value="#00FFFFFF"/>
+    </Style>
+    <Style TargetType="MenuItem" x:Key="RecMnuItemPriInf" BasedOn="{StaticResource RecMnuItemPri}">
+        <Setter Property="Background" Value="#575756"/>
+    </Style>
+    <Style TargetType="MenuItem" x:Key="RecMnuItemPriInfDes"  BasedOn="{StaticResource RecMnuItemPriInf}">
+        <Setter Property="IsEnabled" Value="False"/>
+        <Setter Property="Background" Value="LightGray"/>
+        <Setter Property="Foreground" Value="White"/>
+    </Style>
+    <Style TargetType="MenuItem" x:Key="RecMnuItemPriInfHab" BasedOn="{StaticResource RecMnuItemPriInf}">
+        <Setter Property="IsEnabled" Value="True"/>
+        <Setter Property="Background" Value="#575756"/>
+    </Style>
+    <Style TargetType="MenuItem" x:Key="RecMnuItemSec">
+        <Setter Property="HorizontalContentAlignment" Value="Left"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Height" Value="24"/>
+        <Setter Property="Foreground" Value="Black"/>
+        <Setter Property="IsTabStop" Value="False"/>
+    </Style>
+    <Style TargetType="MenuItem" x:Key="RecMnuItemSecHab" BasedOn="{StaticResource RecMnuItemSec}">
+        <Setter Property="IsEnabled" Value="True"/>
+        <Setter Property="Opacity" Value="1"/>
+    </Style>
+    <Style TargetType="MenuItem" x:Key="RecMnuItemSecDes" BasedOn="{StaticResource RecMnuItemSec}">
+        <Setter Property="IsEnabled" Value="False"/>
+        <Setter Property="Opacity" Value=".5"/>
+    </Style>
+    <!--Estilos de los botones Aceptar y cancelar-->
+    <Style TargetType="Button" x:Key="RecBttAceCan">
+        <Setter Property="Height" Value="24" />
+        <Setter Property="Width" Value="100" />
+        <Setter Property="Background" Value="Gray" />
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="BorderThickness" Value="2,2,2,2" />
+        <Setter Property="BorderBrush" Value="LightGray" />
+        <Setter Property="Padding" Value="1" />
+        <Setter Property="Opacity" Value="1"/>
+        <Setter Property="IsEnabled" Value="True" />
+        <Style.Triggers>
+            <Trigger Property="IsFocused" Value="True">
+                <Setter Property="BorderBrush" Value="Black" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <Style TargetType="Button" x:Key="RecBttAceDesha" BasedOn="{StaticResource RecBttAceCan}">
+        <Setter Property="Background" Value="LightGray" />
+        <Setter Property="Opacity" Value=".8" />
+        <Setter Property="IsEnabled" Value="False" />
+    </Style>
+    <!--Estilos de las Etiquetas de Status-->
+    <Style TargetType="Label" x:Key="RecLblStatus">
+        <Setter Property="Padding" Value="0,0,0,0" />
+        <Setter Property="Width" Value="205" />
+        <Setter Property="Height" Value="20" />
+        <Setter Property="Canvas.Left" Value="40" />
+        <Setter Property="FontSize" Value="14" />
+    </Style>
+    <Style TargetType="Label" x:Key="RecLblConStatus" BasedOn="{StaticResource RecLblStatus}">
+        <Setter Property="Width" Value="Auto" />
+        <Setter Property="Canvas.Left" Value="300" />
+    </Style>
+    <!--Estilos manejo controles-->
+    <!--Estilos de Validacion-->
+    <!--Estilos Fuentes-->
+    <Style TargetType="Control" x:Key="RecFuenteNormal">
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="FontWeight" Value="Normal"/>
+    </Style>
+    <Style TargetType="Control" x:Key="RecCtlValido" BasedOn="{StaticResource RecFuenteNormal}">
+        <Setter Property="Foreground" Value="Black"/>
+        <Setter Property="FontWeight" Value="Normal"/>
+    </Style>
+    <Style TargetType="Label" x:Key="RecLblInvalido" BasedOn="{StaticResource RecFuenteNormal}">
+        <Setter Property="Foreground" Value="Red"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+    </Style>
+    <Style TargetType="CheckBox" x:Key="RecChkValido" BasedOn="{StaticResource RecFuenteNormal}">
+        <Setter Property="Foreground" Value="Black"/>
+        <Setter Property="FontWeight" Value="Normal"/>
+    </Style>
+    <Style TargetType="CheckBox" x:Key="RecChkInValido" BasedOn="{StaticResource RecFuenteNormal}">
+        <Setter Property="Foreground" Value="Red"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+    </Style>
+    <!--Estilos de Habilitacion-->
+    <Style TargetType="Control" x:Key="RecCtlHabilitado" BasedOn="{StaticResource RecFuenteNormal}">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="IsEnabled" Value="True" />
+    </Style>
+    <Style TargetType="Control" x:Key="RecCtlNoHabilitado">
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="FontWeight" Value="Normal" />
+        <Setter Property="Background" Value="LightGray"/>
+        <Setter Property="IsEnabled" Value="False" />
+    </Style>
+    <Style TargetType="Label" x:Key="RecTxtSoloLectura" BasedOn="{StaticResource RecFuenteNormal}">
+        <Setter Property="Background" Value="LightGray"/>
+        <Setter Property="Opacity" Value=".8"/>
+        <Setter Property="Foreground" Value="Blue"/>
+        <Setter Property="FontWeight" Value="Normal"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="BorderBrush" Value="#FFABADB3"/>
+        <Setter Property="Padding" Value="5,0,5,0"/>
+        <Setter Property="Height" Value="18"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="IsTabStop" Value="False"/>
+    </Style>
+    <Style TargetType="TextBox" x:Key="RecTxtRealSoloLectura" BasedOn="{StaticResource RecFuenteNormal}">
+        <Setter Property="Background" Value="LightGray"/>
+        <Setter Property="Opacity" Value=".8"/>
+        <Setter Property="Foreground" Value="Blue"/>
+        <Setter Property="FontWeight" Value="Normal"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="BorderBrush" Value="#FFABADB3"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="IsTabStop" Value="False"/>
+        <Setter Property="IsReadOnly" Value="True"/>
+    </Style>
+    <!--Esatilo de Label Estado de Documento-->
+    <Style TargetType="Label" x:Key="RecDocNoExiste" BasedOn="{StaticResource RecTxtSoloLectura}">
+        <Setter Property="Width" Value="100"/>
+        <Setter Property="Background" Value="LightGray"/>
+        <Setter Property="Foreground" Value="Blue"/>
+        <Setter Property="Content" Value=""/>
+    </Style>
+    <Style TargetType="Label" x:Key="RecDocNormal" BasedOn="{StaticResource RecTxtSoloLectura}">
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Width" Value="100"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="Background" Value="LightGray"/>
+        <Setter Property="Foreground" Value="Blue"/>
+        <Setter Property="Content" Value="NORMAL"/>
+    </Style>
+    <Style TargetType="Label" x:Key="RecDocAnulado" BasedOn="{StaticResource RecTxtSoloLectura}">
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Width" Value="100"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="Background" Value="DarkSlateBlue"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Content" Value="ANULADO"/>
+    </Style>
+    <Style TargetType="Label" x:Key="RecFacPerGracia" BasedOn="{StaticResource RecTxtSoloLectura}">
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="FontSize" Value="11"/>
+        <Setter Property="Width" Value="100"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="Background" Value="Azure"/>
+        <Setter Property="Foreground" Value="Black"/>
+        <Setter Property="Content" Value="PERIODO GRACIA"/>
+    </Style>
+    <Style TargetType="Label" x:Key="RecFacVencida" BasedOn="{StaticResource RecTxtSoloLectura}">
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Width" Value="100"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="Background" Value="Red"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Content" Value="VENCIDA"/>
+    </Style>
+    <Style TargetType="Label" x:Key="RecFacCancelada" BasedOn="{StaticResource RecTxtSoloLectura}">
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Width" Value="100"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="Background" Value="DarkGray"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Content" Value="CANCELADA"/>
+    </Style>
+    <Style TargetType="Label" x:Key="RecDocRversado" BasedOn="{StaticResource RecTxtSoloLectura}">
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Width" Value="100"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="Background" Value="DarkGray"/>
+        <Setter Property="Foreground" Value="Yellow"/>
+        <Setter Property="Content" Value="REVERSADO"/>
+    </Style>
+    <!--Estilo Boton busqueda complementario-->
+    <Style TargetType="Button" x:Key="RecEstiloBttEnc" BasedOn="{StaticResource RecFuenteNormal}">
+        <Setter Property="Content" Value="?"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="Height" Value="18" />
+        <Setter Property="Width" Value="12"/>
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="Margin" Value="0"/>
+        <Setter Property="BorderBrush" Value="Gray"/>
+        <Setter Property="BorderThickness" Value="2,2,2,2"/>
+        <Style.Triggers>
+            <Trigger Property="IsFocused" Value="True">
+                <Setter Property="BorderBrush" Value="Black" />
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Opacity" Value=".7" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <!--Estilo Boton abrir complementario-->
+    <Style TargetType="Button" x:Key="RecEstiloBttAbr" BasedOn="{StaticResource RecFuenteNormal}">
+        <Setter Property="Content" Value="A"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="Height" Value="18" />
+        <Setter Property="Width" Value="12"/>
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="Margin" Value="0"/>
+        <Setter Property="BorderBrush" Value="Gray"/>
+        <Setter Property="BorderThickness" Value="2,2,2,2"/>
+        <Style.Triggers>
+            <Trigger Property="IsFocused" Value="True">
+                <Setter Property="BorderBrush" Value="Black" />
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Opacity" Value=".7" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <!--Estilo Botones Generales-->
+    <Style TargetType="Button" x:Key="RecEstiloBttGen">
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="Height" Value="22" />
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="Margin" Value="0"/>
+        <Setter Property="BorderBrush" Value="Gray"/>
+        <Setter Property="BorderThickness" Value="2,2,2,2"/>
+        <Style.Triggers>
+            <Trigger Property="IsFocused" Value="True">
+                <Setter Property="BorderBrush" Value="Black" />
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Opacity" Value=".7" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <!--Imagenes-->
+    <!--Splash-->
+    <Image x:Key="Splash" Source="RecImagenes/imgSplashNormal.png"/>
+    <!--Imagenes de Fondo-->
+    <Image x:Key="RecImgCabeza" Source="RecImagenes/FondoA.jpg" Grid.Row="0" Grid.RowSpan="1" 
+           Opacity=".7" Stretch="Fill" x:Shared="False"/>
+    <Image x:Key="RecImgCuerpo" Source="RecImagenes/Fondo1A.jpg" Grid.Row="1" Grid.RowSpan="2" 
+           Opacity="0.3" Stretch="Fill" x:Shared="False"/>
+    <Image x:Key="RecImgCuerpoRC" Source="RecImagenes/FondoRC.jpg" Grid.Row="1" Grid.RowSpan="2" 
+           Opacity="0.4" Stretch="Fill" x:Shared="False"/>
+    <Rectangle x:Key="RecFondoCabeza" Fill="Black" Opacity="0.6" Grid.RowSpan="1" Grid.Row="0"
+               Stretch="Fill" x:Shared="False"/>
+    <Rectangle x:Key="RecFondoCuerpo" Fill="Black" Opacity="0.2" Grid.RowSpan="2" Grid.Row="1"
+               Stretch="Fill" x:Shared="False"/>
+    <!--Barra de herramientas Pan-->
+    <ToolBar Name="ToolBarPan" x:Key="RecToolBarPan" RenderOptions.BitmapScalingMode="NearestNeighbor" 
+             x:Shared="False" DockPanel.Dock="Top" Background="Transparent" 
+             TabIndex="0" IsTabStop="False" Margin="0,5,0,0">
+        <Button Name="bttSalir" Tag="1" ToolTip="Salir de la Aplicación" Style="{StaticResource RecBttTlb}">
+            <Image Source="RecImagenes/salir.png"/>
+        </Button>
+        <Button Name="bttCerrar" Tag="2" ToolTip="Cierra la Ventana Actual. Esc" Style="{StaticResource RecBttTlb}">
+            <Image Source="RecImagenes/cerrar.png"/>
+        </Button>
+        <Separator Name="sepSalir" Tag="4" MaxHeight="60"/>
+        <Button Name="bttCrear" Tag="8" ToolTip="Crea un nuevo Objeto. Ctrl+N" Style="{StaticResource RecBttTlb}">
+            <Image Source="RecImagenes/nuevo.png"/>
+        </Button>
+        <Button Name="bttModificar" Tag="16" ToolTip="Modifica el Objeto Actual. Ctrl+M" Style="{StaticResource RecBttTlb}">
+            <Image Source="RecImagenes/modificar.png"/>
+        </Button>
+        <Button Name="bttSuprimir" Tag="32" ToolTip="Elimina el Objeto Actual. Alt+Suprimir" Style="{StaticResource RecBttTlb}">
+            <Image Source="RecImagenes/suprimir.png"/>
+        </Button>
+        <Button Name="bttAnular" Tag="64" ToolTip="Anula el Objeto Actual. Ctrl+A" Style="{StaticResource RecBttTlb}">
+            <Image Source="RecImagenes/anular.png"/>
+        </Button>
+        <Button Name="bttGuardar" Tag="128" ToolTip="Guarda el Objeto Actual. Ctrl+G" Style="{StaticResource RecBttTlb}">
+            <Image Source="RecImagenes/guardar.png"/>
+        </Button>
+        <Button Name="bttRefrescar" Tag="256" ToolTip="Refresca el Objeto Actual. Ctrl+R" 
+                Style="{StaticResource RecBttTlb}">
+                <Image Source="RecImagenes/refrescar.png"/>
+        </Button>
+        <Separator Name="sepAccion" Tag="512" MaxHeight="60"/>
+        <TextBox Name="txtEstado" Tag="1024" ToolTip="Indica el estado actual de la Ventana" Text="Consultando"
+                 Width="80" HorizontalContentAlignment="Center" Padding="0" IsTabStop="False"/>
+        <Separator Name="sepEstado" Tag="2048" MaxHeight="60"/>
+        <Button Name="bttAlPrimero" Tag="131072" ToolTip="Muestra el Primer Objeto. Alt+Inicio" Style="{StaticResource RecBttTlb}">
+            <Image Source="RecImagenes/primero.png"/>
+        </Button>
+        <Button Name="bttAlAnterior" Tag="262144" ToolTip="Muestra el Objeto Anterior. Alt+Izquierda" Style="{StaticResource RecBttTlb}">
+            <Image Source="RecImagenes/anterior.png"/>
+        </Button>
+        <Button Name="bttAlSiguiente" Tag="524288" ToolTip="Muestra el Objeto Siguiente. Alt+Derecha" Style="{StaticResource RecBttTlb}">
+            <Image Source="RecImagenes/siguiente.png"/>
+        </Button>
+        <Button Name="bttAlUltimo" Tag="1048576" ToolTip="Muestra el Ultimo Objeto. Alt+Fin" Style="{StaticResource RecBttTlb}">
+            <Image Source="RecImagenes/ultimo.png"/>
+        </Button>
+        <Button Name="bttBuscar" Tag="2097152" ToolTip="Busca un Objeto. Ctrl+B" Style="{StaticResource RecBttTlb}">
+            <Image Source="RecImagenes/buscar.png"/>
+        </Button>
+        <Separator Name="sepNavegar" Tag="4194304" MaxHeight="60"/>
+        <Button Name="bttTercero" Tag="8388608" ToolTip="Muestra la Ventana de Terceros" Style="{StaticResource RecBttTlb}">
+            <Image Source="RecImagenes/terceros.png"/>
+        </Button>
+        <Button Name="bttImprimir" Tag="16777216" ToolTip="Imprime un Documento o Reporte" Style="{StaticResource RecBttTlb}">
+            <Image Source="RecImagenes/imprimir.png"/>
+        </Button>
+        <Button Name="bttReportes" Tag="33554432" ToolTip="Permite generar un Reporte" Style="{StaticResource RecBttTlb}">
+            <Image Source="RecImagenes/reportes.png"/>
+        </Button>
+        <Button Name="bttCamara" Tag="67108864" ToolTip="Permite utilizar Camara Integrada" Style="{StaticResource RecBttTlb}">
+            <Image Source="RecImagenes/camara.png"/>
+        </Button>
+        <Separator Name="sepVarios" Tag="134217728" MaxHeight="60"/>
+        <Button Name="bttCalendario" Tag="4096" ToolTip="Muestra un Calendario. F2" Style="{StaticResource RecBttTlb}">
+            <Image Source="RecImagenes/calendario.png"/>
+        </Button>
+        <Button Name="bttCalculadora" Tag="8192" ToolTip="Muestra la Calculadora del Sistema. F3" Style="{StaticResource RecBttTlb}">
+            <Image Source="RecImagenes/calculadora.png"/>
+        </Button>
+        <Button Name="bttNotas" Tag="16384" ToolTip="Muestra el Block de Notas. F4" Style="{StaticResource RecBttTlb}">
+            <Image Source="RecImagenes/notas.png"/>
+        </Button>
+        <!--<Button Name="bttMensajes" Tag="32768" ToolTip="Abre la Herramienta de Mensajes. F5" Style="{StaticResource RecBttTlb}">
+            <Image Source="RecImagenes/mensaje.png"/>
+        </Button>-->
+        <Separator Name="sepHerramientas" Tag="65536" MaxHeight="60"/>
+        <Button Name="bttAyuda" Tag="268435456" ToolTip="Muestra la Ayuda de la Aplicación. F1" Style="{StaticResource RecBttTlb}">
+            <Image Source="RecImagenes/ayuda.png"/>
+        </Button>
+        <ToolBar.ContextMenu>
+            <ContextMenu>
+                <MenuItem Header="Botón Grande" Name="MnuBttGde"  IsCheckable="True"/>
+                <MenuItem Header="Botón Mediano" Name="MnuBttMed"  IsCheckable="True"/>
+                <MenuItem Header="Botón Pequeño" Name="MnuBttPeq"  IsCheckable="True"/>
+            </ContextMenu>
+        </ToolBar.ContextMenu>
+    </ToolBar>
+    <ToolBar Name="ToolBarFE" x:Key="RecToolBarFE" RenderOptions.BitmapScalingMode="NearestNeighbor" 
+             x:Shared="False" DockPanel.Dock="Top" Background="Transparent" 
+             TabIndex="0" IsTabStop="False" Margin="0,0,0,0">
+        <Button Name="bttSalirFE" Tag="1" ToolTip="Salir de la Aplicación" 
+                Style="{StaticResource RecBttTlb}" Height="60">
+            <Image Source="RecImagenes/salir.png"/>
+        </Button>
+    </ToolBar>
+    <!--Label Notificaciones-->
+    <Label Content="" Foreground="Blue" x:Name="lblNotifica" x:Key="RecNotifica" 
+           x:Shared="False" HorizontalContentAlignment="Center" 
+           VerticalContentAlignment="Center" Height="16"
+           DockPanel.Dock="Top" Margin="0,0,0,0" Padding="5,0,5,0" FontWeight="Bold" 
+           FontSize="12" Background="Transparent"/>
+    <!--Label Titulo-->
+    <!--Menues Generales-->
+    <MenuItem Header="_Acciones" x:Name="MnuAcciones" x:Key="RecMnuAcciones" x:Shared="False" 
+                  Style="{StaticResource RecMnuItemPri}">
+        <MenuItem Header="Crear _Nuevo" x:Name="MnuCrear"  ToolTip="Crea un nuevo Objeto"
+                      Tag ="8" Style="{StaticResource RecMnuItemSec}">
+            <MenuItem.Icon>
+                <Image Source="RecImagenes/Nuevo.ico"/>
+            </MenuItem.Icon>
+        </MenuItem>
+        <MenuItem Header="_Modificar" x:Name="MnuModificar" ToolTip="Modifica el Objeto Actual"
+                      Tag ="16" Style="{StaticResource RecMnuItemSec}">
+            <MenuItem.Icon>
+                <Image Source="RecImagenes/Modificar.ico"/>
+            </MenuItem.Icon>
+        </MenuItem>
+        <MenuItem Header="_Suprimir" x:Name="MnuSuprimir" ToolTip="Elimina el Objeto Actual"
+                      Tag ="32" Style="{StaticResource RecMnuItemSec}">
+            <MenuItem.Icon>
+                <Image Source="RecImagenes/Suprimir.ico"/>
+            </MenuItem.Icon>
+        </MenuItem>
+        <MenuItem Header="An_ular" x:Name="MnuAnular" ToolTip="Anula el Objeto Actual" 
+                  Tag ="64" Style="{StaticResource RecMnuItemSec}">
+            <MenuItem.Icon>
+                <Image Source="RecImagenes/Anular.ico"/>
+            </MenuItem.Icon>
+        </MenuItem>
+        <MenuItem Header="_Guardar" x:Name="MnuGuardar" ToolTip="Guarda el Objeto Actual" 
+                      Tag ="128" Style="{StaticResource RecMnuItemSec}">
+            <MenuItem.Icon>
+                <Image Source="RecImagenes/Guardar.ico"/>
+            </MenuItem.Icon>
+        </MenuItem>
+        <MenuItem Header="_Refrescar" x:Name="MnuRefrescar" ToolTip="Refresca el Objeto Actual" 
+                      Tag ="256" Style="{StaticResource RecMnuItemSec}">
+            <MenuItem.Icon>
+                <Image Source="RecImagenes/Refrescar.ico"/>
+            </MenuItem.Icon>
+        </MenuItem>
+        <Separator />
+        <MenuItem Header="C_errar Ventana" x:Name="MnuCerrar" ToolTip="Cierra la Ventana Actual."
+                       Tag="2" Style="{StaticResource RecMnuItemSec}">
+            <MenuItem.Icon>
+                <Image Source="RecImagenes/Cerrar.ico"/>
+            </MenuItem.Icon>
+        </MenuItem>
+    </MenuItem>
+    <MenuItem Header="_Herramientas" x:Name="MnuHerramientas" x:Key="RecMnuHerramientas" x:Shared="False" 
+                  Style="{StaticResource RecMnuItemPri}">
+        <MenuItem Header="Calen_dario" x:Name="MnuCalendario" ToolTip="Muestra un Calendario Universal."
+                      Tag="4096" Style="{StaticResource RecMnuItemSec}">
+            <MenuItem.Icon>
+                <Image Source="RecImagenes/calendario_inicio.ico"/>
+            </MenuItem.Icon>
+        </MenuItem>
+        <MenuItem Header="Calc_uladora" x:Name="MnuCalculadora" ToolTip="Muestra la Calculadora de Windows."
+                      Tag="8192" Style="{StaticResource RecMnuItemSec}">
+            <MenuItem.Icon>
+                <Image Source="RecImagenes/calculadora_inicio.ico"/>
+            </MenuItem.Icon>
+        </MenuItem>
+        <MenuItem Header="_Block de Notas" x:Name="MnuNotas" ToolTip="Muestra el Block de Notas de Windows."
+                      Tag="16384" Style="{StaticResource RecMnuItemSec}">
+            <MenuItem.Icon>
+                <Image Source="RecImagenes/notas_inicio.ico"/>
+            </MenuItem.Icon>
+        </MenuItem>
+        <MenuItem Header="Mensa_jes" x:Name="MnuMensajes" ToolTip="Abre la Herramienta de Mensajes."
+                      Tag="32768" Style="{StaticResource RecMnuItemSec}">
+            <MenuItem.Icon>
+                <Image Source="RecImagenes/mensaje_inicio.ico"/>
+            </MenuItem.Icon>
+        </MenuItem>
+    </MenuItem>
+    <MenuItem Header="Na_vegar" x:Name="MnuNavegar" x:Key="RecMnuNavegar" x:Shared="False"
+                  Style="{StaticResource RecMnuItemPri}">
+        <MenuItem Header="Ir al Primer_o" x:Name="MnuAlPrimero" ToolTip="Muestra los Datos del Primer Objeto"
+                      Tag="131072" Style="{StaticResource RecMnuItemSec}">
+            <MenuItem.Icon>
+                <Image Source="RecImagenes/Primero.ico"/>
+            </MenuItem.Icon>
+        </MenuItem>
+        <MenuItem Header="Ir al _Anterior" x:Name="MnuAlAnterior" ToolTip="Muestra los Datos del Objeto Anterior"
+                      Tag="262144" Style="{StaticResource RecMnuItemSec}">
+            <MenuItem.Icon>
+                <Image Source="RecImagenes/Anterior.ico"/>
+            </MenuItem.Icon>
+        </MenuItem>
+        <MenuItem Header="Ir al _Siguiente" x:Name="MnuAlSiguiente" ToolTip="Muestra los Datos del Objeto Siguiente"
+                      Tag="524288" Style="{StaticResource RecMnuItemSec}">
+            <MenuItem.Icon>
+                <Image Source="RecImagenes/Siguiente.ico"/>
+            </MenuItem.Icon>
+        </MenuItem>
+        <MenuItem Header="Ir al _Ultimo" x:Name="MnuAlUltimo" ToolTip="Muestra los Datos del Ultimo Objeto"
+                      Tag="1048576" Style="{StaticResource RecMnuItemSec}">
+            <MenuItem.Icon>
+                <Image Source="RecImagenes/Ultimo.ico"/>
+            </MenuItem.Icon>
+        </MenuItem>
+        <Separator />
+        <MenuItem Header="_Buscar" x:Name="MnuBuscar" ToolTip="Busca un objeto por su Identificación."
+                      Tag="2097152" Style="{StaticResource RecMnuItemSec}">
+            <MenuItem.Icon>
+                <Image Source="RecImagenes/Buscar.ico"/>
+            </MenuItem.Icon>
+        </MenuItem>
+    </MenuItem>
+    <MenuItem Header="_?" x:Name="MnuAyuda" x:Key="RecMnuAyuda" x:Shared="False"
+                  Style="{StaticResource RecMnuItemPri}" >
+        <MenuItem Header="C_ontenido" x:Name="MnuContenidoAyuda" ToolTip="Muestra el Contenido de la Ayuda"
+                      Tag="268435456" Style="{StaticResource RecMnuItemSec}">
+            <MenuItem.Icon>
+                <Image Source="RecImagenes/Ayuda.ico"/>
+            </MenuItem.Icon>
+        </MenuItem>
+    </MenuItem>
+    <!--Panel de Mensajes-->
+    <Canvas Name="cnvAceptaCancela" Canvas.Right="0" Height="28" x:Shared="False" 
+            Canvas.Top="0" x:Key="RecCnvAceCan" >
+        <Button Name="bttAceptar" Content="_Aceptar" Style="{StaticResource RecBttAceCan}"
+                    Canvas.Right="140" Canvas.Top="5" TabIndex="200" />
+        <Button Name="bttCancelar" Content="_Cerrar" Style="{StaticResource RecBttAceCan}" 
+                    Canvas.Right="20" Canvas.Top="5" TabIndex="201"/>
+    </Canvas>
+    <DockPanel Name="dcpMensajesLog" Grid.Row="1" Height="18"  x:Key="RecDcpPiePaginaPan" 
+                x:Shared="False">
+        <Label Content="" Padding="2,0,0,0" DockPanel.Dock="Top" Foreground="White" 
+                Name="lblMensajesLog" Background="SlateGray" />
+    </DockPanel>
+    <DockPanel Name="dcpPiePaginaGral" Grid.Row="1"  x:Key="RecDcpPiePaginaGral" x:Shared="False">
+        <StatusBar x:Name="sbrGeneral" DockPanel.Dock="Top" Height="22"
+                        Background="LightGray">
+            <StatusBarItem x:Name="sbiEmpresa">
+                <Label x:Name="lblEmpresa" Padding="5,0,20,0" Background="Transparent"/>
+            </StatusBarItem>
+            <Separator Width="2"/>
+            <StatusBarItem x:Name="sbiCentroUtil">
+                <Label x:Name="lblCentroUtil" Padding="0,0,20,0" Background="Transparent"/>
+            </StatusBarItem>
+            <Separator Width="2"/>
+            <StatusBarItem x:Name="sbiUsuario">
+                <Label x:Name="lblUsuario" Padding="0,0,20,0" Background="Transparent"/>
+            </StatusBarItem>
+            <Separator Width="2"/>
+            <StatusBarItem x:Name="sbiPeriodo">
+                <Label x:Name="lblPeriodo" Padding="0" Background="Transparent"/>
+            </StatusBarItem>
+        </StatusBar>
+    </DockPanel>
+</ResourceDictionary>

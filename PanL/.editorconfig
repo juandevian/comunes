@@ -1,0 +1,4 @@
+﻿[*.vb]
+
+# BC42025: Acceso del miembro compartido, el miembro de constante, el miembro de enumeración o el tipo anidado a través de una instancia
+dotnet_diagnostic.BC42025.severity = None

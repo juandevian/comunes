@@ -1,0 +1,97 @@
+<Registros>
+<Registro IdAplicacion="100" IdObjeto="152" Ordinal="1" Nivel="1" IdAccion="1" NombreAccion="Aplicacion" />
+<Registro IdAplicacion="100" IdObjeto="152" Ordinal="2" Nivel="2" IdAccion="2" NombreAccion="Perfil" />
+<Registro IdAplicacion="100" IdObjeto="22" Ordinal="3" Nivel="3" IdAccion="1001" NombreAccion="Consultar" />
+<Registro IdAplicacion="100" IdObjeto="22" Ordinal="4" Nivel="3" IdAccion="1002" NombreAccion="Crear" />
+<Registro IdAplicacion="100" IdObjeto="22" Ordinal="5" Nivel="3" IdAccion="1003" NombreAccion="Modificar" />
+<Registro IdAplicacion="100" IdObjeto="22" Ordinal="6" Nivel="3" IdAccion="1004" NombreAccion="Suprimir" />
+<Registro IdAplicacion="100" IdObjeto="152" Ordinal="7" Nivel="2" IdAccion="3" NombreAccion="Origen Instancia" />
+<Registro IdAplicacion="100" IdObjeto="19" Ordinal="8" Nivel="3" IdAccion="1003" NombreAccion="Habilitar-Deshabilitar/Actualizacion Internet" />
+<Registro IdAplicacion="100" IdObjeto="152" Ordinal="10" Nivel="1" IdAccion="4" NombreAccion="Usuario" />
+<Registro IdAplicacion="100" IdObjeto="28" Ordinal="11" Nivel="2" IdAccion="1001" NombreAccion="Consultar" />
+<Registro IdAplicacion="100" IdObjeto="28" Ordinal="12" Nivel="2" IdAccion="1002" NombreAccion="Crear" />
+<Registro IdAplicacion="100" IdObjeto="28" Ordinal="13" Nivel="2" IdAccion="1003" NombreAccion="Modificar" />
+<Registro IdAplicacion="100" IdObjeto="28" Ordinal="14" Nivel="2" IdAccion="1004" NombreAccion="Suprimir" />
+<Registro IdAplicacion="100" IdObjeto="23" Ordinal="15" Nivel="2" IdAccion="1002" NombreAccion="Asignar Perfil" />
+<Registro IdAplicacion="100" IdObjeto="23" Ordinal="16" Nivel="2" IdAccion="1004" NombreAccion="Retirar Perfil" />
+<Registro IdAplicacion="100" IdObjeto="7" Ordinal="17" Nivel="2" IdAccion="1002" NombreAccion="Asignar Carpeta" />
+<Registro IdAplicacion="100" IdObjeto="7" Ordinal="18" Nivel="2" IdAccion="1004" NombreAccion="Retirar Carpeta" />
+<Registro IdAplicacion="100" IdObjeto="152" Ordinal="19" Nivel="1" IdAccion="5" NombreAccion="Carpeta" />
+<Registro IdAplicacion="100" IdObjeto="6" Ordinal="20" Nivel="2" IdAccion="1001" NombreAccion="Consultar" />
+<Registro IdAplicacion="100" IdObjeto="6" Ordinal="21" Nivel="2" IdAccion="1002" NombreAccion="Crear" />
+<Registro IdAplicacion="100" IdObjeto="6" Ordinal="22" Nivel="2" IdAccion="1003" NombreAccion="Modificar" />
+<Registro IdAplicacion="100" IdObjeto="6" Ordinal="23" Nivel="2" IdAccion="1004" NombreAccion="Suprimir" />
+<Registro IdAplicacion="100" IdObjeto="152" Ordinal="24" Nivel="2" IdAccion="6" NombreAccion="Copropiedad" />
+<Registro IdAplicacion="100" IdObjeto="8" Ordinal="25" Nivel="3" IdAccion="1001" NombreAccion="Consultar" />
+<Registro IdAplicacion="100" IdObjeto="8" Ordinal="26" Nivel="3" IdAccion="1002" NombreAccion="Crear" />
+<Registro IdAplicacion="100" IdObjeto="8" Ordinal="27" Nivel="3" IdAccion="1003" NombreAccion="Modificar" />
+<Registro IdAplicacion="100" IdObjeto="8" Ordinal="28" Nivel="3" IdAccion="1004" NombreAccion="Suprimir" />
+<Registro IdAplicacion="100" IdObjeto="3" Ordinal="30" Nivel="4" IdAccion="1001" NombreAccion="Consultar" />
+<Registro IdAplicacion="100" IdObjeto="3" Ordinal="31" Nivel="4" IdAccion="1002" NombreAccion="Crear" />
+<Registro IdAplicacion="100" IdObjeto="3" Ordinal="32" Nivel="4" IdAccion="1003" NombreAccion="Modificar" />
+<Registro IdAplicacion="100" IdObjeto="3" Ordinal="33" Nivel="4" IdAccion="1004" NombreAccion="Suprimir" />
+<Registro IdAplicacion="100" IdObjeto="152" Ordinal="34" Nivel="3" IdAccion="8" NombreAccion="Documento Contabilidad" />
+<Registro IdAplicacion="100" IdObjeto="14" Ordinal="35" Nivel="4" IdAccion="1001" NombreAccion="Consultar" />
+<Registro IdAplicacion="100" IdObjeto="14" Ordinal="36" Nivel="4" IdAccion="1003" NombreAccion="Modificar" />
+<Registro IdAplicacion="100" IdObjeto="14" Ordinal="37" Nivel="4" IdAccion="1004" NombreAccion="Suprimir" />
+<Registro IdAplicacion="100" IdObjeto="152" Ordinal="38" Nivel="2" IdAccion="9" NombreAccion="Cuenta Contabilidad" />
+<Registro IdAplicacion="100" IdObjeto="11" Ordinal="39" Nivel="3" IdAccion="1001" NombreAccion="Consultar" />
+<Registro IdAplicacion="100" IdObjeto="11" Ordinal="40" Nivel="3" IdAccion="1002" NombreAccion="Crear" />
+<Registro IdAplicacion="100" IdObjeto="11" Ordinal="41" Nivel="3" IdAccion="1003" NombreAccion="Modificar" />
+<Registro IdAplicacion="100" IdObjeto="11" Ordinal="42" Nivel="3" IdAccion="1004" NombreAccion="Suprimir" />
+<Registro IdAplicacion="100" IdObjeto="152" Ordinal="43" Nivel="1" IdAccion="10" NombreAccion="Tablas Auxiliares" />
+<Registro IdAplicacion="100" IdObjeto="152" Ordinal="44" Nivel="2" IdAccion="11" NombreAccion="Ubicacion" />
+<Registro IdAplicacion="100" IdObjeto="27" Ordinal="45" Nivel="3" IdAccion="1001" NombreAccion="Consultar" />
+<Registro IdAplicacion="100" IdObjeto="27" Ordinal="46" Nivel="3" IdAccion="1003" NombreAccion="Modificar" />
+<Registro IdAplicacion="100" IdObjeto="27" Ordinal="47" Nivel="3" IdAccion="1" NombreAccion="Pais" />
+<Registro IdAplicacion="100" IdObjeto="20" Ordinal="48" Nivel="4" IdAccion="1001" NombreAccion="Consultar" />
+<Registro IdAplicacion="100" IdObjeto="20" Ordinal="49" Nivel="4" IdAccion="1002" NombreAccion="Crear" />
+<Registro IdAplicacion="100" IdObjeto="20" Ordinal="50" Nivel="4" IdAccion="1003" NombreAccion="Modificar" />
+<Registro IdAplicacion="100" IdObjeto="20" Ordinal="51" Nivel="4" IdAccion="1004" NombreAccion="Suprimir" />
+<Registro IdAplicacion="100" IdObjeto="27" Ordinal="52" Nivel="3" IdAccion="2" NombreAccion="Departamento" />
+<Registro IdAplicacion="100" IdObjeto="13" Ordinal="53" Nivel="4" IdAccion="1001" NombreAccion="Consultar" />
+<Registro IdAplicacion="100" IdObjeto="13" Ordinal="54" Nivel="4" IdAccion="1002" NombreAccion="Crear" />
+<Registro IdAplicacion="100" IdObjeto="13" Ordinal="55" Nivel="4" IdAccion="1003" NombreAccion="Modificar" />
+<Registro IdAplicacion="100" IdObjeto="13" Ordinal="56" Nivel="4" IdAccion="1004" NombreAccion="Suprimir" />
+<Registro IdAplicacion="100" IdObjeto="27" Ordinal="57" Nivel="3" IdAccion="3" NombreAccion="Ciudad" />  
+<Registro IdAplicacion="100" IdObjeto="9" Ordinal="58" Nivel="4" IdAccion="1001" NombreAccion="Consultar" />
+<Registro IdAplicacion="100" IdObjeto="9" Ordinal="59" Nivel="4" IdAccion="1002" NombreAccion="Crear" />
+<Registro IdAplicacion="100" IdObjeto="9" Ordinal="60" Nivel="4" IdAccion="1003" NombreAccion="Modificar" />
+<Registro IdAplicacion="100" IdObjeto="9" Ordinal="61" Nivel="4" IdAccion="1004" NombreAccion="Suprimir" />  
+<Registro IdAplicacion="100" IdObjeto="27" Ordinal="62" Nivel="3" IdAccion="4" NombreAccion="Barrio" />
+<Registro IdAplicacion="100" IdObjeto="5" Ordinal="63" Nivel="4" IdAccion="1001" NombreAccion="Consultar" />
+<Registro IdAplicacion="100" IdObjeto="5" Ordinal="64" Nivel="4" IdAccion="1002" NombreAccion="Crear" />
+<Registro IdAplicacion="100" IdObjeto="5" Ordinal="65" Nivel="4" IdAccion="1003" NombreAccion="Modificar" />
+<Registro IdAplicacion="100" IdObjeto="5" Ordinal="66" Nivel="4" IdAccion="1004" NombreAccion="Suprimir" />
+<Registro IdAplicacion="100" IdObjeto="152" Ordinal="67" Nivel="2" IdAccion="12" NombreAccion="Tercero" />
+<Registro IdAplicacion="100" IdObjeto="26" Ordinal="68" Nivel="3" IdAccion="1001" NombreAccion="Consultar" />
+<Registro IdAplicacion="100" IdObjeto="26" Ordinal="69" Nivel="3" IdAccion="1002" NombreAccion="Crear" />
+<Registro IdAplicacion="100" IdObjeto="26" Ordinal="70" Nivel="3" IdAccion="1003" NombreAccion="Modificar" />
+<Registro IdAplicacion="100" IdObjeto="26" Ordinal="71" Nivel="3" IdAccion="1004" NombreAccion="Suprimir" />
+<Registro IdAplicacion="100" IdObjeto="108" Ordinal="72" Nivel="3" IdAccion="1" NombreAccion="Importar" />
+<Registro IdAplicacion="100" IdObjeto="108" Ordinal="73" Nivel="3" IdAccion="2" NombreAccion="Reasignar Id." />
+<Registro IdAplicacion="100" IdObjeto="108" Ordinal="74" Nivel="3" IdAccion="3" NombreAccion="Fotografia" />
+<Registro IdAplicacion="100" IdObjeto="15" Ordinal="75" Nivel="4" IdAccion="1001" NombreAccion="Consultar" />
+<Registro IdAplicacion="100" IdObjeto="15" Ordinal="76" Nivel="4" IdAccion="1002" NombreAccion="Asociar" /> 
+<Registro IdAplicacion="100" IdObjeto="15" Ordinal="77" Nivel="4" IdAccion="1004" NombreAccion="Suprimir" />
+<Registro IdAplicacion="100" IdObjeto="152" Ordinal="78" Nivel="2" IdAccion="13" NombreAccion="Profesiones" />
+<Registro IdAplicacion="100" IdObjeto="25" Ordinal="79" Nivel="3" IdAccion="1001" NombreAccion="Consultar" />
+<Registro IdAplicacion="100" IdObjeto="25" Ordinal="80" Nivel="3" IdAccion="1002" NombreAccion="Crear" />
+<Registro IdAplicacion="100" IdObjeto="25" Ordinal="81" Nivel="3" IdAccion="1003" NombreAccion="Modificar" />
+<Registro IdAplicacion="100" IdObjeto="25" Ordinal="82" Nivel="3" IdAccion="1004" NombreAccion="Suprimir" />
+<Registro IdAplicacion="100" IdObjeto="152" Ordinal="83" Nivel="1" IdAccion="14" NombreAccion="Herramientas" />
+<Registro IdAplicacion="100" IdObjeto="152" Ordinal="84" Nivel="2" IdAccion="15" NombreAccion="Preferencias" />
+<Registro IdAplicacion="100" IdObjeto="152" Ordinal="85" Nivel="2" IdAccion="16" NombreAccion="Log de la Aplicacion" />
+<Registro IdAplicacion="100" IdObjeto="152" Ordinal="86" Nivel="2" IdAccion="17" NombreAccion="Macro" />
+<Registro IdAplicacion="100" IdObjeto="152" Ordinal="87" Nivel="3" IdAccion="18" NombreAccion="Macros..." />
+<Registro IdAplicacion="100" IdObjeto="152" Ordinal="88" Nivel="3" IdAccion="19" NombreAccion="Editor Macros" />  
+<Registro IdAplicacion="100" IdObjeto="152" Ordinal="89" Nivel="3" IdAccion="20" NombreAccion="Mantenimiento Macros" />
+<Registro IdAplicacion="100" IdObjeto="152" Ordinal="90" Nivel="2" IdAccion="21" NombreAccion="Consultas SQL..." />
+<Registro IdAplicacion="100" IdObjeto="10" Ordinal="91" Nivel="3" IdAccion="1001" NombreAccion="Consultar" />
+<Registro IdAplicacion="100" IdObjeto="10" Ordinal="92" Nivel="3" IdAccion="1002" NombreAccion="Crear" />
+<Registro IdAplicacion="100" IdObjeto="10" Ordinal="93" Nivel="3" IdAccion="1003" NombreAccion="Modificar" />
+<Registro IdAplicacion="100" IdObjeto="10" Ordinal="94" Nivel="3" IdAccion="1004" NombreAccion="Suprimir" />
+<Registro IdAplicacion="100" IdObjeto="152" Ordinal="95" Nivel="2" IdAccion="22" NombreAccion="Copias de Seguridad" />
+<Registro IdAplicacion="100" IdObjeto="145" Ordinal="96" Nivel="3" IdAccion="1" NombreAccion="Efectuar" />
+<Registro IdAplicacion="100" IdObjeto="145" Ordinal="97" Nivel="3" IdAccion="2" NombreAccion="Restaurar" />
+</Registros>

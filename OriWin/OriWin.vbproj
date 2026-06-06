@@ -1,0 +1,255 @@
+﻿<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{F184B08F-C81C-45F6-A57F-5ABD9991F28F}</ProjectTypeGuids>
+    <RootNamespace>OPT.OrionP.OriWin</RootNamespace>
+    <AssemblyName>OriWin</AssemblyName>
+    <OutputType>Library</OutputType>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <MyType>Custom</MyType>
+    <Deterministic>true</Deterministic>
+    <ProjectGuid>{B3B4BF1E-E64F-4C8E-8C4C-215332CC25D6}</ProjectGuid>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionExplicit>On</OptionExplicit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionCompare>Binary</OptionCompare>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionStrict>Off</OptionStrict>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionInfer>On</OptionInfer>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DocumentationFile>OriWin.xml</DocumentationFile>
+    <NoWarn>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036,42314</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <DefineConstants>DES = 1</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DocumentationFile>OriWin.xml</DocumentationFile>
+    <Optimize>true</Optimize>
+    <NoWarn>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036,42314</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DocumentationFile>OriWin.xml</DocumentationFile>
+    <NoWarn>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036,42314</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DocumentationFile>OriWin.xml</DocumentationFile>
+    <Optimize>true</Optimize>
+    <NoWarn>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036,42314</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\..\..\..\Windows\assembly\GAC_MSIL\Microsoft.Office.Interop.Excel\15.0.0.0__71e9bce111e9429c\Microsoft.Office.Interop.Excel.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System.Net.Http" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="acOriWin.vb" />
+    <Compile Include="ClsFormInterface.vb" />
+    <Compile Include="frmCalendario.designer.vb" />
+    <Compile Include="frmCalendario.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GlobalSuppressions.vb" />
+    <Compile Include="mdefOriWin.vb" />
+    <Compile Include="winBusqueda.xaml.vb">
+      <DependentUpon>winBusqueda.xaml</DependentUpon>
+    </Compile>
+    <Page Include="dicPanRecursos.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="winBusqueda.xaml">
+      <SubType>Designer</SubType>
+      <Generator>XamlIntelliSenseFileGenerator</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.Office.Interop.Excel" />
+    <Import Include="OPT.OrionP.GesDat" />
+    <Import Include="OPT.OrionP.PanL" />
+    <Import Include="OPT.OrionP.PanL.Aplicacion" />
+    <Import Include="OPT.OrionP.PanL.Ubicacion" />
+    <Import Include="System.ComponentModel" />
+    <Import Include="System.Data" />
+    <Import Include="System.Threading.Tasks" />
+    <Import Include="System.Linq" />
+    <Import Include="System.Windows.Forms" />
+    <Import Include="System.Xml.Linq" />
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Diagnostics" />
+    <Import Include="System.Windows" />
+    <Import Include="System.Windows.Controls" />
+    <Import Include="System.Windows.Data" />
+    <Import Include="System.Windows.Documents" />
+    <Import Include="System.Windows.Input" />
+    <Import Include="System.Windows.Shapes" />
+    <Import Include="System.Windows.Media" />
+    <Import Include="System.Windows.Media.Imaging" />
+    <Import Include="System.Windows.Navigation" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="My Project\AssemblyInfo.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="frmCalendario.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <None Include="app.config" />
+    <None Include="My Project\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PanDat\PanDat.vbproj">
+      <Project>{4821bbce-ef90-4f8c-8c56-eb9b2ecc435c}</Project>
+      <Name>PanDat</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PanL\PanL.vbproj">
+      <Project>{672afae9-ed6a-4404-a42e-73629924c9af}</Project>
+      <Name>PanL</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="RecImagenes\abrir.png" />
+    <Resource Include="RecImagenes\AgruCostos.png" />
+    <Resource Include="RecImagenes\cuentasContabilidad.png" />
+    <Resource Include="RecImagenes\database.png" />
+    <Resource Include="RecImagenes\DataColumns.png" />
+    <Resource Include="RecImagenes\DataIndex.png" />
+    <Resource Include="RecImagenes\DataTable.png" />
+    <Resource Include="RecImagenes\excel.png" />
+    <Resource Include="RecImagenes\IrA.png" />
+    <Resource Include="RecImagenes\LogOn.png" />
+    <Resource Include="RecImagenes\orionCop.png" />
+    <Resource Include="RecImagenes\OrionLogo24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="RecImagenes\AgruConFac.png" />
+    <Resource Include="RecImagenes\AgruServicios.png" />
+    <Resource Include="RecImagenes\ano.png" />
+    <Resource Include="RecImagenes\Anterior.ico" />
+    <Resource Include="RecImagenes\anterior.png" />
+    <Resource Include="RecImagenes\Anular.ico" />
+    <Resource Include="RecImagenes\anular.png" />
+    <Resource Include="RecImagenes\aplicacion.png" />
+    <Resource Include="RecImagenes\Ayuda.ico" />
+    <Resource Include="RecImagenes\ayuda.png" />
+    <Resource Include="RecImagenes\Buscar.ico" />
+    <Resource Include="RecImagenes\buscar.png" />
+    <Resource Include="RecImagenes\calculadora.png" />
+    <Resource Include="RecImagenes\calculadora_inicio.ico" />
+    <Resource Include="RecImagenes\calendario.png" />
+    <Resource Include="RecImagenes\Calendario_1.ico" />
+    <Resource Include="RecImagenes\calendario_inicio.ico" />
+    <Resource Include="RecImagenes\camara.png" />
+    <Resource Include="RecImagenes\carpeta.png" />
+    <Resource Include="RecImagenes\CentroUtilidad.png" />
+    <Resource Include="RecImagenes\Cerrar.ico" />
+    <Resource Include="RecImagenes\cerrar.png" />
+    <Resource Include="RecImagenes\CondicionesMora.png" />
+    <Resource Include="RecImagenes\config.png" />
+    <Resource Include="RecImagenes\Fondo1A.JPG" />
+    <Resource Include="RecImagenes\FondoA.JPG" />
+    <Resource Include="RecImagenes\Guardar.ico" />
+    <Resource Include="RecImagenes\guardar.png" />
+    <Resource Include="RecImagenes\imgSplashNormal.png" />
+    <Resource Include="RecImagenes\importar.png" />
+    <Resource Include="RecImagenes\imprimir.png" />
+    <Resource Include="RecImagenes\mensaje.png" />
+    <Resource Include="RecImagenes\mensaje_inicio.ico" />
+    <Resource Include="RecImagenes\Modificar.ico" />
+    <Resource Include="RecImagenes\modificar.png" />
+    <Resource Include="RecImagenes\notas.png" />
+    <Resource Include="RecImagenes\notas_inicio.ico" />
+    <Resource Include="RecImagenes\Nuevo.ico" />
+    <Resource Include="RecImagenes\nuevo.png" />
+    <Resource Include="RecImagenes\Primero.ico" />
+    <Resource Include="RecImagenes\primero.png" />
+    <Resource Include="RecImagenes\Refrescar.ico" />
+    <Resource Include="RecImagenes\refrescar.png" />
+    <Resource Include="RecImagenes\reportes.png" />
+    <Resource Include="RecImagenes\salir.png" />
+    <Resource Include="RecImagenes\Servicios.png" />
+    <Resource Include="RecImagenes\Siguiente.ico" />
+    <Resource Include="RecImagenes\siguiente.png" />
+    <Resource Include="RecImagenes\Suprimir.ico" />
+    <Resource Include="RecImagenes\suprimir.png" />
+    <Resource Include="RecImagenes\terceros.png" />
+    <Resource Include="RecImagenes\Ultimo.ico" />
+    <Resource Include="RecImagenes\ultimo.png" />
+    <Resource Include="RecImagenes\usuario.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="RecImagenes\CtaBanco.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
+</Project>

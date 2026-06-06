@@ -1,0 +1,282 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AbreAyuda" xml:space="preserve">
+    <value>Abre la Ayuda de Panorama.</value>
+  </data>
+  <data name="AbreAyudaCmd" xml:space="preserve">
+    <value>cmdAyuda</value>
+  </data>
+  <data name="AbreBloc" xml:space="preserve">
+    <value>Abre el Bloc de Notas de Windows.</value>
+  </data>
+  <data name="AbreBlocCmd" xml:space="preserve">
+    <value>cmdNotas</value>
+  </data>
+  <data name="AbreCalc" xml:space="preserve">
+    <value>Abre la Calculadora de Windows.</value>
+  </data>
+  <data name="AbreCalcCmd" xml:space="preserve">
+    <value>cmdCalculadora</value>
+  </data>
+  <data name="AbreCalendario" xml:space="preserve">
+    <value>Abre el Calendario de Windows.</value>
+  </data>
+  <data name="AbreCalendarioCmd" xml:space="preserve">
+    <value>cmdCalendario</value>
+  </data>
+  <data name="AbreMens" xml:space="preserve">
+    <value>Abre los Mensajes de Panorama.</value>
+  </data>
+  <data name="AbreMensCmd" xml:space="preserve">
+    <value>cmdMensajes</value>
+  </data>
+  <data name="AceptaCam" xml:space="preserve">
+    <value>Acepta los cambios en la Ventana.</value>
+  </data>
+  <data name="AceptaCamCmd" xml:space="preserve">
+    <value>cmdAceptar</value>
+  </data>
+  <data name="Advertencia" xml:space="preserve">
+    <value>ADVERTENCIA: </value>
+  </data>
+  <data name="AnuCmd" xml:space="preserve">
+    <value>cmdAnular</value>
+  </data>
+  <data name="AnuObj" xml:space="preserve">
+    <value>Anular un Objeto</value>
+  </data>
+  <data name="Calendario" xml:space="preserve">
+    <value>Calendario</value>
+  </data>
+  <data name="CamposSinSatisfacer" xml:space="preserve">
+    <value>INFORMACION: Aún hay campos requeridos por satisfacer!</value>
+  </data>
+  <data name="CancelaCam" xml:space="preserve">
+    <value>Cancela los cambios en la Ventana.</value>
+  </data>
+  <data name="CancelaCamCmd" xml:space="preserve">
+    <value>cmdCancelar</value>
+  </data>
+  <data name="Cancelar" xml:space="preserve">
+    <value>_Cancelar</value>
+  </data>
+  <data name="CerrarBtn" xml:space="preserve">
+    <value>_Cerrar</value>
+  </data>
+  <data name="CierraWin" xml:space="preserve">
+    <value>Cierra la Ventana actual.</value>
+  </data>
+  <data name="CierraWinCmd" xml:space="preserve">
+    <value>cmdCerrar</value>
+  </data>
+  <data name="CrearCmd" xml:space="preserve">
+    <value>cmdCrear</value>
+  </data>
+  <data name="CrearObj" xml:space="preserve">
+    <value>Crear un Objeto</value>
+  </data>
+  <data name="DatInv" xml:space="preserve">
+    <value>DATO INVALIDO: </value>
+  </data>
+  <data name="ErrorStr" xml:space="preserve">
+    <value>ERROR: </value>
+  </data>
+  <data name="EstConsultando" xml:space="preserve">
+    <value>Consultando</value>
+  </data>
+  <data name="EstCreando" xml:space="preserve">
+    <value>Creando</value>
+  </data>
+  <data name="EstModificando" xml:space="preserve">
+    <value>Modificando</value>
+  </data>
+  <data name="Excep" xml:space="preserve">
+    <value>EXCEPCION: </value>
+  </data>
+  <data name="Falta" xml:space="preserve">
+    <value>FALTA: </value>
+  </data>
+  <data name="GuaCmd" xml:space="preserve">
+    <value>cmdGuardar</value>
+  </data>
+  <data name="GuaObj" xml:space="preserve">
+    <value>Guardar los cambios en el Objeto</value>
+  </data>
+  <data name="Informacion" xml:space="preserve">
+    <value>INFORMACION: </value>
+  </data>
+  <data name="IrAntCmd" xml:space="preserve">
+    <value>cmdAlAnterior</value>
+  </data>
+  <data name="IrAntObj" xml:space="preserve">
+    <value>Ir Al Anterior</value>
+  </data>
+  <data name="IrBusCmd" xml:space="preserve">
+    <value>cmdBuscar</value>
+  </data>
+  <data name="IrBusObj" xml:space="preserve">
+    <value>Busca un Objeto</value>
+  </data>
+  <data name="IrPriCmd" xml:space="preserve">
+    <value>cmdAlPrimero</value>
+  </data>
+  <data name="IrPriObj" xml:space="preserve">
+    <value>Ir Al Primero</value>
+  </data>
+  <data name="IrSigCmd" xml:space="preserve">
+    <value>cmdAlSiguiente</value>
+  </data>
+  <data name="IrSigObj" xml:space="preserve">
+    <value>Ir Al Siguiente</value>
+  </data>
+  <data name="IrUltCmd" xml:space="preserve">
+    <value>cmdAlUltimo</value>
+  </data>
+  <data name="IrUltObj" xml:space="preserve">
+    <value>Ir Al Ultimo</value>
+  </data>
+  <data name="ModCmd" xml:space="preserve">
+    <value>cmdModificar</value>
+  </data>
+  <data name="ModObj" xml:space="preserve">
+    <value>Modificar un Objeto</value>
+  </data>
+  <data name="NomCamCon" xml:space="preserve">
+    <value>CAMBIO DE CONTRASEÑA</value>
+  </data>
+  <data name="RefCmd" xml:space="preserve">
+    <value>cmdRefrescar</value>
+  </data>
+  <data name="RefObj" xml:space="preserve">
+    <value>Refrescar un Objeto</value>
+  </data>
+  <data name="SaleApp" xml:space="preserve">
+    <value>Sale de la Aplicación.</value>
+  </data>
+  <data name="SaleAppCmd" xml:space="preserve">
+    <value>cmdSalirApp</value>
+  </data>
+  <data name="SupCmd" xml:space="preserve">
+    <value>cmdSuprimir</value>
+  </data>
+  <data name="SupObj" xml:space="preserve">
+    <value>Suprimir un Objeto</value>
+  </data>
+</root>
