@@ -8,7 +8,7 @@
         el programa si la propiedad "ValorDefecto" en este script no existe. Los valores asignados por defecto a la
         propiedad "ValorDefecto" son: "*" para columnas tipo VSTRING o STRING; 0 (Cero) para Ordinal con tipo de datos numérico; 
         0 (Cero = False) para columnas tipo boolean y si la columna es fecha "1900/01/01" -->
-  <BD Nombre="OrionCop_Net" CharacterSet="utf8" CollationName="utf8_general_ci" Version="264">
+  <BD Nombre="OrionCop_Net" CharacterSet="utf8" CollationName="utf8_general_ci" Version="268">
     <Comandos>
       <Comando Tipo="Propio" Condicion="VBD&lt;130" Secuencia="Inicio" Accion="CCM"
                Parametros="OriCentrosUtilidadOriCop,OriServicios,IdCtaMoraCr" />
@@ -29,18 +29,26 @@
                    Parametros="ValorDefinitivo,ValorPresIng" />
           <Comando Tipo="Propio" Condicion="VBD&lt;220" Secuencia="Inicio" Accion="RCM"
                    Parametros="DiasDescuento,DiasDescuentoPP" />
+          <Comando Tipo="SQL" Condicion="VBD&lt;265" Secuencia="Fin" Accion="RCM"
+                   Parametros="UPDATE OriAnos SET IdTipoIncentivo = IF(AplicaProntoPago = TRUE, 1, 0)" />
+          <Comando Tipo="Propio" Condicion="VBD&lt;265" Secuencia="Fin" Accion="ECM"
+                   Parametros="AplicaProntoPago" />
         </Comandos>
         <Columnas>
           <Columna Nombre="AplicaProntoPago" Requerido="S" TipoDato="BOOLEAN" />
           <Columna Nombre="DiasDescuentoPP" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="DiasPExtemporaneo" Requerido="S" TipoDato="SHORT" />
           <Columna Nombre="EstaCerrado" Requerido="S" TipoDato="BOOLEAN" />
           <Columna Nombre="FechaUltimoEstadoCta" Requerido="S" TipoDato="DATE" />
           <Columna Nombre="IdAno" Requerido="S" TipoDato="SHORT" />
           <Columna Nombre="IdCarpeta" Requerido="S" TipoDato="SHORT" />
           <Columna Nombre="IdCentroUtil" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdServicioMulta" Requerido="N" TipoDato="SHORT" />
           <Columna Nombre="IdTipoCalculoCuota" Requerido="S" TipoDato="BYTE" ValorDefecto="1" Comentario="0:Ninguno; 1:Presupuesto; 2:Cuota anterior" />
           <Columna Nombre="IdTipoDsctoPP" Requerido="S" TipoDato="BYTE" Comentario="0:Ninguno; 1:Porcentaje; 2:Valor Fijo" />
+          <Columna Nombre="IdTipoIncentivo" Requerido="S" TipoDato="BYTE" ValorDefecto="0" Comentario="0:Ninguno; 1:DsccuentoPP; 2:Multa Pago Extemporaneo" />
           <Columna Nombre="ModuloPorServicio" Requerido="S" TipoDato="BOOLEAN" />
+          <Columna Nombre="ValorMultaPExtemporaneo" Requerido="S" TipoDato="CURRENCY" ValorDefecto="0" />
           <Columna Nombre="ValorPresIng" Requerido="S" TipoDato="CURRENCY" />
         </Columnas>
         <Indices>
@@ -128,6 +136,12 @@
           <Comando Tipo="Propio" Condicion="VBD&lt;244" Secuencia="Inicio" Accion="ACM"
               Parametros="IdModoCausaMora" />
           <Comando Tipo="Proc" Condicion="VBD&lt;244" Secuencia="Inicio" Parametros="SActuBD_V244" />
+          <Comando Tipo="Propio" Condicion="VBD&lt;268" Secuencia="Inicio" Accion="ACM"
+              Parametros="ModoInteres" />
+          <Comando Tipo="Propio" Condicion="VBD&lt;268" Secuencia="Inicio" Accion="ACM"
+              Parametros="TasaFijaDeseada" />
+          <Comando Tipo="Propio" Condicion="VBD&lt;268" Secuencia="Inicio" Accion="ACM"
+              Parametros="FactorVariable" />
         </Comandos>
         <Columnas>
           <Columna Nombre="AutorizaEFac" Requerido="S" TipoDato="BOOLEAN" ValorDefecto="0" />
@@ -145,6 +159,7 @@
           <Columna Nombre="DiasParaPrejuridico" Requerido="S" TipoDato="SHORT" />
           <Columna Nombre="ExigeFechaHoyCaja" Requerido="S" TipoDato="BOOLEAN" ValorDefecto="0" />
           <Columna Nombre="ExigeFechaHoyDocs" Requerido="S" TipoDato="BOOLEAN" ValorDefecto="0" />
+          <Columna Nombre="FactorVariable" Requerido="S" TipoDato="DOUBLE" ValorDefecto="0" />
           <Columna Nombre="FechaResolContingencia" Requerido="S" TipoDato="DATE" />
           <Columna Nombre="FechaResolFactura" Requerido="S" TipoDato="DATE" />
           <Columna Nombre="FechaUltimaCausacionGral" Requerido="S" TipoDato="DATE" />
@@ -166,6 +181,7 @@
           <Columna Nombre="IdModoCausaMora" Requerido="S" TipoDato="BYTE" />
           <Columna Nombre="IdProvEFac" Requerido="S" TipoDato="Byte" />
           <Columna Nombre="InformaDeudaTotDespRC" Requerido="S" TipoDato="BOOLEAN" />
+          <Columna Nombre="ModoInteres" Requerido="S" TipoDato="BYTE" ValorDefecto="0" />
           <Columna Nombre="NoMostrarAyuda" Requerido="S" TipoDato="BOOLEAN" />
           <Columna Nombre="NotificacionesSonoras" Requerido="S" TipoDato="BOOLEAN" ValorDefecto="1" />
           <Columna Nombre="NumeroResolContingencia" Requerido="N" TipoDato="STRING" Longitud="20" />
@@ -175,6 +191,7 @@
           <Columna Nombre="PrefijoFactCont" Requerido="S" TipoDato="STRING" Longitud="10" ValorDefecto="" />
           <Columna Nombre="PermiteAnticipoPorSer" Requerido="S" TipoDato="BOOLEAN" />
           <Columna Nombre="PieFacturaDos" Requerido="N" TipoDato="VSTRING" Longitud="230" />
+          <Columna Nombre="PieFacturaTres" Requerido="N" TipoDato="VSTRING" Longitud="1200" />
           <Columna Nombre="PieFacturaUno" Requerido="N" TipoDato="VSTRING" Longitud="230" />
           <Columna Nombre="RangoFacturaConFin" Requerido="S" TipoDato="INTEGER" />
           <Columna Nombre="RangoFacturaConIni" Requerido="S" TipoDato="INTEGER" />
@@ -182,6 +199,7 @@
           <Columna Nombre="RangoFacturaIni" Requerido="S" TipoDato="INTEGER" />
           <Columna Nombre="ServicioIdActivo" Requerido="S" TipoDato="BOOLEAN" />
           <Columna Nombre="TarifaReteIva" Requerido="S" TipoDato="DOUBLE" />
+          <Columna Nombre="TasaFijaDeseada" Requerido="S" TipoDato="DOUBLE" ValorDefecto="0" />
           <Columna Nombre="TipoInterfaz" Requerido="S" TipoDato="BYTE" />
           <Columna Nombre="TipoMedioPagoDefecto" Requerido="S" TipoDato="BYTE" />
           <Columna Nombre="TipoTerceroCaja" Requerido="S" TipoDato="BYTE" ValorDefecto="3" />
@@ -416,6 +434,7 @@
           <Columna Nombre="FechaDctoProntoPago" Requerido="S" TipoDato="DATE" />
           <Columna Nombre="FechaEmisionEFac" Requerido="N" TipoDato="STRING" Longitud="20" />
           <Columna Nombre="FechaFactura" Requerido="S" TipoDato="DATETIME" />
+          <Columna Nombre="FechaMulta" Requerido="S" TipoDato="DATE" />
           <Columna Nombre="FechaPagoSinMora" Requerido="S" TipoDato="DATE" />
           <Columna Nombre="FechaVencimiento" Requerido="S" TipoDato="DATE" />
           <Columna Nombre="IdCarpeta" Requerido="S" TipoDato="SHORT" />
@@ -430,10 +449,12 @@
           <Columna Nombre="IdTerceroCliente" Requerido="S" TipoDato="DOUBLE" />
           <Columna Nombre="IdUsuario" Requerido="S" TipoDato="STRING" Longitud="30" />
           <Columna Nombre="IdUsuarioAnulo" Requerido="N" TipoDato="STRING" Longitud="30" />
+          <Columna Nombre="Multada" Requerido="S" TipoDato="BOOLEAN" ValorDefecto="False" />
           <Columna Nombre="NumeroResolAuto" Requerido="N" TipoDato="STRING" Longitud="20" />
           <Columna Nombre="OrigenInstancia" Requerido="S" TipoDato="VSTRING" Longitud="200" />
           <Columna Nombre="OrigenInstanciaAnulo" Requerido="N" TipoDato="VSTRING" Longitud="200" />
           <Columna Nombre="PieFacturaDos" Requerido="N" TipoDato="VSTRING" Longitud="500" />
+          <Columna Nombre="PieFacturaTres" Requerido="N" TipoDato="VSTRING" Longitud="1200" />
           <Columna Nombre="PieFacturaUno" Requerido="N" TipoDato="VSTRING" Longitud="500" />
           <Columna Nombre="Prefijo" Requerido="S" TipoDato="STRING" Longitud="10" ValorDefecto="" />
           <Columna Nombre="ReferenciaPago" Requerido="N" TipoDato="STRING" Longitud="8" ValorDefecto="" />
@@ -1450,6 +1471,7 @@
           <Columna Nombre="AliasCont" Requerido="N" TipoDato="VSTRING" Longitud="50" />
           <Columna Nombre="Area" Requerido="S" TipoDato="DOUBLE" />
           <Columna Nombre="CantPropietarios" Requerido="S" TipoDato="INTEGER" />
+          <Columna Nombre="CentroCostos" Requerido="N" TipoDato="STRING" Longitud="10" /> 
           <Columna Nombre="CoeficientePropiedad" Requerido="S" TipoDato="DOUBLE" />
           <Columna Nombre="Comentarios" Requerido="N" TipoDato="VSTRING" Longitud="500" />
           <Columna Nombre="EmailAdi" Requerido="N" TipoDato="VSTRING" Longitud="50" />
@@ -1472,7 +1494,7 @@
           <Columna Nombre="NoConsItemsFac" Requerido="S" TipoDato="BOOLEAN" />
           <Columna Nombre="NombreComercial" Requerido="N" TipoDato="VSTRING" Longitud="40" />
           <Columna Nombre="NombrePredio" Requerido="S" TipoDato="STRING" Longitud="35" Comentario="Nombre del Predio" />
-          <Columna Nombre="ReferenciaPago" Requerido="N" TipoDato="STRING" Longitud="8" />
+          <Columna Nombre="ReferenciaPago" Requerido="N" TipoDato="VSTRING" Longitud="25" />
           <Columna Nombre="ValorServicioId" Requerido="S" TipoDato="CURRENCY" />
         </Columnas>
         <Indices>
@@ -1760,6 +1782,34 @@
           </Indice>
         </Indices>
       </Tabla>
+      <Tabla Nombre="OriIbcCertificados" Vinculada="N">
+        <Columnas>
+          <Columna Nombre="FechaCertificado" Requerido="S" TipoDato="DATE" />
+          <Columna Nombre="FechaDescarga" Requerido="S" TipoDato="DATE" />
+          <Columna Nombre="FechaDesde" Requerido="S" TipoDato="DATE" />
+          <Columna Nombre="FechaHasta" Requerido="S" TipoDato="DATE" />
+          <Columna Nombre="IdCarpeta" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="IdCentroUtil" Requerido="S" TipoDato="SHORT" />
+          <Columna Nombre="Idfile" Requerido="S" TipoDato="STRING" Longitud="20" />
+          <Columna Nombre="Ibc" Requerido="S" TipoDato="DOUBLE" />
+        </Columnas>
+        <Indices>
+          <Indice Nombre="PK_OriIbcCertificados" Principal="S" Unico="S">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdCarpeta" Orden="ASC" />
+              <ColumnaIndice Nombre="IdCentroUtil" Orden="ASC" />
+              <ColumnaIndice Nombre="Idfile" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+          <Indice Nombre="Vigencia" Principal="N" Unico="N">
+            <ColumnasIndice>
+              <ColumnaIndice Nombre="IdCarpeta" Orden="ASC" />
+              <ColumnaIndice Nombre="IdCentroUtil" Orden="ASC" />
+              <ColumnaIndice Nombre="FechaDesde" Orden="ASC" />
+            </ColumnasIndice>
+          </Indice>
+        </Indices>
+      </Tabla>
       <Tabla Nombre="OriTblConstantes" Vinculada="N">
         <Columnas>
           <Columna Nombre="Dato" Requerido="S" TipoDato="VSTRING" Longitud="80" />
@@ -1882,6 +1932,16 @@
           <Registro Dato="0 - Ninguno" IdConstante="0" IdGrupo="19" />
           <Registro Dato="1 - Por documento" IdConstante="1" IdGrupo="19" />
           <Registro Dato="2 - Por Valor" IdConstante="2" IdGrupo="19" />
+          <!--Orion 20: EnuTipoIncentivo-->
+          <Registro Dato="0 - Ninguno" IdConstante="0" IdGrupo="20" />
+          <Registro Dato="1 - Descuento por Pronto Pago" IdConstante="1" IdGrupo="20" />
+          <Registro Dato="2 - Multa por Pago Extemporaneo" IdConstante="2" IdGrupo="20" />
+          <!--Orion 21: EnuTipoDsctoPP-->
+          <Registro Dato="0 - Ninguno" IdConstante="0" IdGrupo="21" />
+          <Registro Dato="1 - Porcentaje" IdConstante="1" IdGrupo="21" />
+          <Registro Dato="2 - Valor fijo" IdConstante="2" IdGrupo="21" />
+
+
         </Registros>
       </Tabla>
     </Tablas>
