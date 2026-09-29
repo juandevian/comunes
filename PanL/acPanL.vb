@@ -182,6 +182,7 @@ Public Enum EnuIdClasesPanDef As Short
     EnuDscto
     EnuServicioEstadoCta
     EnuPropietario
+    EnuIbcCertificado
 End Enum
 Public Enum EnuIdMens As Byte
     None

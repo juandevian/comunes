@@ -29,6 +29,7 @@ Public Class WinCopiaSeg
         HenuIdVentana = EnuIdVentanaDef.enuCopiaSeg
     End Sub
 #End Region
+
 #Region "Invalida metodos en la clase base que implementan la Interfaz"
     Protected Overrides Sub SLoad()
         Dim lstrMens = String.Empty, lstrMensEx = String.Empty, lblnNoHayError = False
@@ -118,6 +119,7 @@ Public Class WinCopiaSeg
         '
     End Sub
 #End Region
+
 #Region "Procedimientos invalidantes"
     Protected Overrides Sub SHabiliteMenues()
         MyBase.SHabiliteMenues()
@@ -193,6 +195,7 @@ Public Class WinCopiaSeg
         End If
     End Sub
 #End Region
+
 #Region "Procedimientos Propios"
     Private Sub SNombreArchivoCopia()
         MstrTrayectoriaCopia = ClsAdministrador.FobjAppActual.StrTrayCopiaSeguridad
@@ -251,6 +254,7 @@ Public Class WinCopiaSeg
         Return lblnSiEsta
     End Function
 #End Region
+
 #Region "Eventos del proceso"
     Private Sub EvnTimer(sender As Object, e As EventArgs) Handles MtmrControl.Tick
         If Not MblnCancele Then
@@ -303,6 +307,7 @@ Public Class WinCopiaSeg
         SFinaliceOperacion()
     End Sub
 #End Region
+
 #Region "Eventos en la Ventana"
     Private Sub OnCogerFoco(sender As Object, e As RoutedEventArgs)
         Dim lelmElemento As FrameworkElement = CType(e.Source, FrameworkElement)

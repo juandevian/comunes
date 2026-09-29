@@ -27,6 +27,7 @@ Namespace ActualizaBd
         Private MstrArchivoXml As String = String.Empty
         Private MsrArchivoXml As StreamReader = Nothing
 #End Region
+
 #Region "Constructores"
         Public Sub New()
             If gobjPanDat.blnRegistrado Then
@@ -36,6 +37,7 @@ Namespace ActualizaBd
             End If
         End Sub
 #End Region
+
 #Region "Estructura BD"
         ''' <summary>
         ''' Devuelve el objeto objBaseDatos de la estructura. Este objeto contiene toda la estructura 

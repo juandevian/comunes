@@ -106,16 +106,13 @@ Friend Class ClsPanoramaDat
 #Region "Propiedades"
     Friend Property CnnConexionBd_App As Object = Nothing
     Friend Property BlnExisteBdPanorama As Boolean = False
-    Friend ReadOnly Property StrNombreServidor As String
-        Get
-            Return MobjCnnDat.StrNombreServidor
-        End Get
-    End Property
+
     Friend ReadOnly Property BlnRegistrado As Boolean
         Get
             Return MblnRegistrado
         End Get
     End Property
+
     Friend Shared Function FobjEstructuraBD(aentIdApp As Integer) As ClsBaseDatos
         Dim lstrPrefTablas As String = ""
         If aentIdApp = EnuListaAplicaciones.EnuAdministrador Then
@@ -154,6 +151,7 @@ Friend Class ClsPanoramaDat
             End If
         End If
     End Sub
+
     Private Function FblnExistenTablasApp(ashrIdApp As Short) As Boolean
         Dim lblnExiste = BlnExisteBdPanorama
         If lblnExiste Then
@@ -168,6 +166,7 @@ Friend Class ClsPanoramaDat
         End If
         Return lblnExiste
     End Function
+
     Friend Shared Function FstrPrefijoTablas(ashrIdApp As Short) As String
         Dim lstrPrefTab = ""
         Select Case ashrIdApp
@@ -178,6 +177,7 @@ Friend Class ClsPanoramaDat
         End Select
         Return lstrPrefTab
     End Function
+
     Private Sub SActualicePan()
         Dim lstrNombreArchivos = String.Empty
 #If DES = 1 Then
@@ -200,6 +200,7 @@ Friend Class ClsPanoramaDat
             Throw
         End Try
     End Sub
+
     Friend Sub SActualiceApp()
         Dim lstrNombreArchivos = String.Empty
 #If DES = 1 Then
@@ -221,6 +222,7 @@ Friend Class ClsPanoramaDat
         End Try
     End Sub
 #End Region
+
 #Region "Manejo AurigaFtp"
     Friend Sub SdstAuriga(adsDataSet As DataSet, astrExpSql As String)
         Dim lstrNombreTabla As String = "TablaResultado"
@@ -349,6 +351,7 @@ Friend Class ClsPanoramaDat
         Return lentRegistrosAfectados
     End Function
 #End Region
+
 #Region "Operaciones con Disco"
     ''' <summary>
     ''' Crea la carpeta con el nombre "astrNombreCarpeta" según la ubicacion indicada en el argumento "aenuUbicacioncarpeta"
@@ -366,6 +369,7 @@ Friend Class ClsPanoramaDat
         End Try
     End Sub
 #End Region
+
 #Region "Operaciones DataSet y DataReader"
     Friend Shared Function FdrDataReader(acnnConexion As Object, astrSql As String) As Object
         If String.IsNullOrEmpty(astrSql) OrElse acnnConexion Is Nothing Then
@@ -916,6 +920,7 @@ Friend Class ClsPanoramaDat
         End Try
     End Sub
 #End Region
+
 #Region "Operaciones con Registros a traves de la conexion general que siempre esta disponible"
     Friend Function SInserteRegistro(astrNombreTabla As String,
                 acolNombreCampos As Collection, acolDatos As Collection) As Integer
@@ -1244,6 +1249,7 @@ Friend Class ClsPanoramaDat
         Return lentRegistrosAfectados
     End Function
 #End Region
+
 #Region "Operciones con registros a traves de conexion especificada en parametro"
     Friend Function SInserteRegistro(acnnConexion As Object, aenuProveedorBD As EnuProveedorBD,
                 astrNombreTabla As String, acolNombreCampos As Collection,
@@ -1351,6 +1357,7 @@ Friend Class ClsPanoramaDat
         Return lentRegistrosAfectados
     End Function
 #End Region
+
 #Region "Operaciones con BD"
 #Region "Manejo Conexiones"
     Friend Sub SAbraConexionBd()
@@ -2033,6 +2040,7 @@ Friend Class ClsPanoramaDat
         Return lstrNombreCampos
     End Function
 #End Region
+
 #Region "Manejo DataAdapters"
     Private Shared Function FdapAdaptador(aenuProveedorBD As EnuProveedorBD,
             astrSql As String, acnnConexion As Object,
@@ -2121,6 +2129,7 @@ Friend Class ClsPanoramaDat
         Return ldapDataAdaptador
     End Function
 #End Region
+
 #Region "Manejo de transacciones y operaciones de control"
     Private Shared Sub SVerifiqueCarpetas()
         If Not My.Computer.FileSystem.DirectoryExists(GstrTrayDat) Then
@@ -2253,6 +2262,7 @@ Friend Class ClsPanoramaDat
         Return MshrProcesos
     End Function
 #End Region
+
 #Region "Copia de Seguridad"
     Friend Sub SRestaureBkPan(astrArchivoCopia As String)
         Using lcnnNewConeccion As MySqlConnection = MobjCnnDat.FcnnNewMySqlCon

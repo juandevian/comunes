@@ -23,6 +23,7 @@
     Private ReadOnly MobjObjetoDestino As ClsCBObjetoPan = Nothing
     Private MblnDatosOrigenOk As Boolean = False
 #End Region
+
 #Region "Constructores"
     Public Sub New(aobjObjetoDestino As Object)
         HobjPadre = Nothing
@@ -33,6 +34,7 @@
         SCargueDatos()
     End Sub
 #End Region
+
 #Region "Propiedades"
 #Region "Propiedades indentificadoras"
     Protected Overrides ReadOnly Property HstrNombreTabla As String
@@ -141,6 +143,7 @@
     End Property
 #End Region
 #End Region
+
 #Region "Procedimientos y funciones invalidantes"
     Protected Friend Overrides Sub SActualice(ablnExigeRequeridos As Boolean)
         SEscribaArchivoPli()
@@ -153,10 +156,12 @@
         MstrColumnasRelacionadas = {}
     End Sub
 #End Region
+
 #Region "Procedimientos del objeto"
     Friend Overrides Function FblnEstaVacioOrigenDatos() As Boolean
         Return MblnEstaVacioOrigenDatos
     End Function
+
     Private Sub SCargueDatos()
         Dim lstrArchivoPli As String = GstrTrayDatPrg &
                     "Imp" & MobjObjetoDestino.StrNombreClase & ".pli"
@@ -168,6 +173,7 @@
             SVaciePropiedades()
         End If
     End Sub
+
     Private Sub SEscribaArchivoPli()
         Dim lswArchivoPli As StreamWriter
         Dim lstrLinea As String
@@ -189,6 +195,7 @@
         Next
         lswArchivoPli.Close()
     End Sub
+
     Private Sub SCargueDatosArchivo()
         Dim lsrArchivoPli As StreamReader
         Dim lstrLinea As String
@@ -247,6 +254,7 @@
             SVaciePropiedades()
         End If
     End Sub
+
     Private Sub SVaciePropiedades()
         ObjArchivoOrigenStr.BlnLeyendoOrigen = True
         ObjArchivoOrigenStr.ObjValorPro = Nothing
@@ -255,6 +263,7 @@
         ObjExigeRequeridosBln.BlnLeyendoOrigen = True
         ObjExigeRequeridosBln.ObjValorPro = True
     End Sub
+
     Friend Function FblnImportoDatos() As Boolean
         Dim ltspDuracion As TimeSpan
         Dim dtmFin As Date, lblnEsElUltimo As Boolean
@@ -319,6 +328,7 @@
         End Try
         Return lblnImporto
     End Function
+
     Private Shared Function FblnContieneDatos(adrwOrigen As DataRow) As Boolean
         Dim lblnContDat = False
         For Each ldclColuma As DataColumn In adrwOrigen.Table.Columns
@@ -330,6 +340,7 @@
         Next
         Return lblnContDat
     End Function
+
     Private Sub SCreeObjeto(adrwRegistroOrigen As DataRow, ablnElUltimo As Boolean)
         Dim lstrColumnaOri As String
         Dim lobjVlrCampOri As Object
@@ -381,6 +392,7 @@
             End If
         End If
     End Sub
+
     ''' <summary>
     ''' registra en el objeto los valores de las propiedades cuando la importación son
     ''' servicios con consumo
@@ -409,6 +421,7 @@
             End If
         Next
     End Sub
+
     Friend Sub SEscribaInformeImp(ablnImportado As Boolean, ablnYaExiste As Boolean, ablnFin As Boolean)
         Dim lswNoImportados As StreamWriter
         Dim lstrLinea As String
@@ -458,16 +471,13 @@
         lswNoImportados.WriteLine(lstrLinea)
         lswNoImportados.Close()
     End Sub
+
     Friend Function FblnSonValidosDatosTabla(ByRef astrMens As String) As Boolean
         MblnDatosOrigenOk = ObjObjetoDestino.FblnSonValidosDatosOrigen(DtbTablaDatosOrigen,
                 StrColumnasRelacionadas, True, astrMens)
         Return MblnDatosOrigenOk
     End Function
-    ''' <summary>
-    ''' Se usa solo para la importación de servicios que tienen datos de consumo y la 
-    ''' tabla de Excel es la creada por el programa de JSV
-    ''' </summary>
-    ''' <param name="adtbOrigen"></param>
+
 #Region "Manejo datos de origen"
     Friend Function FstrTablasOrigen()
         Dim ldtbTablasArchivoOrigen As DataTable
@@ -586,6 +596,7 @@
     End Function
 #End Region
 #End Region
+
 #Region "Notificaciones"
     Friend Overrides Function FblnNotificaOk(aenuIdMensNot As EnuIdMens) As Boolean
         Dim lstrMens = String.Empty
@@ -630,6 +641,7 @@ Friend Class ClsArchivoOrigenStr
         Return HobjValorPro.ToString
     End Function
 End Class
+
 Friend Class ClsTablaOrigenStr
     Inherits ClsCBPropiedad
     Public Sub New(aobjPadre As ClsCBObjetoPan)
@@ -661,6 +673,7 @@ Friend Class ClsTablaOrigenStr
         Return HobjValorPro.ToString
     End Function
 End Class
+
 Friend Class ClsExigeRequeridosBln
     Inherits ClsCBPropiedad
     Public Sub New(aobjPadre As ClsCBObjetoPan)

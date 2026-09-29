@@ -6,6 +6,7 @@
     '
     Private ReadOnly MobjPadre As ClsCarpeta = Nothing
 #End Region
+
 #Region "Constructores"
     ''' <summary>
     ''' Instancia un objeto Cuenta de Contabilidad.
@@ -56,6 +57,7 @@
         DtbTablaColeccion = DrwRegistroActual.Table
     End Sub
 #End Region
+
 #Region "Propiedades"
 #Region "Propiedades indentificadoras"
     Protected Overrides ReadOnly Property HstrNombreTabla As String
@@ -100,6 +102,7 @@
     End Property
 #End Region
 #End Region
+
 #Region "Procedimientos y funciones invalidantes"
     Public Overrides Function FblnEsAnulable() As Boolean
         Return MyBase.FblnEsAnulable()
@@ -147,6 +150,7 @@
         End Get
     End Property
 #End Region
+
 #Region "Procedimientos del objeto"
     Friend Overrides Function FblnSonValidosDatosOrigen(adtbOrigen As DataTable,
             astrColumnasRelacionadas As String(), ablnReinicie As Boolean,
@@ -257,6 +261,7 @@
     End Function
 #End Region
 End Class
+
 #Region "Clases de Propiedad"
 Friend Class ClsIdCarpetaCuentaShr
     Inherits ClsCBPropiedad
@@ -308,6 +313,7 @@ Friend Class ClsIdCarpetaCuentaShr
         End If
     End Function
 End Class
+
 Friend Class ClsIdCuentaContStr
     Inherits ClsCBPropiedad
     Private ReadOnly MobjPadre As ClsCuentaContabilidad = Nothing
@@ -376,6 +382,7 @@ Friend Class ClsIdCuentaContStr
         End If
     End Function
 End Class
+
 Friend Class ClsNombreCuentaStr
     Inherits ClsCBPropiedad
     Private Const MCSTRNOMBRECAMPOBD As String = "Nombre"

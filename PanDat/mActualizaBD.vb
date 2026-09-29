@@ -3,9 +3,11 @@
     ' Variables
     Friend StrNombreBD As String = String.Empty
 #End Region
+
 #Region "Propiedades"
     '
 #End Region
+
 #Region "Procedimientos"
     ''' <summary>
     ''' Actualiza las tablas de la aplicacion de acuerdo a las variables globales definidas en 
@@ -55,6 +57,7 @@
         Return lobjPoneAlDiaMySql.FobjBaseDatosDB(astrPrefijoTablas)
     End Function
 #End Region
+
 #Region "Funciones"
 #Region "Funciones relacionadas con los objetos instanciados a partir de la clase clsEstructuraBD"
     '''<summary>
