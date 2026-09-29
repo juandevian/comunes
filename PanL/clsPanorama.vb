@@ -571,7 +571,7 @@ Friend Class ClsPanorama
         Else
             aobjValor = 0.0
             If ablnRequerido Then
-                lblnEsValido = (aobjValor >= adblValorMin)
+                lblnEsValido = aobjValor >= adblValorMin
             Else
                 lblnEsValido = True
             End If

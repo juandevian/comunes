@@ -34,11 +34,13 @@
     Public Event EvnNotifica As EventHandler(Of ClsNotiEventArgs)
 #End Region
 #End Region
+
 #Region "Constructores"
     Protected Sub New(aobjPadre As ClsCBObjetoPan)
         ObjPadre = aobjPadre
     End Sub
 #End Region
+
 #Region "Propiedades"
     Public ReadOnly Property StrNombre() As String
         Get
@@ -208,6 +210,7 @@
         End Get
     End Property
 #End Region
+
 #Region "Procedimientos"
     ''' <summary>
     ''' Asigna un valor buleano que indica si la propiedad cambio su valor

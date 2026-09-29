@@ -1757,6 +1757,7 @@ Public MustInherit Class ClsFormInterface
         e.CanExecute = lblnHabilite
     End Sub
 #End Region
+
 #Region "Comando Refrescar"
     Private Sub SConfigureCmdRefrescar()
         If Not IsNothing(HbttRefrescar) AndAlso (HbttRefrescar.Visibility = Visibility.Visible) Then
@@ -1778,6 +1779,7 @@ Public MustInherit Class ClsFormInterface
         e.CanExecute = lblnHabilite
     End Sub
 #End Region
+
 #Region "Comando AlPrimero"
     Private Sub SConfigureCmdAlPrimero()
         If Not IsNothing(HbttAlPrimero) AndAlso (HbttAlPrimero.Visibility = Visibility.Visible) Then
@@ -1803,6 +1805,7 @@ Public MustInherit Class ClsFormInterface
         e.CanExecute = lblnHabilitar
     End Sub
 #End Region
+
 #Region "Comando AlAnterior"
     Private Sub SConfigureCmdAlAnterior()
         If Not IsNothing(HbttAlAnterior) AndAlso (HbttAlAnterior.Visibility = Visibility.Visible) Then
@@ -1830,6 +1833,7 @@ Public MustInherit Class ClsFormInterface
         e.CanExecute = lblnHabilitar
     End Sub
 #End Region
+
 #Region "Comando AlSiguiente"
     Private Sub SConfigureCmdAlSiguiente()
         If Not IsNothing(HbttAlSiguiente) AndAlso (HbttAlSiguiente.Visibility = Visibility.Visible) Then
@@ -1855,6 +1859,7 @@ Public MustInherit Class ClsFormInterface
         e.CanExecute = lblnHabilitar
     End Sub
 #End Region
+
 #Region "Comando Al Ultimo"
     Private Sub SConfigureCmdAlUltimo()
         If Not IsNothing(HbttAlUltimo) AndAlso (HbttAlUltimo.Visibility = Visibility.Visible) Then
@@ -1882,6 +1887,7 @@ Public MustInherit Class ClsFormInterface
         e.CanExecute = lblnHabilitar
     End Sub
 #End Region
+
 #Region "Comando Buscar"
     Private Sub SConfigureCmdBuscar()
         If Not IsNothing(HbttBuscar) AndAlso (HbttBuscar.Visibility = Visibility.Visible) Then
@@ -1909,6 +1915,7 @@ Public MustInherit Class ClsFormInterface
         e.CanExecute = lblnNavegar
     End Sub
 #End Region
+
 #Region "Comando Salir"
     Private Sub SConfigureCmdSalirApp()
         If Not IsNothing(HbttSalir) AndAlso (HbttSalir.Visibility = Visibility.Visible) Then
@@ -1928,6 +1935,7 @@ Public MustInherit Class ClsFormInterface
         e.CanExecute = lblHabilitar
     End Sub
 #End Region
+
 #Region "Comando Cerrar"
     Private Sub SConfigureCmdCerrarWin()
         If Not IsNothing(HbttCerrar) AndAlso (HbttCerrar.Visibility = Visibility.Visible) Then
@@ -1949,6 +1957,7 @@ Public MustInherit Class ClsFormInterface
         e.CanExecute = lblHabilitar
     End Sub
 #End Region
+
 #Region "Comando Aceptar"
     Private Sub SConfigureCmdAceptar()
         If Not IsNothing(HbttAceptar) AndAlso (HbttAceptar.Visibility = Visibility.Visible) Then
@@ -1966,6 +1975,7 @@ Public MustInherit Class ClsFormInterface
         e.CanExecute = lblnHabilitar
     End Sub
 #End Region
+
 #Region "Comando Cancelar"
     Private Sub SConfigureCmdCancelar()
         If Not IsNothing(HbttCancelar) AndAlso (HbttCancelar.Visibility = Visibility.Visible) Then
@@ -1982,6 +1992,7 @@ Public MustInherit Class ClsFormInterface
         e.CanExecute = Not IsNothing(HbttCancelar)
     End Sub
 #End Region
+
 #Region "Comando Calendario"
     Private Sub SConfigureCmdCalendario()
         If Not IsNothing(HbttCalendario) Then
@@ -2000,6 +2011,7 @@ Public MustInherit Class ClsFormInterface
         e.CanExecute = Not IsNothing(HbttCalendario)
     End Sub
 #End Region
+
 #Region "Comando Calculadora"
     Private Sub SConfigureCmdCalculadora()
         If Not IsNothing(HbttCalculadora) Then
@@ -2017,6 +2029,7 @@ Public MustInherit Class ClsFormInterface
         e.CanExecute = Not IsNothing(HbttCalculadora)
     End Sub
 #End Region
+
 #Region "Comando Notas"
     Private Sub SConfigureCmdNotas()
         If Not IsNothing(HbttNotas) Then
@@ -2036,6 +2049,7 @@ Public MustInherit Class ClsFormInterface
         e.CanExecute = Not IsNothing(HbttNotas)
     End Sub
 #End Region
+
 #Region "Comando Mensajes"
     Private Sub SConfigureCmdMensajes()
         If Not IsNothing(HbttMensajes) Then
@@ -2055,6 +2069,7 @@ Public MustInherit Class ClsFormInterface
         e.CanExecute = Not IsNothing(HbttMensajes)
     End Sub
 #End Region
+
 #Region "Comando Imprimir"
     Private Sub SConfigureCmdImprimir()
         If Not IsNothing(HbttImprimir) Then
@@ -2076,6 +2091,7 @@ Public MustInherit Class ClsFormInterface
         e.CanExecute = Not (IsNothing(HbttImprimir) OrElse IsNothing(HmnuImprimir))
     End Sub
 #End Region
+
 #Region "Comando Ayuda"
     Private Sub SConfigureCmdAyuda()
         If Not IsNothing(HbttAyuda) Then
@@ -2134,12 +2150,13 @@ Public MustInherit Class ClsFormInterface
             End If
         End Try
     End Sub
+
     Protected Friend Overridable Sub SCree()
         SLevanteEveOk()
         GobjPanDat.SControleProcesoObj(True)
-        If ObjObjetoWin.EnuEstadoActualizacion = EnuEstadoObjetoDef.enuConsultando Then
+        If ObjObjetoWin.EnuEstadoActualizacion = EnuEstadoObjetoDef.EnuConsultando Then
             ObjObjetoWin.SCreeObj(ObjValorLlave)
-        ElseIf ObjObjetoWin.EnuEstadoActualizacion = EnuEstadoObjetoDef.enuModificando Then
+        ElseIf ObjObjetoWin.EnuEstadoActualizacion = EnuEstadoObjetoDef.EnuModificando Then
             Throw New ErrorInesperadoPanLException("Estado no esperado del Objeto")
         End If
         EnuOperacionEnWin = EnuOperacionEnVentana.CenuCreando
@@ -2152,12 +2169,13 @@ Public MustInherit Class ClsFormInterface
         End If
         GobjPanDat.SControleProcesoObj(False)
     End Sub
+
     Protected Sub SModificarClic()
         Dim lstrMens = String.Empty, lstrMensEx = String.Empty, lblnNoHayError = False
         Try
             GobjPanDat.SControleProcesoObj(True)
             If EnuOperacionEnWin = EnuOperacionEnVentana.CenuConsultando Then
-                If CType(EnuTipoPermisoObjWin And EnuPermisosDef.enuModificar, Boolean) Then
+                If CType(EnuTipoPermisoObjWin And EnuPermisosDef.EnuModificar, Boolean) Then
                     SModifique()
                 End If
             Else
@@ -2189,8 +2207,9 @@ Public MustInherit Class ClsFormInterface
             End If
         End Try
     End Sub
+
     Protected Friend Overridable Sub SModifique()
-        If ObjObjetoWin.EnuEstadoActualizacion = EnuEstadoObjetoDef.enuConsultando Then
+        If ObjObjetoWin.EnuEstadoActualizacion = EnuEstadoObjetoDef.EnuConsultando Then
             EnuOperacionEnWin = EnuOperacionEnVentana.CenuModificando
             ObjObjetoWin.SModifique()
             If Not IsNothing(HbttCancelar) Then
@@ -2208,6 +2227,7 @@ Public MustInherit Class ClsFormInterface
             Throw New ErrorInesperadoPanLException("Estado inesperado del objeto!")
         End If
     End Sub
+
     Protected Sub SSuprimirClic()
         Dim lstrMens = String.Empty, lstrMensEx = String.Empty, lblnNoHayError = False
         Try
@@ -2235,11 +2255,12 @@ Public MustInherit Class ClsFormInterface
             End If
         End Try
     End Sub
+
     Protected Overridable Sub SSuprima()
         Dim lblnSuprimio = False
         Dim lstrMens = String.Empty
         If EnuOperacionEnWin = EnuOperacionEnVentana.CenuConsultando Then
-            If EnuTipoPermisoObjWin And EnuPermisosDef.enuSuprimir Then
+            If EnuTipoPermisoObjWin And EnuPermisosDef.EnuSuprimir Then
                 If ObjObjetoWin.FblnEsSuprimible() Then
                     If MsgBox("Esta seguro de suprimir el presente " & ObjObjetoWin.StrNombreClase & "?",
                             MsgBoxStyle.Question + MsgBoxStyle.YesNo, "Supresión") = MsgBoxResult.Yes Then
@@ -2276,13 +2297,14 @@ Public MustInherit Class ClsFormInterface
             SLevanteEveNoti(lstrMens, String.Empty, 0, EnuSeveridadNot.EnuInformacion)
         End If
     End Sub
+
     Protected Sub SAnularClic()
         Dim lstrMens = String.Empty, lstrMensEx = String.Empty, lblnNoHayError = False
         Dim lblnAnulo As Boolean = False
         Try
             GobjPanDat.SControleProcesoObj(True)
             If EnuOperacionEnWin = EnuOperacionEnVentana.CenuConsultando Then
-                If CType(EnuTipoPermisoObjWin And EnuPermisosDef.enuAnular, Boolean) Then
+                If CType(EnuTipoPermisoObjWin And EnuPermisosDef.EnuAnular, Boolean) Then
                     lblnAnulo = SAnule()
                 End If
             End If
@@ -2311,6 +2333,7 @@ Public MustInherit Class ClsFormInterface
             End If
         End Try
     End Sub
+
     Protected Overridable Function SAnule() As Boolean
         Dim lblnAnulo = False, lstrMens = String.Empty
         With ObjObjetoWin
@@ -2343,12 +2366,14 @@ Public MustInherit Class ClsFormInterface
         End If
         Return lblnAnulo
     End Function
+
     Protected Sub SGuardarClic()
         SGuarde()
 #If DES = 1 Then
         Debug.Print(GobjPanDat.FentProceso.ToString & " Fin SGuardarClic")
 #End If
     End Sub
+
     Protected Overridable Sub SGuarde()
         Dim lstrMens = String.Empty, lstrMensEx = String.Empty, lblnNoHayError = False
         Dim lblnGuardo As Boolean
@@ -2402,6 +2427,7 @@ Public MustInherit Class ClsFormInterface
             End If
         End Try
     End Sub
+
     Protected Friend Overridable Function FblnGravo() As Boolean
         Dim lblnGravo = False
         If FblnEstanTodosBien() Then
@@ -2410,6 +2436,7 @@ Public MustInherit Class ClsFormInterface
         End If
         Return lblnGravo
     End Function
+
     Protected Sub SRefrescarClic()
         Dim lstrMens = String.Empty, lstrMensEx = String.Empty, lblnNoHayError = False
         If EnuOperacionEnWin = EnuOperacionEnVentana.CenuConsultando Then
@@ -2438,6 +2465,7 @@ Public MustInherit Class ClsFormInterface
             End Try
         End If
     End Sub
+
     ''' <summary>
     ''' Refresca el objeto de la forma leyendolo de nuevo de la base de datos y muestra las
     ''' propeidades del objeto refrescado.
@@ -2454,13 +2482,14 @@ Public MustInherit Class ClsFormInterface
             End If
         End If
     End Sub
+
     Protected Overridable Sub SCerrarClic()
         Dim lstrMens = String.Empty, lstrMensEx = String.Empty, lblnNoHayError = False
         Try
             GobjPanDat.SControleProcesoObj(True)
             If Not IsNothing(ObjObjetoWin) Then
                 If GblnOK Then
-                    If ObjObjetoWin.EnuEstadoActualizacion <> EnuEstadoObjetoDef.enuConsultando Then
+                    If ObjObjetoWin.EnuEstadoActualizacion <> EnuEstadoObjetoDef.EnuConsultando Then
                         lstrMens = "Estado del objeto inapropiado al cerrar la forma " &
                             StrNombreVentana & "!"
                         GblnOK = False
@@ -2493,6 +2522,7 @@ Public MustInherit Class ClsFormInterface
             End If
         End Try
     End Sub
+
     Protected Sub SSalirClic()
         Close()
     End Sub
@@ -2506,10 +2536,12 @@ Public MustInherit Class ClsFormInterface
             Interaction.Shell(lstrTray, AppWinStyle.NormalFocus)
         End If
     End Sub
+
     Protected Shared Sub SCalendarioClic()
         Dim lfrmCalenda = New FrmCalendario
         lfrmCalenda.Show()
     End Sub
+
     Protected Shared Sub SNotasClic()
         Dim lstrTray As String
         If GenuIdAplicacion = EnuListaAplicaciones.EnuAdministrador Then
@@ -2521,9 +2553,11 @@ Public MustInherit Class ClsFormInterface
             Interaction.Shell(lstrTray, AppWinStyle.NormalFocus)
         End If
     End Sub
+
     Protected Shared Sub SMensajesClic()
         '
     End Sub
+
     Protected Sub SAyudaClic()
         Dim lstrMens = String.Empty, lstrMensEx = String.Empty, lblnNoHayError = False
         Dim lstrTrayAyuda = GstrTrayAppDat & "OriF1.pdf"
@@ -2576,6 +2610,7 @@ Public MustInherit Class ClsFormInterface
             End If
         End Try
     End Sub
+
     Protected Sub SAlAnteriorClic()
         Dim lstrMens = String.Empty, lstrMensEx = String.Empty, lblnNoHayError = False
         Try
@@ -2601,6 +2636,7 @@ Public MustInherit Class ClsFormInterface
             End If
         End Try
     End Sub
+
     Protected Sub SAlSiguienteClic()
         Dim lstrMens = String.Empty, lstrMensEx = String.Empty, lblnNoHayError = False
         Try
@@ -2626,6 +2662,7 @@ Public MustInherit Class ClsFormInterface
             End If
         End Try
     End Sub
+
     Protected Sub SAlUltimoClic()
         Dim lstrMens = String.Empty, lstrMensEx = String.Empty, lblnNoHayError = False
         Try
@@ -2651,9 +2688,11 @@ Public MustInherit Class ClsFormInterface
             End If
         End Try
     End Sub
+
     Protected Overridable Sub SNavegueObj()
         '
     End Sub
+
     Private Sub SNormaliceEstado()
         If EnuOperacionEnWin = EnuOperacionEnVentana.CenuModificando Then
             SRegistre()
@@ -2661,6 +2700,7 @@ Public MustInherit Class ClsFormInterface
             SModificarClic()
         End If
     End Sub
+
     Private Sub SActualiceVentana()
         SNavegueObj()
         SRefresqueWin()
@@ -2688,6 +2728,7 @@ Public MustInherit Class ClsFormInterface
             End If
         End Try
     End Sub
+
     Protected Overridable Sub SBuscar()
         Cursor = Input.Cursors.Wait
         If IsNothing(HwinBusqueda) Then
@@ -2705,6 +2746,7 @@ Public MustInherit Class ClsFormInterface
         HwinBusqueda = Nothing
         Cursor = Input.Cursors.Arrow
     End Sub
+
     Protected Overridable Sub SBuscar(astrTituloVentana As String, ablnOcultarBttCancelar As Boolean)
         Cursor = Input.Cursors.Wait
         If IsNothing(HwinBusqueda) Then
@@ -2729,11 +2771,15 @@ Public MustInherit Class ClsFormInterface
         HwinBusqueda = Nothing
         Cursor = Input.Cursors.Arrow
     End Sub
+
     Protected Friend Overridable Function FblnDefinioBusqueda() As Boolean
         Return False
     End Function
+
     Friend Property StrResultadoBusqueda As String = String.Empty
+
     Friend Property StrResutadosBusqueda As String()
+
     Friend Property BlnBusquedaOk As Boolean = False
 #End Region
 
@@ -2760,6 +2806,7 @@ Public MustInherit Class ClsFormInterface
             End If
         End If
     End Sub
+
     Protected Sub SCancelarClic()
         Dim lstrMens = String.Empty, lstrMensEx = String.Empty, lblnNoHayError = False
         Try
@@ -2787,6 +2834,7 @@ Public MustInherit Class ClsFormInterface
             End If
         End Try
     End Sub
+
     Protected Friend Overridable Sub SCancele()
         If EnuOperacionEnWin <> EnuOperacionEnVentana.CenuConsultando Then
             SFinaliceOperacion()
@@ -2827,6 +2875,7 @@ Public MustInherit Class ClsFormInterface
             End If
         End If
     End Sub
+
     Protected Friend Overridable Sub SFinaliceOperacion()
         Dim lstrMens As String = "Los datos del objeto " & ObjObjetoWin.StrNombreClase &
                 " han cambiado!" & vbCrLf & "Desea guardar los cambios?"
@@ -2874,6 +2923,7 @@ Public MustInherit Class ClsFormInterface
             End With
         End If
     End Sub
+
     Protected Friend Overridable Sub SEstablezcaWinConsultando()
         Dim lblnRefresque = (EnuOperacionEnWin <> EnuOperacionEnVentana.CenuCreando)
         EnuOperacionEnWin = EnuOperacionEnVentana.CenuConsultando
@@ -2924,11 +2974,13 @@ Public MustInherit Class ClsFormInterface
             RaiseEvent EvnNotifica(Me, lobjNotiEven)
         End If
     End Sub
+
     Protected Friend Sub SLevanteEveOk()
         Dim lobjNotiEven As New ClsNotiEventArgs
         lobjNotiEven.SRegistreNotifica(String.Empty, String.Empty, 0, EnuSeveridadNot.EnuOk)
         RaiseEvent EvnNotifica(Nothing, lobjNotiEven)
     End Sub
+
     ' Método que captura los eventos de notificación
     Private Sub Evn_Notifica(aobjSender As Object, e As ClsNotiEventArgs) _
             Handles ObjObjetoWin.EvnNotifica, ObjHijoObjWin.EvnNotifica, Me.EvnNotifica
@@ -2975,6 +3027,7 @@ Public MustInherit Class ClsFormInterface
             SProceseNoti()
         End If
     End Sub
+
     Private Sub SProceseNotiProp(aobjSender As ClsCBPropiedad)
         If MobjSenderObjPan Is Nothing Then
             If MobjSenderProp Is Nothing Then
@@ -3012,6 +3065,7 @@ Public MustInherit Class ClsFormInterface
             End If
         End If
     End Sub
+
     Private Sub SProceseNotiObjPan(aobjSender As ClsCBObjetoPan)
         If MobjSenderProp Is Nothing Then
             If MobjSenderObjPan Is Nothing Then
@@ -3029,7 +3083,7 @@ Public MustInherit Class ClsFormInterface
                 End If
             End If
         Else
-            If MobjSenderProp.ObjPadre.EnuEstadoActualizacion <> EnuEstadoObjetoDef.enuConsultando Then
+            If MobjSenderProp.ObjPadre.EnuEstadoActualizacion <> EnuEstadoObjetoDef.EnuConsultando Then
                 If MobjSenderProp.BlnEsValido Then
                     MobjSenderProp = Nothing
                     MobjSenderObjPan = aobjSender
@@ -3042,12 +3096,13 @@ Public MustInherit Class ClsFormInterface
             End If
         End If
     End Sub
+
     Private Sub SProceseNotiFI()
         Dim lblnProcesar As Boolean = MobjSenderProp Is Nothing AndAlso MobjSenderObjPan Is Nothing
         If Not lblnProcesar Then
             If MobjSenderProp IsNot Nothing Then
                 If MobjSenderProp.ObjPadre.EnuEstadoActualizacion <>
-                        EnuEstadoObjetoDef.enuConsultando OrElse
+                        EnuEstadoObjetoDef.EnuConsultando OrElse
                         HenuIdVentana = EnuIdVentanaDef.EnuLogOn Then
                     If MobjNotiEveArg.EnuSevNotifica = EnuSeveridadNot.EnuDatoInvalido Then
                         lblnProcesar = MobjSenderProp.BlnEsValido
@@ -3078,6 +3133,7 @@ Public MustInherit Class ClsFormInterface
             MobjNotiEveArg = MobjE
         End If
     End Sub
+
     Private Sub SProceseNoti()
         Select Case MobjNotiEveArg.EnuSevNotifica
             Case EnuSeveridadNot.EnuOk
@@ -3104,6 +3160,7 @@ Public MustInherit Class ClsFormInterface
             SNotifiqueSon()
         End If
     End Sub
+
     Private Sub SNotifiqueSon()
         Static lstrMens As String = ""
         If lstrMens <> MobjNotiEveArg.StrMensaje Then
@@ -3139,6 +3196,7 @@ Public MustInherit Class ClsFormInterface
             End If
         End If
     End Sub
+
     Private Sub SLimpieNotificaciones()
         If Not (HlblMensajes Is Nothing OrElse HblnSeEstaCerrando) Then
             Dim lstrMens = StrNombreVentana
@@ -3147,6 +3205,7 @@ Public MustInherit Class ClsFormInterface
             SColorieLblMensaje_New()
         End If
     End Sub
+
     Private Sub SMuestreInformacion()
         Dim lstrMens As String
         If MobjNotiEveArg.EnuSevNotifica = EnuSeveridadNot.EnuInformacion Then
@@ -3159,6 +3218,7 @@ Public MustInherit Class ClsFormInterface
                     New Object() {ContentProperty, lstrMens})
         SColorieLblMensaje_New()
     End Sub
+
     Private Sub SMuestreAdveretencia()
         Dim lstrMens = String.Empty
         If Not String.IsNullOrEmpty(MobjNotiEveArg.StrMensaje) Then
@@ -3168,6 +3228,7 @@ Public MustInherit Class ClsFormInterface
                     New Object() {ContentProperty, lstrMens})
         SColorieLblMensaje_New()
     End Sub
+
     Private Sub SMuestreCamInsatisfechos()
         If Not (HlblMensajes Is Nothing OrElse HblnSeEstaCerrando) Then
             Dim lstrMens = My.Resources.CamposSinSatisfacer
@@ -3176,12 +3237,14 @@ Public MustInherit Class ClsFormInterface
             SColorieLblMensaje_New()
         End If
     End Sub
+
     Private Sub SMuestreDatoInvalido()
         Dim lstrMens = My.Resources.DatInv & MobjNotiEveArg.StrMensaje
         Dim NoUsado = Dispatcher.Invoke(MdgtLblActualizaNot, DispatcherPriority.ContextIdle,
                     New Object() {ContentProperty, lstrMens})
         SColorieLblMensaje_New()
     End Sub
+
     Private Sub SMuestreEx()
         Dim lstrMens = My.Resources.Excep & MobjNotiEveArg.StrMensaje
         lstrMens &= " Por favor reinicie la aplicación. Si se repite el error por favor informe a soporte!"
@@ -3197,6 +3260,7 @@ Public MustInherit Class ClsFormInterface
         EnuOperacionEnWin = EnuOperacionEnVentana.CenuConsultando
         SCancele()
     End Sub
+
     Private Sub SMuestreErr()
         Dim lstrMens = My.Resources.ErrorStr & " " & MobjNotiEveArg.StrMensaje
         lstrMens &= " Por favor reinicie la aplicación y si se repite el error informe a soporte!"
@@ -3208,6 +3272,7 @@ Public MustInherit Class ClsFormInterface
             MsgBox(lstrMens, vbOKOnly, "Error")
         End If
     End Sub
+
     Private Sub SColorieLblMensaje_New()
         If Not IsNothing(HlblMensajes) Then
             Dim lenuSevNotifica = MobjNotiEveArg.EnuSevNotifica
